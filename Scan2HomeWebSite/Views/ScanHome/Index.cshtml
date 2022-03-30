@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var caminho = Server.MapPath("~/ConfigXMLFiles/");
+}
+
+<div class="jumbotron">
+    <h2 style="text-align: center; vertical-align: central;">Welcome to EIP App Deployment Website</h2>
+
+    <div class="table-responsive" style="width:50% ; margin: auto" >
+        <table class="table" style="align-content:center">
+            <tbody> 
+                <tr>                  
+                    <td style="text-align: center; ">
+                        <button type="button" class="btn .btn-info" onclick="@("window.location.href='" + @Url.Action("Create", "ScanHome") + "'");">
+                            Setting
+                        </button>
+                    </td>
+                    <td style="text-align: center; ">
+                        <button type="button" class="btn .btn-info" onclick="@("window.location.href='" + @Url.Action("Deploy", "ScanHome") + "'");">
+                           Deploy
+                        </button>
+                    </td>
+                    <td style="text-align: center; ">
+                        <button type="button" class="btn .btn-info" onclick="@("window.location.href='" + @Url.Action("Remove", "ScanHome") + "'");">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

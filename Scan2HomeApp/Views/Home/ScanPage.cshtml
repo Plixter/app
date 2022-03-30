@@ -1,0 +1,825 @@
+﻿@model ScanHomeEIP.Models.EasyXML
+@{
+    ViewBag.Title = "ScanPage";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var un = TempData["username"].ToString();
+    TempData["username"] = un;
+    TempData.Keep("username");
+
+    var ue = TempData["useremail"].ToString();
+    TempData["useremail"] = ue;
+    TempData.Keep("useremail");
+
+    var v = TempData["versio"].ToString();
+    TempData["versio"] = v;
+    TempData.Keep("version");
+
+    string sts = TempData["SendToServer"].ToString();
+    TempData["SendToServer"] = sts;
+    TempData.Keep("SendToServer");
+
+    var jobsinprog = TempData["base64"];
+    TempData["base64"] = jobsinprog;
+    TempData.Keep("base64");
+
+    var templatename = "XTemplate0001.xst";
+@*
+var templatename =  TempData["TemplateName"].ToString();
+*@
+    TempData["TemplateName"] = templatename;
+    TempData.Keep("TemplateName"); 
+
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    @*  <link href="~/styles/XRXWidgets.css" rel="stylesheet" />*@
+
+    <link rel="stylesheet" href="~/styles/common.css" />
+
+    <script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXUtilities.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXScanV2.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXJobManagement.js"></script>
+
+<script type="text/javascript" src="~/Scripts/XRXTemplate.js"></script>
+
+
+    <script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
+    <script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
+    <script type="text/javascript" src="~/Scripts/version.js"></script>
+
+    @*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
+
+
+    @*<link href="http://127.0.0.1/xrx_widgets/XRXWidgets.css" type="text/css" rel="stylesheet"></link>
+        <script src="http://127.0.0.1/xrx_widgets/XRXWidgets.js" type="text/javascript"></script>*@
+
+
+    <script>
+
+        function inti() {
+
+
+
+            document.documentElement.style.overflow = 'hidden';
+            $("#demoContentContainer").xrxscrollable({});
+
+            $('#dhpath').xrxkeyboard({
+                layout: 'xrxSmall-en',
+                theme: 'green',
+                width: 700
+            });
+
+            $('#tipodeficheiros').xrxbutton({
+                icons: {
+                    glyph: "glyphicon-file"
+                },
+                text: true,
+                label: "PDF",
+                width: 155
+            });
+
+            $('#filename').xrxkeyboard({
+                layout: 'xrxSmall-en',
+                theme: 'green'
+            });
+
+            $('#b_Reset').xrxbutton({
+                disabled: false,
+                text: true,
+                label: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_reset"]',
+                icons: {
+                    glyph: "glyphicon-reset"
+                },
+                theme: "green",
+                themePrimary: true,
+                widgetSize: "xrx-medium"
+            });
+
+            var tableHeight = $.screenHeight() < 481 ? 378 : 580;
+            $("#featureTable").xrxtable({
+                bordered: true,
+                striped: true,
+                height: tableHeight,
+                scroll: false
+            });
+
+            $("#ListNumberTable").xrxtable({
+                bordered: true,
+                striped: true,
+                height: tableHeight,
+                scroll: false
+            });
+
+            $("#tableFaxnunmbs").xrxtable({
+                bordered: false,
+                striped: false,
+                height: tableHeight,
+                scroll: false
+            });
+
+            $("#t_reset").xrxtable({
+                bordered: true,
+                striped: false,
+                height: tableHeight,
+                scroll: false
+            });
+
+            $("#s_Darken").xrxspinbox({
+                disabled: false,
+                initialValue: '@Model.Darkness',
+                min: -100,
+                max: 100,
+                orientation: "horizontalarrow-left",
+                theme: "blue",
+                step: 10
+            });
+
+            $("#s_Contrast").xrxspinbox({
+                disabled: false,
+                initialValue: '@Model.Contrast',
+                min: -100,
+                max: 100,
+                orientation: "horizontalarrow-left",
+                theme: "blue",
+                step: 10
+            });
+
+            $("#s_BackgroundSuppression").xrxtoggleswitch({
+                initialValue: true,
+                theme: "blue",
+                widgetSize: "xrx-small"
+            });
+
+
+            $("#FileType-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#tipodeficheiros"
+            });
+
+            $("#Color-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#l_color"
+            });
+
+            $("#ScanType-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#l_Type"
+            });
+
+            $("#Scanning-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#l_Scanning"
+            });
+
+            $("#Orientation-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#l_Orientation"
+            });
+
+            $("#Resolution-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#l_Resolution"
+            });
+
+            $("#Size-xrx-popover-id").xrxpopover({
+                theme: "green",
+                arrowPosition: "xrx-arrow-bottom",
+                targetControl: "#l_Size"
+            });
+
+            $("#s_Scanning").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 100,
+                change: function (event, ui) {
+                    document.getElementById("l_Scanning").innerHTML = ui.item.label;
+                }
+            });
+
+            $("#s_Type").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 175,
+                change: function (event, ui) {
+                    document.getElementById("l_Type").innerHTML = ui.item.label;
+                }
+            });
+
+            $("#s_FileType").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 150,
+                change: function (event, ui) {
+                    $('#tipodeficheiros').xrxbutton({
+                        text: true,
+                        label: ui.item.label
+                    });
+                    document.getElementById("tipodeficheiros").value = ui.item.label;
+                }
+            });
+
+            $("#s_Color").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 125,
+                change: function (event, ui) {
+                    document.getElementById("l_color").innerHTML = ui.item.label;
+                }
+            });
+
+            $("#s_Orientation").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 100,
+                change: function (event, ui) {
+                    document.getElementById("l_Orientation").innerHTML = ui.item.label;
+                }
+            });
+
+            $("#s_Resolution").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 150,
+                change: function (event, ui) {
+                    document.getElementById("l_Resolution").innerHTML = ui.item.label;
+                }
+            });
+
+            $("#s_Size").xrxsegmentedcontrol({
+                type: "textonly",
+                widgetSize: "xrx-small",
+                theme: "green",
+                themePrimary: false,
+                height: 100,
+                change: function (event, ui) {
+                    document.getElementById("l_Size").innerHTML = ui.item.label;
+                }
+            });
+
+            //Keyboard for Spin Box Entry
+            $('#xrx-spinner-input').xrxkeyboard({
+                layout: 'xrxNum',
+                appendLocally: false,
+                styleInput: false,
+            });
+
+            readxml();
+            document.getElementById("blabla").style.display = "none";
+
+            $("#alert1").xrxalert({
+                buttons: [{
+                    alertIcon: "glyphicon-close",
+                    text: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_cancel"]',
+                    width: 200,
+                },
+                {
+                    alertIcon: "glyphicon-exit",
+                    click: function () {
+                        exitApp();
+                    },
+                    text: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_exit"]',
+                    width: 200,
+                }]
+            });
+
+            $('#username').xrxbutton({
+                icons: {
+                    glyph: "glyphicon-user"
+                },
+                text: true,
+                label: '@un',
+            });
+
+            $('#username').bind("click", function () {
+                OpenAlert("username");
+            });
+
+
+            $('#btscan').xrxbutton({
+                icons: {
+                    glyph: "glyphicon-scan"
+                },
+                text: true,
+                label: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_send"]',
+                width: 180
+            });
+
+
+            $('#btscan').bind("click", function () {
+                OpenAlert("btscan");
+            });
+
+            $('#enter_pass').xrxkeyboard({
+                layout: 'xrxSmall-en',
+                theme: 'green'
+            });
+
+
+            $("#popup2").xrxpopup({
+                focusControl: "#btscan",
+                height: "150px",
+                theme: "pink",
+                title: "Enter Password",
+                width: "700px",
+                close: function (event, ui) {
+                    StartScan();
+                },
+            });
+
+            $("#banner1").xrxbanner({
+                bannerType: "active",
+                bannerTimeout: 3000,
+            });
+
+        };
+
+        function OpenAlert(item) {
+            if (item == "username") {
+                $("#alert1").xrxalert("open");
+            }
+            else if (item == "btscan") {
+                $("#popup2").xrxpopup("open");
+            }
+        }
+
+        //Exit App
+        function exitApp() {
+            //xrxSessionExitApplication( url, callback_failure, timeout, async );
+            //  xrxSessionExitApplication("", callfailure, 2000, "false");
+
+            ExitCUIMode(); return false;
+        }
+
+        function callfailure(request, response) {
+
+            //alert("failed : " + response);
+        }
+
+        function readxml() {
+                //alert("ReadXML " );
+            var sts = '@sts';
+		//alert("Sendo to server: " + sts);
+     		document.getElementById("sts").value = sts;
+            if (sts == 'true') {
+                var UserName = '@Model.UserName';
+                document.getElementById("serverUserName").value = UserName;
+                var UserPass = '@Model.UserPass';
+                document.getElementById("UserPass").value = UserPass;
+                var Server = '@Model.Server';
+                document.getElementById("Server").value = Server;
+                var Share = '@Model.Share';
+                document.getElementById("Share").value = Share;
+                var Path = '@Model.Path';
+                document.getElementById("Path").value = Path;
+            }
+
+ 	    var template = '@templatename';
+            document.getElementById("templatename").value = template;
+
+
+            var UserDomain = '@Model.UserDomain';
+            document.getElementById("userdomain").innerHTML = UserDomain;
+
+            var docname = '@Model.docName';
+            document.getElementById("filename").value = docname;
+
+
+
+           @* alert('@Model.homedirectory');*@
+            document.getElementById("dhpath").value = String('@Model.homedirectory');
+
+            var Color = '@Model.Color';
+		document.getElementById("l_color").innerHTML = Color;
+	         if (Color  == "BlackAndWhite")
+                {
+                    Color = "BLACK_AND_WHITE";
+                }
+                else if (Color  == "FullColor" )
+                {
+                    Color = "FULL_COLOR";
+                }else if (Color  == "Auto" )
+                {
+                    Color = "AUTO";
+                }
+            
+            document.getElementById("s_Color").value = Color;
+
+            var type = '@Model.l_ScanType';
+            document.getElementById("l_Type").innerHTML = type;
+            document.getElementById("s_Type").value = '@Model.ScanType';
+
+            document.getElementById("s_Scanning").value = '@Model.ScanMode';
+            document.getElementById("l_Scanning").innerHTML = '@Model.l_ScanMode';
+
+
+            document.getElementById("s_Orientation").value = '@Model.Orientation';
+            document.getElementById("l_Orientation").innerHTML = '@Model.l_Orientation';
+
+
+
+            var res = '@Model.Resolution';
+            document.getElementById("s_Resolution").value = res;
+            document.getElementById("l_Resolution").innerHTML = '@Model.l_Resolution';
+            //if (res == "RES_LOWEST") {
+            //    document.getElementById("s_Resolution").value = res;
+            //    document.getElementById("l_Resolution").innerHTML = 'Low';
+            //}
+            //else if (res == "RES_BEST") {
+            //    document.getElementById("s_Resolution").value = res;
+            //    document.getElementById("l_Resolution").innerHTML = 'Standard';
+            //}
+            //else if (res == "RES_HIGHEST") {
+            //    document.getElementById("s_Resolution").value = res;
+            //    document.getElementById("l_Resolution").innerHTML = 'Hight';
+            //}
+
+
+            var mediasize = '@Model.MediaSize';
+            //alert("mediasize" + '@Model.MediaSize');
+            document.getElementById("s_Size").value = mediasize;
+            document.getElementById("l_Size").innerHTML = mediasize.replace("ISO_", "");
+
+            var dark = '@Model.Darkness';
+            //document.getElementById("l_Darken").innerHTML = dark;
+            $("#s_Darken").xrxspinbox("value", dark);
+
+
+            //document.getElementById("l_Contrast").innerHTML = 'Model.Contrast'; 
+            $("#s_Contrast").xrxspinbox("value", '@Model.Contrast');
+
+            var docformat = '@Model.FileType';
+            document.getElementById("l_DocumentFormat").innerHTML = docformat;
+
+            var blank = '@Model.BlankPageRemoval';
+            document.getElementById("l_blankpageremoval").innerHTML = blank;
+
+            var bo = '@Model.b_BlankPageRemoval.ToString().ToLower()';
+            if (bo === "false") {
+                $("#s_BackgroundSuppression").xrxtoggleswitch("value", false);
+            }
+            else {
+                $("#s_BackgroundSuppression").xrxtoggleswitch("value", true);
+            }
+
+            var edge = '@Model.EdgeErase';
+            document.getElementById("l_edge").innerHTML = edge;
+           
+        }
+
+
+        function StartScan() {
+           // alert("BT StartScan");
+            $("#btscan").xrxbutton({ disabled: true });
+
+
+            if ('@jobsinprog'.toUpperCase() == "TRUE") {
+                $('#banner1').xrxbanner('call');
+                setTimeout("window.location.href = '@Url.Action("Index", "Home")'", 5000);
+            }
+            else {
+		//alert("Inicia Scan");
+                startScan2home();
+            }
+
+        }
+
+        
+        function AlterVariable(item) {
+
+            if (item == "Scanning") {
+                $("#Scanning-xrx-popover-id").xrxpopover("setTargetControl", "#l_Scanning", "xrx-arrow-bottom");
+            }
+            else if (item == "ScanType") {
+                $("#ScanType-xrx-popover-id").xrxpopover("setTargetControl", "#l_Type", "xrx-arrow-bottom");
+            }
+            else if (item == "Color") {
+                $("#Color-xrx-popover-id").xrxpopover("setTargetControl", "#l_color", "xrx-arrow-bottom");
+            }
+            else if (item == "Orientation") {
+                $("#Orientation-xrx-popover-id").xrxpopover("setTargetControl", "#l_Orientation", "xrx-arrow-bottom");
+            }
+            else if (item == "Resolution") {
+                $("#Resolution-xrx-popover-id").xrxpopover("setTargetControl", "#l_Resolution", "xrx-arrow-bottom");
+            }
+            else if (item == "Size") {
+                $("#Size-xrx-popover-id").xrxpopover("setTargetControl", "#l_Size", "xrx-arrow-bottom");
+            }
+            else if (item == "FileType") {
+                $("#FileType-xrx-popover-id").xrxpopover("setTargetControl", "#tipodeficheiros", "xrx-arrow-bottom");
+            }
+        }
+    </script>
+    <script>
+        
+
+
+    </script>
+
+    <style>
+        .blabla {
+            position: absolute;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+            /*box-shadow: 0px 10px 10px -5px rgba(29, 29, 29, .35);*/
+            z-index: 1200;
+            color: white;
+            font-size: 48px;
+            align-content: center;
+            background-color: rgba(0, 0, 0, .85);
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 250px;
+        }
+    </style>
+</head>
+<body style="height: 800px">
+    <script>window.onload = inti; </script>
+    <div id="blabla" class="blabla" align="center">
+        <label align="center" style="left: 40%; top: 45%;">
+            <strong>Loading...</strong>
+        </label>
+    </div>
+
+    <!--aqui é o header da pag-->
+    <div id="action_bar" style="height: 90px; padding-top: 10px; padding-left: 20px; padding-right: 20px; color: white; overflow: auto;" class="xrx-action-bar xrx-background pink">
+        <div style="float: left; height: 75px;">
+            <button id="username"></button>
+        </div>
+        <div style="height: 75px; float: right; width: 65%; padding-right: 35px;">
+            <label style="float: left; font-size: 32px; padding-top: 21px;">
+                @ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
+            </label>
+            <button style="float: right; text-align: center;" id="btscan"></button>
+        </div>
+    </div>
+
+    <div id="demoContentContainer">
+        <div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
+            <table>
+                <tr>
+                    <td>
+                        <input id="dhpath" type="text" style="width: 718px;" disabled/>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <input id="filename" type="text" style="width: 550px" />
+                        @*value="nomedoficheiro[date&time] size="150" "*@
+                    </td>
+                    <td style="width: 155px; padding-right: 25px;">
+                        <button id="tipodeficheiros" onclick="AlterVariable('FileType')"></button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="padding-top: 10px"></div>
+        <div id="tableContainer">
+            <table id="featureTable">
+                <tr onclick="AlterVariable('Color')">
+                    <td>
+                        <img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
+                    </td>
+                    <td>
+                        <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
+                    </td>
+                    <td style="width: 25%; padding-right: 10px;" align="right">
+                        <label id="l_color" style="text-align: right"></label>
+                    </td>
+                </tr>
+                <tr onclick="AlterVariable('Scanning')">
+                    <td>
+                        <img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
+                    </td>
+                    <td>
+                        <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
+                    </td>
+                    <td style="width: 25%; padding-right: 10px;" align="right">
+                        <label id="l_Scanning" style="text-align: right"></label>
+                    </td>
+                </tr>
+                <tr onclick="AlterVariable('ScanType')">
+                    <td>
+                        <img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
+                    </td>
+                    <td>
+                        <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
+                    </td>
+                    <td style="width: 25%; padding-right: 10px;" align="right">
+                        <label id="l_Type" style="text-align: right"></label>
+                    </td>
+                </tr>
+                <tr onclick="AlterVariable('Orientation')">
+                    <!---->
+                    <td>
+                        <img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
+                    </td>
+                    <td>@ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
+                    </td>
+                    <td style="width: 25%; padding-right: 10px;" align="right">
+                        <label id="l_Orientation" style="text-align: right"></label>
+                    </td>
+                </tr>
+                <tr onclick="AlterVariable('Resolution')">
+                    <!---->
+                    <td style="width: 48px">
+                        <img src="~/styles/images/sharpness_48.png" height="48" width="48" />
+                    </td>
+                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
+                    </td>
+                    <td style="width: 25%; padding-right: 10px;" align="right">
+                        <label id="l_Resolution" style="text-align: right"></label>
+                    </td>
+                </tr>
+                <tr onclick="AlterVariable('Size')">
+                    <td style="width: 48px">
+                        <img src="~/styles/images/reduce_enlarge_48.png" height="48" width="48" />
+                    </td>
+                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
+                    </td>
+                    <td style="width: 25%; padding-right: 10px;" align="right">
+                        <label id="l_Size"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 48px">
+                        <img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
+                    </td>
+                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
+                    </td>
+                    <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+                        <input id="s_Darken" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 48px">
+                        <img src="~/styles/images/contrast_48.png" height="48" width="48" />
+                    </td>
+                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
+                    </td>
+                    <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+                        <input id="s_Contrast" />
+                    </td>
+                </tr>
+                @*<tr>
+                    <td style="width: 48px">
+                        <img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
+                    </td>
+                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
+                    <td style="width: 35%">
+                        <!--<label id="BackgroundSuppression"></label>-->
+                        <div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
+                    </td>
+                </tr>*@
+
+            </table>
+            <table style="width: 100%;">
+                <tr>
+                    <td align="center">
+                        <button style="text-align: center" id="b_Reset" onclick="readxml()"></button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <div>
+        <label id="l_DocumentFormat" style="visibility: hidden"></label>
+        <label id="l_blankpageremoval" style="visibility: hidden"></label>
+        <label id="l_edge" style="visibility: hidden"></label>
+        <label id="userdomain" style="visibility: hidden"></label>
+        <label id="serverUserName" style="visibility: hidden"></label>
+        <label id="UserPass" style="visibility: hidden"></label>
+        <label id="Server" style="visibility: hidden"></label>
+        <label id="Share" style="visibility: hidden"></label>
+        <label id="Path" style="visibility: hidden"></label>
+	<label id="sts" style="visibility: hidden"></label>
+	<label id="templatename" style="visibility: hidden"></label>
+    </div>
+
+    <!--selected="selected" style="z-index: 1200;"-->
+    <div id="Color-xrx-popover-id">
+        <select name="s_Color" id="s_Color">
+            <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+            <option value="BLACK_AND_WHITE" >@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+            <option value="GRAYSCALE" >@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+            <option value="FULL_COLOR"  >@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+        </select>
+    </div>
+    <div id="Scanning-xrx-popover-id">
+        <select name="s_Scanning" id="s_Scanning">
+            <option value="TWO_SIDED">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+            <option value="ONE_SIDED" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+        </select>
+    </div>
+    <div id="Orientation-xrx-popover-id">
+        <select name="s_Orientation" id="s_Orientation">
+            <option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
+            <option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
+        </select>
+    </div>
+    <div id="Resolution-xrx-popover-id">
+        <select name="s_Resolution" id="s_Resolution">
+            <option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
+            <option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
+            <option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
+        </select>
+    </div>
+    <div id="Size-xrx-popover-id">
+        <select name="s_Size" id="s_Size">
+            <option value="ISO_A4LEF" selected="selected">A4LEF</option>
+            <option value="ISO_A4SEF">A4SEF</option>
+        </select>
+    </div>
+    <div id="ScanType-xrx-popover-id">
+        <select name="s_Type" id="s_Type">
+            <option value="PHOTO">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
+            <option value="TEXT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
+            <option value="MIXED">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
+            <option value="MAP">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
+            <option value="NEWSPAPERANDMAGAZINE">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
+        </select>
+    </div>
+
+    <div id="FileType-xrx-popover-id">
+        <select name="s_FileType" id="s_FileType">
+            <option value="PDF" selected="selected">PDF</option>
+            <option value="PDF/A-1b">PDF/A</option>
+            <option value="XPS">XPS</option>
+            @*<option value="TIFFV6">TIFF</option>
+            <option value="JFIFJPEG">JPEG</option>*@
+        </select>
+    </div>
+
+    <div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
+    <!-- Popup 2 -->
+    <div id="popup2" style="position: relative; left: 18px;">
+        <input id="password" type="password" style="margin: 0; position: absolute; left: 25%;" />
+    </div>
+
+    @using (Html.BeginForm("ScanDone", "Home", FormMethod.Post, new { id = "ScanDone" }))
+    {
+        <input type="hidden" name="ScanDonepass" id="ScanDonepass" value="" /><br />
+        <input type="hidden" name="ScanDoneuserName" id="ScanDoneuserName" value="" /><br />
+        <input type="hidden" name="ScanDonepath" id="ScanDonepath" value="" /><br />
+        <input type="hidden" name="ScanDoneDocName" id="ScanDoneDocName" value="" /><br />
+        <input type="hidden" name="ScanDoneDoctype" id="ScanDoneDoctype" value="" /><br />        
+    }
+
+    <script>
+        function CriaLog() {
+
+            document.getElementById('ScanDonepath').value = document.getElementById('dhpath').value;
+            document.getElementById('ScanDonepass').value = document.getElementById("password").value;
+            document.getElementById('ScanDoneuserName').value = document.getElementById('username').textContent;
+            document.getElementById('ScanDoneDoctype').value = document.getElementById('s_FileType').value;
+
+            //alert("CriaLog");
+           // document.getElementById('ScanDone').submit();
+            //window.location.href = 'Url.Action("ScanDone", "Home")';
+            var form1 = document.getElementById('ScanDone');
+            form1.submit();
+        }
+
+    </script>
+    <div id="banner1">        
+        <div class="firstline">
+            <h2><span>@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro1"]</span></h2>
+        </div>
+        <div class="secondline">
+            @ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro2"]
+        </div>
+    </div>
+
+</body>
+</html>
+

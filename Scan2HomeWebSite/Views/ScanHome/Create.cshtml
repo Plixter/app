@@ -1,0 +1,438 @@
+﻿@model ScanHomeSite.Models.EasyEIP
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    @* <script src="./Scripts/jquery-1.10.2.js"></script>*@
+    <script>
+        $(function () {
+
+            //CompressionQuality
+            $("#slider_CompressionQuality").slider({
+                range: "min",
+                value: '@Model.CompressionQuality',
+                min: 0,
+                max: 255,
+                slide: function (event, ui) {
+                    $("#amount_CompressionQuality").val(ui.value);
+                    $("#valor_CompressionQuality").val(ui.value);
+                }
+            });
+            $("#amount_CompressionQuality").val($("#slider_CompressionQuality").slider("value"));
+            $("#valor_CompressionQuality").val($("#slider_CompressionQuality").slider("value"));
+
+            //Contrast
+            $("#slider_Contrast").slider({
+                range: "min",
+                value: '@Model.Contrast',
+                min: -100,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#amount_Contrast").val(ui.value);
+                    $("#valor_Contrast").val(ui.value);
+                }
+            });
+            $("#amount_Contrast").val($("#slider_Contrast").slider("value"));
+            $("#valor_Contrast").val($("#slider_Contrast").slider("value"));
+
+            //Darkness
+            $("#slider_Darkness").slider({
+                range: "min",
+                value: '@Model.Darkness',
+                min: -100,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#amount_Darkness").val(ui.value);
+                    $("#valor_Darkness").val(ui.value);
+                }
+            });
+            $("#amount_Darkness").val($("#slider_Darkness").slider("value"));
+            $("#valor_Darkness").val($("#slider_Darkness").slider("value"));
+
+            //Sharpness
+            $("#slider_Sharpness").slider({
+                range: "min",
+                value: '@Model.Sharpness',
+                min: -100,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#amount_Sharpness").val(ui.value);
+                    $("#valor_Sharpness").val(ui.value);
+                }
+            });
+            $("#amount_Sharpness").val($("#slider_Sharpness").slider("value"));
+            $("#valor_Sharpness").val($("#slider_Sharpness").slider("value"));
+
+            //Saturation
+            $("#slider_Saturation").slider({
+                range: "min",
+                value: '@Model.Saturation',
+                min: -100,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#amount_Saturation").val(ui.value);
+                    $("#valor_Saturation").val(ui.value);
+                }
+            });
+            $("#amount_Saturation").val($("#slider_Saturation").slider("value"));
+            $("#valor_Saturation").val($("#slider_Saturation").slider("value"));
+
+        });
+    </script>
+}
+
+<div style="padding-left: 20px; padding-right: 20px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="table-responsive display">
+                <div class=" panel panel-primary ">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Create New Aplication</strong></h3>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary()
+                        <table id="mytable" class="table table-striped table-hover">
+                            <tbody id="myTable" class="form-horizontal">
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.NomeApp)
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.NomeApp, new { @style = "width: 100%", @readonly = "readonly", @class = "form-control" })
+                                    </td>
+                                </tr>
+                                @*<tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Server) 
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Server, new { @style="width: 100%"})
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.email)
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.email, new { @style="width: 100%"})
+                                    </td>
+                                </tr>*@
+                                <tr>
+                                    <td style="width: 30%;">
+                                        @Html.LabelFor(m => m.AppUrlBox, new { @class = "control-label" })
+                                    </td>
+                                    <td style="width: 70%;">
+                                        @Html.TextBoxFor(m => m.AppUrlBox, new { @class = "form-control", @placeholder = "http://xxx.xxx.xxx.xxx:xx" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 30%;">
+                                        @Html.LabelFor(m => m.AppDescriptionUrlBox, new { @class = "control-label" })
+                                    </td>
+                                    <td style="width: 70%;">
+                                        @Html.TextBoxFor(m => m.AppDescriptionUrlBox, new { @class = "form-control", @placeholder = "http://xxx.xxx.xxx.xxx:xx" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 30%;">
+                                        @Html.LabelFor(m => m.LargeIconUrlBox, new { @class = "control-label" })
+                                    </td>
+                                    <td style="width: 70%;">
+                                        @Html.TextBoxFor(m => m.LargeIconUrlBox, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 30%;">
+                                        @Html.LabelFor(m => m.SmallIconUrlBox, new { @class = "control-label" })
+                                    </td>
+                                    <td style="width: 70%;">
+                                        @Html.TextBoxFor(m => m.SmallIconUrlBox, new { @class = "form-control", @placeholder = "http://xxx.xxx.xxx.xxx:xx/images/Fax_Icon48x48.png" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 30%;">
+                                        @Html.LabelFor(m => m.ToolsUrlBox, new { @class = "control-label" })
+                                    </td>
+                                    <td style="width: 70%;">
+                                        @Html.TextBoxFor(m => m.ToolsUrlBox, new { @class = "form-control", @placeholder = "http://xxx.xxx.xxx.xxx:xx/images/Fax_Icon48x48.png" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 30%;">
+                                        @Html.LabelFor(m => m.comboAccessType, new { @class = "control-label" })
+                                    </td>
+                                    <td style="width: 70%;">
+                                        @Html.DropDownListFor(m => m.comboAccessType, new MultiSelectList(Model.l_AccessType), new { @class = "form-control" })
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Color, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.Color, new MultiSelectList(Model.list_Color), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ScanMode, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.ScanMode, new MultiSelectList(Model.list_ScanMode), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ScanType, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.ScanType, new MultiSelectList(Model.list_ScanType), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.DocName, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.DocName, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.DocVar, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.CheckBoxFor(m => m.DocVar_Data, new { })
+                                        @Html.LabelFor(m => m.DocVar_Data, new { })
+                                        @Html.CheckBoxFor(m => m.DocVar_Time, new { })
+                                        @Html.LabelFor(m => m.DocVar_Time, new { })
+                                        @Html.CheckBoxFor(m => m.DocVar_UserID, new { })
+                                        @Html.LabelFor(m => m.DocVar_UserID, new { })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.LDAPPath, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.LDAPPath, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.SearchDirectoryRoot, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.SearchDirectoryRoot, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.UserDomain, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.UserDomain, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.UserPass, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.PasswordFor(m => m.UserPass, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ServerName, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ServerName, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ServerShare, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ServerShare, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ServerPath, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ServerPath, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ServerFolder, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ServerFolder, new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Darkness, new { @class = "control-label" })
+                                        @Html.HiddenFor(m => m.Darkness, new { id = "amount_Darkness" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        <div id="slider_Darkness" style="width: 94%; float: left; margin-top: 5px;"></div>
+                                        <div style="float: right;">
+                                            <input type="text" id="valor_Darkness" style="text-align: center; border: 0; color: #f6931f; font-weight: bold; width: 50px;" /></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Sharpness, new { @class = "control-label" })
+                                        @Html.HiddenFor(m => m.Sharpness, new { id = "amount_Sharpness" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        <div id="slider_Sharpness" style="width: 94%; float: left; margin-top: 5px;"></div>
+                                        <div style="float: right;">
+                                            <input type="text" id="valor_Sharpness" style="text-align: center; border: 0; color: #f6931f; font-weight: bold; width: 50px;" /></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Saturation, new { @class = "control-label" })
+                                        @Html.HiddenFor(m => m.Saturation, new { id = "amount_Saturation" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        <div id="slider_Saturation" style="width: 94%; float: left; margin-top: 5px;"></div>
+                                        <div style="float: right;">
+                                            <input type="text" id="valor_Saturation" style="text-align: center; border: 0; color: #f6931f; font-weight: bold; width: 50px;" /></div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Contrast, new { @class = "control-label" })
+                                        @Html.HiddenFor(m => m.Contrast, new { id = "amount_Contrast" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        <div id="slider_Contrast" style="width: 94%; float: left; margin-top: 5px;"></div>
+                                        <div style="float: right;">
+                                            <input type="text" id="valor_Contrast" style="text-align: center; border: 0; color: #f6931f; font-weight: bold; width: 50px;" /></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.BackSupression, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.CheckBoxFor(m => m.b_BackSupression, new { @class = "checkbox", @style = "margin-left: 5px; transform: scale(1.5);" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Resolution, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.Resolution, new MultiSelectList(Model.list_Resolution), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.CompressionQuality, new { @class = "control-label" })
+                                        @Html.HiddenFor(m => m.CompressionQuality, new { id = "amount_CompressionQuality" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        <div id="slider_CompressionQuality" style="width: 94%; float: left; margin-top: 5px;"></div>
+                                        <div style="float: right;">
+                                            <input type="text" id="valor_CompressionQuality" style="text-align: center; border: 0; color: #f6931f; font-weight: bold; width: 50px;" /></div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.Orientation, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.Orientation, new MultiSelectList(Model.list_Orientation), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.MediaSize, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.MediaSize, new MultiSelectList(Model.list_MediaSize), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+
+                                @*<tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.BlankPageRemoval, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.CheckBoxFor(m => m.b_BlankPageRemoval, new { @class = "checkbox", @style = "margin-left: 5px; transform: scale(1.5);" })
+                                    </td>
+                                </tr> *@
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.EdgeErase, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.EdgeErase, new { @class = "form-control", @style = "width: 100%", @placeholder = "1/2/3/4" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.FileType, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.DropDownListFor(m => m.FileType, new MultiSelectList(Model.list_FileType), new { @style = "width: 100%", @class = "form-control" })
+                                    </td>
+                                </tr>
+
+
+
+
+
+                                <tr>
+                                    <td class="col-md-2">
+                                        @Html.LabelFor(m => m.ApplicationPath, new { @class = "control-label" })
+                                    </td>
+                                    <td class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ApplicationPath, new { @class = "form-control", @style = "width: 100%" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button type="submit" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>Save
+                                        </button>
+
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
