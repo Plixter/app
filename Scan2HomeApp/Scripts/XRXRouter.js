@@ -2,7 +2,7 @@
 
 // true = offbox 
 // false = on device
-var XRXRouterEnabled = true;
+var XRXRouterEnabled = false;
 
 // [Offbox Server Address] - Your Offbox Server ip address
 // [Folder Path] - The xrx_g9_widgets path relative to the Web root on your Offbox Server
@@ -19,7 +19,7 @@ if (!XRXRouterEnabled) {
 
 (function loadJSandCSS() {
     //document.write('<link rel=\"stylesheet\" href=\"' + xrxServerLoc + 'XRXg9Widgets.min.css\" type=\"text/css\" />');
-    document.write('<link rel=\"stylesheet\" href=\"' +'http://localhost:65277/styles/'+ 'XRXg9Widgets.min.css\" type=\"text/css\" />');
+    document.write('<link rel=\"stylesheet\" href=\"' +'http://localhost/styles/'+ 'XRXg9Widgets.min.css\" type=\"text/css\" />');
     document.write('<script src=\"' + xrxServerLoc + 'XRXg9Widgets.min.js\"></script>');
 })();
 //    xrxServerLocjs = "http://192.168.1.206/blabla/ServerAppFax/Scripts/";

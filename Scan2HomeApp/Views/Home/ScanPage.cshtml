@@ -34,328 +34,333 @@ var templatename =  TempData["TemplateName"].ToString();
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+	<title></title>
 
-    @*  <link href="~/styles/XRXWidgets.css" rel="stylesheet" />*@
+	@*  <link href="~/styles/XRXWidgets.css" rel="stylesheet" />*@
 
-    <link rel="stylesheet" href="~/styles/common.css" />
+	<link rel="stylesheet" href="~/styles/common.css" />
 
-    <script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>
-    <script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
-    <script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
-    <script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
-    <script type="text/javascript" src="~/Scripts/XRXUtilities.js"></script>
-    <script type="text/javascript" src="~/Scripts/XRXScanV2.js"></script>
-    <script type="text/javascript" src="~/Scripts/XRXJobManagement.js"></script>
+	<link href="http://127.0.0.1/xrx_g9_widgets/XRXg9Widgets.min.css" type="text/css" rel="stylesheet" />
+	<script src="http://127.0.0.1/xrx_g9_widgets/XRXg9Widgets.min.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="~/Scripts/XRXTemplate.js"></script>
+	@*<script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>*@
+	<script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
+	<script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
+	<script type="text/javascript" src="~/Scripts/XRXScanV2.js"></script>
 
+	<script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
+	<script type="text/javascript" src="~/Scripts/XRXUtilities.js"></script>
+	<script type="text/javascript" src="~/Scripts/XRXJobManagement.js"></script>
 
-    <script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
-    <script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
-    <script type="text/javascript" src="~/Scripts/version.js"></script>
-
-    @*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
+	<script type="text/javascript" src="~/Scripts/XRXTemplate.js"></script>
 
 
-    @*<link href="http://127.0.0.1/xrx_widgets/XRXWidgets.css" type="text/css" rel="stylesheet"></link>
-        <script src="http://127.0.0.1/xrx_widgets/XRXWidgets.js" type="text/javascript"></script>*@
+	<script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
+	<script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
+	<script type="text/javascript" src="~/Scripts/version.js"></script>
+
+	@*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
 
 
-    <script>
+
+	<script>
 
         function inti() {
 
+            try {
 
+                document.documentElement.style.overflow = 'hidden';
+                $("#demoContentContainer").xrxscrollable({});
 
-            document.documentElement.style.overflow = 'hidden';
-            $("#demoContentContainer").xrxscrollable({});
+                $('#dhpath').xrxkeyboard({
+                    layout: 'xrxSmall-en',
+                    theme: 'green',
+                    width: 700
+                });
 
-            $('#dhpath').xrxkeyboard({
-                layout: 'xrxSmall-en',
-                theme: 'green',
-                width: 700
-            });
-
-            $('#tipodeficheiros').xrxbutton({
-                icons: {
-                    glyph: "glyphicon-file"
-                },
-                text: true,
-                label: "PDF",
-                width: 155
-            });
-
-            $('#filename').xrxkeyboard({
-                layout: 'xrxSmall-en',
-                theme: 'green'
-            });
-
-            $('#b_Reset').xrxbutton({
-                disabled: false,
-                text: true,
-                label: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_reset"]',
-                icons: {
-                    glyph: "glyphicon-reset"
-                },
-                theme: "green",
-                themePrimary: true,
-                widgetSize: "xrx-medium"
-            });
-
-            var tableHeight = $.screenHeight() < 481 ? 378 : 580;
-            $("#featureTable").xrxtable({
-                bordered: true,
-                striped: true,
-                height: tableHeight,
-                scroll: false
-            });
-
-            $("#ListNumberTable").xrxtable({
-                bordered: true,
-                striped: true,
-                height: tableHeight,
-                scroll: false
-            });
-
-            $("#tableFaxnunmbs").xrxtable({
-                bordered: false,
-                striped: false,
-                height: tableHeight,
-                scroll: false
-            });
-
-            $("#t_reset").xrxtable({
-                bordered: true,
-                striped: false,
-                height: tableHeight,
-                scroll: false
-            });
-
-            $("#s_Darken").xrxspinbox({
-                disabled: false,
-                initialValue: '@Model.Darkness',
-                min: -100,
-                max: 100,
-                orientation: "horizontalarrow-left",
-                theme: "blue",
-                step: 10
-            });
-
-            $("#s_Contrast").xrxspinbox({
-                disabled: false,
-                initialValue: '@Model.Contrast',
-                min: -100,
-                max: 100,
-                orientation: "horizontalarrow-left",
-                theme: "blue",
-                step: 10
-            });
-
-            $("#s_BackgroundSuppression").xrxtoggleswitch({
-                initialValue: true,
-                theme: "blue",
-                widgetSize: "xrx-small"
-            });
-
-
-            $("#FileType-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#tipodeficheiros"
-            });
-
-            $("#Color-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#l_color"
-            });
-
-            $("#ScanType-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#l_Type"
-            });
-
-            $("#Scanning-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#l_Scanning"
-            });
-
-            $("#Orientation-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#l_Orientation"
-            });
-
-            $("#Resolution-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#l_Resolution"
-            });
-
-            $("#Size-xrx-popover-id").xrxpopover({
-                theme: "green",
-                arrowPosition: "xrx-arrow-bottom",
-                targetControl: "#l_Size"
-            });
-
-            $("#s_Scanning").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 100,
-                change: function (event, ui) {
-                    document.getElementById("l_Scanning").innerHTML = ui.item.label;
-                }
-            });
-
-            $("#s_Type").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 175,
-                change: function (event, ui) {
-                    document.getElementById("l_Type").innerHTML = ui.item.label;
-                }
-            });
-
-            $("#s_FileType").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 150,
-                change: function (event, ui) {
-                    $('#tipodeficheiros').xrxbutton({
-                        text: true,
-                        label: ui.item.label
-                    });
-                    document.getElementById("tipodeficheiros").value = ui.item.label;
-                }
-            });
-
-            $("#s_Color").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 125,
-                change: function (event, ui) {
-                    document.getElementById("l_color").innerHTML = ui.item.label;
-                }
-            });
-
-            $("#s_Orientation").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 100,
-                change: function (event, ui) {
-                    document.getElementById("l_Orientation").innerHTML = ui.item.label;
-                }
-            });
-
-            $("#s_Resolution").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 150,
-                change: function (event, ui) {
-                    document.getElementById("l_Resolution").innerHTML = ui.item.label;
-                }
-            });
-
-            $("#s_Size").xrxsegmentedcontrol({
-                type: "textonly",
-                widgetSize: "xrx-small",
-                theme: "green",
-                themePrimary: false,
-                height: 100,
-                change: function (event, ui) {
-                    document.getElementById("l_Size").innerHTML = ui.item.label;
-                }
-            });
-
-            //Keyboard for Spin Box Entry
-            $('#xrx-spinner-input').xrxkeyboard({
-                layout: 'xrxNum',
-                appendLocally: false,
-                styleInput: false,
-            });
-
-            readxml();
-            document.getElementById("blabla").style.display = "none";
-
-            $("#alert1").xrxalert({
-                buttons: [{
-                    alertIcon: "glyphicon-close",
-                    text: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_cancel"]',
-                    width: 200,
-                },
-                {
-                    alertIcon: "glyphicon-exit",
-                    click: function () {
-                        exitApp();
+                $('#tipodeficheiros').xrxbutton({
+                    icons: {
+                        glyph: "glyphicon-file"
                     },
-                    text: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_exit"]',
-                    width: 200,
-                }]
-            });
+                    text: true,
+                    label: "PDF",
+                    width: 155
+                });
 
-            $('#username').xrxbutton({
-                icons: {
-                    glyph: "glyphicon-user"
-                },
-                text: true,
-                label: '@un',
-            });
+                $('#filename').xrxkeyboard({
+                    layout: 'xrxSmall-en',
+                    theme: 'green'
+                });
 
-            $('#username').bind("click", function () {
-                OpenAlert("username");
-            });
+                $('#b_Reset').xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_reset"]',
+                    icons: {
+                        glyph: "glyphicon-reset"
+                    },
+                    theme: "green",
+                    themePrimary: true,
+                    widgetSize: "xrx-medium"
+                });
+
+                var tableHeight = $.screenHeight() < 481 ? 378 : 580;
+                $("#featureTable").xrxtable({
+                    bordered: true,
+                    striped: true,
+                    height: tableHeight,
+                    scroll: false
+                });
+
+                $("#ListNumberTable").xrxtable({
+                    bordered: true,
+                    striped: true,
+                    height: tableHeight,
+                    scroll: false
+                });
+
+                $("#tableFaxnunmbs").xrxtable({
+                    bordered: false,
+                    striped: false,
+                    height: tableHeight,
+                    scroll: false
+                });
+
+                $("#t_reset").xrxtable({
+                    bordered: true,
+                    striped: false,
+                    height: tableHeight,
+                    scroll: false
+                });
+
+                $("#s_Darken").xrxspinbox({
+                    disabled: false,
+                    initialValue: '@Model.Darkness',
+                    min: -100,
+                    max: 100,
+                    orientation: "horizontalarrow-left",
+                    theme: "blue",
+                    step: 10
+                });
+
+                $("#s_Contrast").xrxspinbox({
+                    disabled: false,
+                    initialValue: '@Model.Contrast',
+                    min: -100,
+                    max: 100,
+                    orientation: "horizontalarrow-left",
+                    theme: "blue",
+                    step: 10
+                });
+
+                $("#s_BackgroundSuppression").xrxtoggleswitch({
+                    initialValue: true,
+                    theme: "blue",
+                    widgetSize: "xrx-small"
+                });
 
 
-            $('#btscan').xrxbutton({
-                icons: {
-                    glyph: "glyphicon-scan"
-                },
-                text: true,
-                label: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_send"]',
-                width: 180
-            });
+                $("#FileType-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#tipodeficheiros"
+                });
+
+                $("#Color-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#l_color"
+                });
+
+                $("#ScanType-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#l_Type"
+                });
+
+                $("#Scanning-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#l_Scanning"
+                });
+
+                $("#Orientation-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#l_Orientation"
+                });
+
+                $("#Resolution-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#l_Resolution"
+                });
+
+                $("#Size-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#l_Size"
+                });
+
+                $("#s_Scanning").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 100,
+                    change: function (event, ui) {
+                        document.getElementById("l_Scanning").innerHTML = ui.item.label;
+                    }
+                });
+
+                $("#s_Type").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 175,
+                    change: function (event, ui) {
+                        document.getElementById("l_Type").innerHTML = ui.item.label;
+                    }
+                });
+
+                $("#s_FileType").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 150,
+                    change: function (event, ui) {
+                        $('#tipodeficheiros').xrxbutton({
+                            text: true,
+                            label: ui.item.label
+                        });
+                        document.getElementById("tipodeficheiros").value = ui.item.label;
+                    }
+                });
+
+                $("#s_Color").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 125,
+                    change: function (event, ui) {
+                        document.getElementById("l_color").innerHTML = ui.item.label;
+                    }
+                });
+
+                $("#s_Orientation").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 100,
+                    change: function (event, ui) {
+                        document.getElementById("l_Orientation").innerHTML = ui.item.label;
+                    }
+                });
+
+                $("#s_Resolution").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 150,
+                    change: function (event, ui) {
+                        document.getElementById("l_Resolution").innerHTML = ui.item.label;
+                    }
+                });
+
+                $("#s_Size").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 100,
+                    change: function (event, ui) {
+                        document.getElementById("l_Size").innerHTML = ui.item.label;
+                    }
+                });
+
+                //Keyboard for Spin Box Entry
+                $('#xrx-spinner-input').xrxkeyboard({
+                    layout: 'xrxNum',
+                    appendLocally: false,
+                    styleInput: false,
+                });
+
+                readxml();
+                document.getElementById("blabla").style.display = "none";
+
+                $("#alert1").xrxalert({
+                    buttons: [{
+                        alertIcon: "glyphicon-close",
+                        text: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_cancel"]',
+                        width: 200,
+                    },
+                    {
+                        alertIcon: "glyphicon-exit",
+                        click: function () {
+                            exitApp();
+                        },
+                        text: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_exit"]',
+                        width: 200,
+                    }]
+                });
+
+                $('#username').xrxbutton({
+                    icons: {
+                        glyph: "glyphicon-user"
+                    },
+                    text: true,
+                    label: '@un',
+                });
+
+                $('#username').bind("click", function () {
+                    OpenAlert("username");
+                });
 
 
-            $('#btscan').bind("click", function () {
-                OpenAlert("btscan");
-            });
+                $('#btscan').xrxbutton({
+                    icons: {
+                        glyph: "glyphicon-scan"
+                    },
+                    text: true,
+                    label: '@ScanHomeEIP.Models.SetLanguage.in_lang["l_send"]',
+                    width: 180
+                });
 
-            $('#enter_pass').xrxkeyboard({
-                layout: 'xrxSmall-en',
-                theme: 'green'
-            });
+
+                $('#btscan').bind("click", function () {
+                    OpenAlert("btscan");
+                });
+
+                $('#enter_pass').xrxkeyboard({
+                    layout: 'xrxSmall-en',
+                    theme: 'green'
+                });
 
 
-            $("#popup2").xrxpopup({
-                focusControl: "#btscan",
-                height: "150px",
-                theme: "pink",
-                title: "Enter Password",
-                width: "700px",
-                close: function (event, ui) {
-                    StartScan();
-                },
-            });
+                $("#popup2").xrxpopup({
+                    focusControl: "#btscan",
+                    height: "150px",
+                    theme: "pink",
+                    title: "Enter Password",
+                    width: "700px",
+                    close: function (event, ui) {
+                        StartScan();
+                    },
+                });
 
-            $("#banner1").xrxbanner({
-                bannerType: "active",
-                bannerTimeout: 3000,
-            });
+                $("#banner1").xrxbanner({
+                    bannerType: "active",
+                    bannerTimeout: 3000,
+                });
+
+            }catch (ex) {
+                alert(ex);
+			}
 
         };
 
@@ -427,7 +432,7 @@ var templatename =  TempData["TemplateName"].ToString();
                 {
                     Color = "AUTO";
                 }
-            
+
             document.getElementById("s_Color").value = Color;
 
             var type = '@Model.l_ScanType';
@@ -470,7 +475,7 @@ var templatename =  TempData["TemplateName"].ToString();
             $("#s_Darken").xrxspinbox("value", dark);
 
 
-            //document.getElementById("l_Contrast").innerHTML = 'Model.Contrast'; 
+            //document.getElementById("l_Contrast").innerHTML = 'Model.Contrast';
             $("#s_Contrast").xrxspinbox("value", '@Model.Contrast');
 
             var docformat = '@Model.FileType';
@@ -489,7 +494,7 @@ var templatename =  TempData["TemplateName"].ToString();
 
             var edge = '@Model.EdgeErase';
             document.getElementById("l_edge").innerHTML = edge;
-           
+
         }
 
 
@@ -509,7 +514,7 @@ var templatename =  TempData["TemplateName"].ToString();
 
         }
 
-        
+
         function AlterVariable(item) {
 
             if (item == "Scanning") {
@@ -534,30 +539,30 @@ var templatename =  TempData["TemplateName"].ToString();
                 $("#FileType-xrx-popover-id").xrxpopover("setTargetControl", "#tipodeficheiros", "xrx-arrow-bottom");
             }
         }
-    </script>
-    <script>
-        
+	</script>
+	<script>
 
 
-    </script>
 
-    <style>
-        .blabla {
-            position: absolute;
-            padding: 0px;
-            height: 100%;
-            width: 100%;
-            /*box-shadow: 0px 10px 10px -5px rgba(29, 29, 29, .35);*/
-            z-index: 1200;
-            color: white;
-            font-size: 48px;
-            align-content: center;
-            background-color: rgba(0, 0, 0, .85);
-            text-align: center;
-            vertical-align: middle;
-            padding-top: 250px;
-        }
-    </style>
+	</script>
+
+	<style>
+		.blabla {
+			position: absolute;
+			padding: 0px;
+			height: 100%;
+			width: 100%;
+			/*box-shadow: 0px 10px 10px -5px rgba(29, 29, 29, .35);*/
+			z-index: 1200;
+			color: white;
+			font-size: 48px;
+			align-content: center;
+			background-color: rgba(0, 0, 0, .85);
+			text-align: center;
+			vertical-align: middle;
+			padding-top: 250px;
+		}
+	</style>
 </head>
 <body style="height: 800px">
     <script>window.onload = inti; </script>

@@ -8,15 +8,18 @@
 	<meta http-equiv="Cache-control" content="no-cache" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-	@* <link href="http://127.0.0.1/xrx_widgets/XRXWidgets.css" type="text/css" rel="stylesheet" />
-		<script src="http://127.0.0.1/xrx_widgets/XRXWidgets.js" type="text/javascript"></script>
-		<script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
+
+	<script src="~/Scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+	<link href="http://127.0.0.1/xrx_g9_widgets/XRXg9Widgets.min.css" type="text/css" rel="stylesheet" />
+	<script src="http://127.0.0.1/xrx_g9_widgets/XRXg9Widgets.min.js" type="text/javascript"></script>
+
+	@*	<script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
 		<script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
 		<script type="text/javascript" src="~/Scripts/XRXSession.js"></script>*@
 
 	<link href="~/styles/common.css" rel="stylesheet" />
 
-	<script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>
+	@*<script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>*@
 	<script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
 	<script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
 	<script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
@@ -110,7 +113,7 @@
 			UserEmail = "";
 
 			if (xrxTestingEnabled) {
-				alert("callbackfail: " + response);
+				alert("callbackfail: " + response.split("<faultstring>")[1]);
 			} else {
 				alert("Request failed");
 			}
