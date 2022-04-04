@@ -20,6 +20,7 @@
 	<link href="~/styles/common.css" rel="stylesheet" />
 
 	@*<script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>*@
+
 	<script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
 	<script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
 	<script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
@@ -97,7 +98,6 @@
 
 		function GetUserName() {
 			try {
-				// alert("GetUserName ");
 				if (xrxTestingEnabled) {
 					xrxSessionGetSessionInfo("https://" + xrxTestingMFPIP, setUserName, callbackfail);
 				} else {

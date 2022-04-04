@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language>
+  <l_send>Enviar</l_send>
+  <l_color>Cor da saída</l_color>
+  <l_sidedScanning>Digitalização</l_sidedScanning>
+  <l_orientation>Orientação</l_orientation>
+  <l_resolution>Resolução</l_resolution>
+  <l_originalSize>Tamanho Original</l_originalSize>
+  <l_lightenDarken>Clarear/Escurecer</l_lightenDarken>
+  <l_contrast>Contraste</l_contrast>
+  <l_backSuppression>Sup. Pag. em Branco</l_backSuppression>
+  <l_reset>Reset</l_reset>
+  <l_name>Scan to Home v1.9</l_name>
+  <l_faxnumber>Digite o numero de fax</l_faxnumber>
+  <c_twosided>Dois Lados</c_twosided>
+  <c_oneside>Um Lado</c_oneside>
+  <c_portrait>Vertical</c_portrait>
+  <c_landscape>Hrizontal</c_landscape>
+  <c_low>Baixa</c_low>
+  <c_medium>Media</c_medium>
+  <c_high>Alta</c_high>
+  <c_auto>Auto</c_auto> 
+  <c_FullColor>Cor</c_FullColor>
+  <c_Grayscale>Cinza</c_Grayscale> 
+  <c_BlackAndWhite>Preto e branco</c_BlackAndWhite> 
+  <l_ScanType>Original Type</l_ScanType>
+  <Photo>Foto</Photo>
+  <Text>Texto</Text>
+  <PhotoAndText>Foto e Texto</PhotoAndText>
+  <Map>Mapa</Map>
+  <NewspaperOrMagazine>Jornal ou revista</NewspaperOrMagazine>
+   <l_exittext>Tem certeza de que deseja sair do aplicativo?</l_exittext>
+  <l_cancel>Cancelar</l_cancel>
+  <l_exit>Sair</l_exit>
+  <l_queue_erro1>Há muitos trabalhos em andamento para continuar.</l_queue_erro1>
+  <l_queue_erro2>Exclua tarefas ou aguarde a conclusão dos trabalhos e tente novamente.</l_queue_erro2>
+</Language>
