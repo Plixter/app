@@ -61,7 +61,7 @@ var templatename =  TempData["TemplateName"].ToString();
 
 	@*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
 
-	<script>
+<script>
 
         function inti() {
 
@@ -404,21 +404,22 @@ var templatename =  TempData["TemplateName"].ToString();
 
  	    var template = '@templatename';
             document.getElementById("templatename").value = template;
-
+            //alert("template: " + template);
 
             var UserDomain = '@Model.UserDomain';
             document.getElementById("userdomain").innerHTML = UserDomain;
+            alert("userdomain:" + UserDomain);
 
             var docname = '@Model.docName';
             document.getElementById("filename").value = docname;
-
-
+			alert("docname:" + docname);
 
            @* alert('@Model.homedirectory');*@
             document.getElementById("dhpath").value = String('@Model.homedirectory');
+			alert("dhpath:" + String('@Model.homedirectory'));
 
             var Color = '@Model.Color';
-		document.getElementById("l_color").innerHTML = Color;
+            document.getElementById("l_color").innerHTML = Color;
 	         if (Color  == "BlackAndWhite")
                 {
                     Color = "BLACK_AND_WHITE";
@@ -440,11 +441,8 @@ var templatename =  TempData["TemplateName"].ToString();
             document.getElementById("s_Scanning").value = '@Model.ScanMode';
             document.getElementById("l_Scanning").innerHTML = '@Model.l_ScanMode';
 
-
             document.getElementById("s_Orientation").value = '@Model.Orientation';
             document.getElementById("l_Orientation").innerHTML = '@Model.l_Orientation';
-
-
 
             var res = '@Model.Resolution';
             document.getElementById("s_Resolution").value = res;
@@ -461,7 +459,6 @@ var templatename =  TempData["TemplateName"].ToString();
             //    document.getElementById("s_Resolution").value = res;
             //    document.getElementById("l_Resolution").innerHTML = 'Hight';
             //}
-
 
             var mediasize = '@Model.MediaSize';
             //alert("mediasize" + '@Model.MediaSize');
@@ -495,7 +492,6 @@ var templatename =  TempData["TemplateName"].ToString();
 
         }
 
-
         function StartScan() {
            // alert("BT StartScan");
             $("#btscan").xrxbutton({ disabled: true });
@@ -511,7 +507,6 @@ var templatename =  TempData["TemplateName"].ToString();
             }
 
         }
-
 
         function AlterVariable(item) {
 
@@ -537,7 +532,7 @@ var templatename =  TempData["TemplateName"].ToString();
                 $("#FileType-xrx-popover-id").xrxpopover("setTargetControl", "#tipodeficheiros", "xrx-arrow-bottom");
             }
         }
-	</script>
+</script>
 
 	<style>
 		.blabla {

@@ -2,12 +2,12 @@
 
 // true = offbox 
 // false = on device
-var XRXRouterEnabled = true;
+var XRXRouterEnabled = false;
 
 // [Offbox Server Address] - Your Offbox Server ip address
 // [Folder Path] - The xrx_g9_widgets path relative to the Web root on your Offbox Server
 //var xrxServerLoc = "http://[Offbox Server ip Address]/[Folder Path]/xrx_g9_widgets/";
-var xrxServerLoc = "http://localhost:65277/Scripts/"
+var xrxServerLoc = "http://localhost:81/Scripts/"
 
 // Xerox 9th Gen Widgets path relative to your application
 // var xrxServerLoc = "../xrx_g9_widgets/";      
