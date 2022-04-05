@@ -163,41 +163,42 @@ var templatename =  TempData["TemplateName"].ToString();
                     arrowPosition: "xrx-arrow-bottom",
                     targetControl: "#tipodeficheiros"
                 });
-
+                
                 $("#Color-xrx-popover-id").xrxpopover({
+
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#l_color"
+					targetControl: "#Color"
                 });
 
                 $("#ScanType-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#l_Type"
+					targetControl: "#ScanType"
                 });
 
                 $("#Scanning-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#l_Scanning"
+					targetControl: "#Scanning"
                 });
 
                 $("#Orientation-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#l_Orientation"
+					targetControl: "#Orientation"
                 });
 
                 $("#Resolution-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#l_Resolution"
+					targetControl: "#Resolution"
                 });
 
                 $("#Size-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#l_Size"
+					targetControl: "#Size"
                 });
 
                 $("#s_Scanning").xrxsegmentedcontrol({
@@ -408,15 +409,12 @@ var templatename =  TempData["TemplateName"].ToString();
 
             var UserDomain = '@Model.UserDomain';
             document.getElementById("userdomain").innerHTML = UserDomain;
-            alert("userdomain:" + UserDomain);
 
             var docname = '@Model.docName';
             document.getElementById("filename").value = docname;
-			alert("docname:" + docname);
 
            @* alert('@Model.homedirectory');*@
             document.getElementById("dhpath").value = String('@Model.homedirectory');
-			alert("dhpath:" + String('@Model.homedirectory'));
 
             var Color = '@Model.Color';
             document.getElementById("l_color").innerHTML = Color;
@@ -505,32 +503,6 @@ var templatename =  TempData["TemplateName"].ToString();
 		//alert("Inicia Scan");
                 startScan2home();
             }
-
-        }
-
-        function AlterVariable(item) {
-
-            if (item == "Scanning") {
-                $("#Scanning-xrx-popover-id").xrxpopover("setTargetControl", "#l_Scanning", "xrx-arrow-bottom");
-            }
-            else if (item == "ScanType") {
-                $("#ScanType-xrx-popover-id").xrxpopover("setTargetControl", "#l_Type", "xrx-arrow-bottom");
-            }
-            else if (item == "Color") {
-                $("#Color-xrx-popover-id").xrxpopover("setTargetControl", "#l_color", "xrx-arrow-bottom");
-            }
-            else if (item == "Orientation") {
-                $("#Orientation-xrx-popover-id").xrxpopover("setTargetControl", "#l_Orientation", "xrx-arrow-bottom");
-            }
-            else if (item == "Resolution") {
-                $("#Resolution-xrx-popover-id").xrxpopover("setTargetControl", "#l_Resolution", "xrx-arrow-bottom");
-            }
-            else if (item == "Size") {
-                $("#Size-xrx-popover-id").xrxpopover("setTargetControl", "#l_Size", "xrx-arrow-bottom");
-            }
-            else if (item == "FileType") {
-                $("#FileType-xrx-popover-id").xrxpopover("setTargetControl", "#tipodeficheiros", "xrx-arrow-bottom");
-            }
         }
 </script>
 
@@ -589,110 +561,107 @@ var templatename =  TempData["TemplateName"].ToString();
                         @*value="nomedoficheiro[date&time] size="150" "*@
                     </td>
                     <td style="width: 155px; padding-right: 25px;">
-                        <button id="tipodeficheiros" onclick="AlterVariable('FileType')"></button>
+                        <button id="tipodeficheiros"></button>
                     </td>
                 </tr>
             </table>
         </div>
         <div style="padding-top: 10px"></div>
-        <div id="tableContainer">
+        <div id="tableContainer" style="margin: auto">
             <table id="featureTable">
-                <tr onclick="AlterVariable('Color')">
-                    <td>
-                        <img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
-                    </td>
-                    <td>
-                        <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
-                    </td>
-                    <td style="width: 25%; padding-right: 10px;" align="right">
-                        <label id="l_color" style="text-align: right"></label>
-                    </td>
-                </tr>
-                <tr onclick="AlterVariable('Scanning')">
-                    <td>
-                        <img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
-                    </td>
-                    <td>
-                        <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
-                    </td>
-                    <td style="width: 25%; padding-right: 10px;" align="right">
-                        <label id="l_Scanning" style="text-align: right"></label>
-                    </td>
-                </tr>
-                <tr onclick="AlterVariable('ScanType')">
-                    <td>
-                        <img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
-                    </td>
-                    <td>
-                        <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
-                    </td>
-                    <td style="width: 25%; padding-right: 10px;" align="right">
-                        <label id="l_Type" style="text-align: right"></label>
-                    </td>
-                </tr>
-                <tr onclick="AlterVariable('Orientation')">
-                    <!---->
-                    <td>
-                        <img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
-                    </td>
-                    <td>@ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
-                    </td>
-                    <td style="width: 25%; padding-right: 10px;" align="right">
-                        <label id="l_Orientation" style="text-align: right"></label>
-                    </td>
-                </tr>
-                <tr onclick="AlterVariable('Resolution')">
-                    <!---->
-                    <td style="width: 48px">
-                        <img src="~/styles/images/sharpness_48.png" height="48" width="48" />
-                    </td>
-                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
-                    </td>
-                    <td style="width: 25%; padding-right: 10px;" align="right">
-                        <label id="l_Resolution" style="text-align: right"></label>
-                    </td>
-                </tr>
-                <tr onclick="AlterVariable('Size')">
-                    <td style="width: 48px">
-                        <img src="~/styles/images/reduce_enlarge_48.png" height="48" width="48" />
-                    </td>
-                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
-                    </td>
-                    <td style="width: 25%; padding-right: 10px;" align="right">
-                        <label id="l_Size"></label>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 48px">
-                        <img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
-                    </td>
-                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
-                    </td>
-                    <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
-                        <input id="s_Darken" />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 48px">
-                        <img src="~/styles/images/contrast_48.png" height="48" width="48" />
-                    </td>
-                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
-                    </td>
-                    <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
-                        <input id="s_Contrast" />
-                    </td>
-                </tr>
-                @*<tr>
-                    <td style="width: 48px">
-                        <img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
-                    </td>
-                    <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
-                    <td style="width: 35%">
-                        <!--<label id="BackgroundSuppression"></label>-->
-                        <div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
-                    </td>
-                </tr>*@
-
+                <tbody>
+                    <tr id="Color">
+                        <td>
+                            <img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right" id="l_color"></td>
+                    </tr>
+                    <tr id="Scanning">
+                        <td>
+                            <img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Scanning" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="ScanType">
+                        <td>
+                            <img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Type" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="Orientation">
+                        <td>
+                            <img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
+                        </td>
+                        <td>@ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Orientation" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="Resolution">
+                        <td style="width: 48px">
+                            <img src="~/styles/images/sharpness_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Resolution" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="Size">
+                        <td style="width: 48px">
+                            <img src="~/styles/images/reduce_enlarge_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Size"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 48px">
+                            <img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
+                        </td>
+                        <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+                            <input id="s_Darken" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 48px">
+                            <img src="~/styles/images/contrast_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
+                        </td>
+                        <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+                            <input id="s_Contrast" />
+                        </td>
+                    </tr>
+                    @*<tr>
+                        <td style="width: 48px">
+                            <img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
+                        <td style="width: 35%">
+                            <!--<label id="BackgroundSuppression"></label>-->
+                            <div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
+                        </td>
+                    </tr>*@
+                </tbody>
             </table>
             <table style="width: 100%;">
                 <tr>
@@ -715,8 +684,8 @@ var templatename =  TempData["TemplateName"].ToString();
         <label id="Server" style="visibility: hidden"></label>
         <label id="Share" style="visibility: hidden"></label>
         <label id="Path" style="visibility: hidden"></label>
-	<label id="sts" style="visibility: hidden"></label>
-	<label id="templatename" style="visibility: hidden"></label>
+	    <label id="sts" style="visibility: hidden"></label>
+	    <label id="templatename" style="visibility: hidden"></label>
     </div>
 
     <!--selected="selected" style="z-index: 1200;"-->
