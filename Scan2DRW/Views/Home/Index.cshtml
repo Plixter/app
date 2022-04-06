@@ -62,12 +62,17 @@
 		}
 
 		function c_success(request, response) {
+			//try {
+			//	var jsonOfLog = JSON.stringify(response);
+			//	var temp = jsonOfLog.split("<Bytes>");
+			//	var temp2 = temp[1].split("</Bytes>");
+			//	document.getElementById('base64').value = temp2[0];
+			//} catch (e) {
+			//	alert("deu mal: " + e);
 
-			var jsonOfLog = JSON.stringify(response);
-			var temp = jsonOfLog.split("<Bytes>");
-			var temp2 = temp[1].split("</Bytes>");
-
-			document.getElementById('base64').value = temp2[0];
+				// PMTB validar isto
+				document.getElementById('base64').value = "";
+			//}
 		}
 
 		function c_failure(req, res, status) {
