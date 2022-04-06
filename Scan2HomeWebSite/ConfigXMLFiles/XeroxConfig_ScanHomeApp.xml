@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Application ScanHomeApp created in 2022-03-18-->
+<!--Application ScanHomeApp created in 2022-04-06-->
 <Application>
-  <scanMode>ONE_SIDED</scanMode>
-  <scanType>AUTO</scanType>
-  <docName>DOC[Date_Time_UserID]</docName>
-  <LDAPPath>123456</LDAPPath>
-  <SearchDirectoryRoot>qwerty</SearchDirectoryRoot>
-  <UserDomain>domain</UserDomain>
-  <UserName>username</UserName>
-  <UserPass>password</UserPass>
+  <scanMode>TWO_SIDED</scanMode>
+  <scanType>PHOTO</scanType>
+  <docName>Skan[Date_Time_UserID]</docName>
+  <LDAPPath>13.165.212.250:443</LDAPPath>
+  <SearchDirectoryRoot>TEST</SearchDirectoryRoot>
+  <UserDomain>XRXEU</UserDomain>
+  <UserName>50540533</UserName>
+  <UserPass>qwerty</UserPass>
   <Server>qwerty</Server>
   <Share>qwerty</Share>
   <Path>qwerty</Path>
@@ -17,7 +17,7 @@
   <darkness>0</darkness>
   <sharpness>0</sharpness>
   <saturation>0</saturation>
-  <color>AUTO</color>
+  <color>GRAYSCALE</color>
   <orientation>PORTRAIT</orientation>
   <mediaSize>ISO_A4SEF</mediaSize>
   <edgeErase>3/3/3/3/MM</edgeErase>

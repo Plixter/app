@@ -368,7 +368,8 @@ var templatename =  TempData["TemplateName"].ToString();
                 $("#alert1").xrxalert("open");
             }
             else if (item == "btscan") {
-                $("#popup2").xrxpopup("open");
+                //$("#popup2").xrxpopup("open");
+				StartScan();
             }
         }
 
@@ -495,14 +496,14 @@ var templatename =  TempData["TemplateName"].ToString();
             $("#btscan").xrxbutton({ disabled: true });
 
 
-            if ('@jobsinprog'.toUpperCase() == "TRUE") {
+            @*if ('@jobsinprog'.toUpperCase() == "TRUE") {
                 $('#banner1').xrxbanner('call');
                 setTimeout("window.location.href = '@Url.Action("Index", "Home")'", 5000);
             }
-            else {
+            else {*@
 		//alert("Inicia Scan");
                 startScan2home();
-            }
+            //}
         }
 </script>
 
@@ -734,15 +735,15 @@ var templatename =  TempData["TemplateName"].ToString();
         </select>
     </div>
 
-    <div id="FileType-xrx-popover-id">
+    <!--<div id="FileType-xrx-popover-id">
         <select name="s_FileType" id="s_FileType">
             <option value="PDF" selected="selected">PDF</option>
             <option value="PDF/A-1b">PDF/A</option>
-            <option value="XPS">XPS</option>
+            <option value="XPS">XPS</option>-->
             @*<option value="TIFFV6">TIFF</option>
             <option value="JFIFJPEG">JPEG</option>*@
-        </select>
-    </div>
+        <!--</select>
+    </div>-->
 
     <div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
     <!-- Popup 2 -->
@@ -767,7 +768,7 @@ var templatename =  TempData["TemplateName"].ToString();
             document.getElementById('ScanDoneuserName').value = document.getElementById('username').textContent;
             document.getElementById('ScanDoneDoctype').value = document.getElementById('s_FileType').value;
 
-            //alert("CriaLog");
+            alert("CriaLog");
            // document.getElementById('ScanDone').submit();
             //window.location.href = 'Url.Action("ScanDone", "Home")';
             var form1 = document.getElementById('ScanDone');
