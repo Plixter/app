@@ -153,6 +153,7 @@ function startScan2home() {
 	}
 }
 
+// No final: Elimina o template
 function callback_success_templist(request, response) {
 	//alert("callback_success_templist");
 	var result = new Array();
@@ -167,20 +168,22 @@ function callback_success_templist(request, response) {
 	//alert("xrxTemplateDeleteTemplateRequest: " + result[templateName]);
 	xrxTemplateDeleteTemplate("http://127.0.0.1", templateName, result[templateName], callback_success_delete, callback_failure_delete, 0);
 }
+
 function callback_failure_templist(request, response) {
 	//alert("callback_failure_templist");
 	xrxTemplateDeleteTemplate("http://127.0.0.1", templateName, "", callback_success_delete, callback_failure_delete, 0);
 }
-
+// No final: Coloca o novo template
 function callback_success_delete(request, response) {
 	//alert("callback_success_delete");
 	xrxTemplatePutTemplate("http://127.0.0.1", templateName, template, callback_success_template, callback_failure_template, 0);
 }
+
 function callback_failure_delete(request, response) {
 	//	alert("callback_failure_delete");
 	xrxTemplatePutTemplate("http://127.0.0.1", templateName, template, callback_success_template, callback_failure_template, 0);
 }
-
+// No final: inicia o scan com o novo template
 function callback_success_template(request, response) {
 	//alert("callback_success_template");
 	xrxScanV2InitiateScanJobWithTemplate("http://127.0.0.1", templateName, false, "", callback_success_scan_job, callback_failure_scan_job, 0, false);
@@ -191,25 +194,18 @@ function callback_failure_template(request, response) {
 }
 
 /**
-* This function handles the response when InitiateScanJob (ScanV2) is successful. 
-*
-* @param    request         InitiateScanJob soap request
-* @param	response		InitiateScanJob soap response
+* This function handles the response when InitiateScanJob (ScanV2) is successful.
 */
+// No final: Obtém o detalhe do job de scan que executou
 function callback_success_scan_job(request, response) {
 
 	jobId = xrxScanV2ParseInitiateScanJobWithTemplate(response);
 	//alert("callback_success_scan_job jobid " + jobId);
-	//xrxGetJobDetails("http://127.0.0.1", "Smb", "JobId", jobId, callback_success_job_details, callback_failure_job_details);
 	xrxJobMgmtGetJobDetails("http://127.0.0.1", "WorkflowScanning", jobId, callback_success_job_details, callback_failure_job_details);
-	//xrxJobMgmtGetJobDetails( url, jobType, jobId, callback_success, callback_failure, timeout, async ) 
 }
 
 /**
-* This function handles the response when InitiateScanJob (ScanV2) fails. 
-*
-* @param    request         InitiateScanJob soap request
-* @param	response		InitiateScanJob soap response
+* This function handles the response when InitiateScanJob (ScanV2) fails.
 */
 function callback_failure_scan_job(request, response) {
 	var temp = response.substring(0, response.length / 2);
@@ -220,11 +216,9 @@ function callback_failure_scan_job(request, response) {
 }
 
 /*
-* This function handles the response when GetJobDetails is successful. 
-*
-* @param    request         GetJobDetails soap request
-* @param	response		GetJobDetails soap response
+* This function handles the response when GetJobDetails is successful.
 */
+// No final: espera que o job termine (setTimeout e volta a chamar esta função) ou, estando terminado, chama o CriaLog
 function callback_success_job_details(request, response) {
 
 	var jobDetails = xrxJobMgmtParseGetJobDetails(response);
@@ -232,12 +226,10 @@ function callback_success_job_details(request, response) {
 	var jobState = xrxGetValue(jobStateNode);
 
 	var jobStateMsg = jobId + " : " + jobState;
-	//alert("jobStateMsg " + jobStateMsg);
 	var substring = 'Unknown';
 	var substring1 = 'Completed';
 
 	if (jobState.indexOf(substring) !== -1 || jobState.indexOf(substring1) !== -1) {
-		//        alert("Completed CriaLog");
 		jobcompled = true;
 		//var jobStateReason = xrxJobMgmtParseJobStateReasons(response);
 		//var jobStateReasonMsg = " - " + jobStateReason;
@@ -249,15 +241,11 @@ function callback_success_job_details(request, response) {
 		if (jobcompled == false) {
 			setTimeout("xrxJobMgmtGetJobDetails(\"http://127.0.0.1\", \"WorkflowScanning\",  jobId, callback_success_job_details, callback_failure_job_details)", 2000);
 		}
-
 	}
 }
 
 /**
-* This function handles the response when GetJobDetails fails. 
-*
-* @param    request         GetJobDetails soap request
-* @param	response		GetJobDetails soap response
+* This function handles the response when GetJobDetails fails.
 */
 function callback_failure_job_details(request, response) {
 

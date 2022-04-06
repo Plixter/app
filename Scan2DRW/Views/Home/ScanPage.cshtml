@@ -755,21 +755,20 @@ var templatename =  TempData["TemplateName"].ToString();
     {
         <input type="hidden" name="ScanDonepass" id="ScanDonepass" value="" /><br />
         <input type="hidden" name="ScanDoneuserName" id="ScanDoneuserName" value="" /><br />
-        <input type="hidden" name="ScanDonepath" id="ScanDonepath" value="" /><br />
+        @*<input type="hidden" name="ScanDonepath" id="ScanDonepath" value="" /><br />*@
         <input type="hidden" name="ScanDoneDocName" id="ScanDoneDocName" value="" /><br />
-        <input type="hidden" name="ScanDoneDoctype" id="ScanDoneDoctype" value="" /><br />        
+        @*<input type="hidden" name="ScanDoneDoctype" id="ScanDoneDoctype" value="" /><br />*@        
     }
 
     <script>
         function CriaLog() {
-
+            // Popula campos no form para serem enviados no pedido
             /*document.getElementById('ScanDonepath').value = document.getElementById('dhpath').value;*/
             document.getElementById('ScanDonepass').value = document.getElementById("password").value;
             document.getElementById('ScanDoneuserName').value = document.getElementById('username').textContent;
-            document.getElementById('ScanDoneDoctype').value = document.getElementById('s_FileType').value;
+            //document.getElementById('ScanDoneDoctype').value = document.getElementById('s_FileType').value;
 
-            alert("CriaLog");
-           // document.getElementById('ScanDone').submit();
+            // document.getElementById('ScanDone').submit();
             //window.location.href = 'Url.Action("ScanDone", "Home")';
             var form1 = document.getElementById('ScanDone');
             form1.submit();
