@@ -533,17 +533,19 @@ var templatename =  TempData["TemplateName"].ToString();
     </div>
 
     <!--aqui é o header da pag-->
-    <div id="action_bar" style="height: 90px; padding-top: 10px; padding-left: 20px; padding-right: 20px; color: white; overflow: auto;" class="xrx-action-bar xrx-background pink">
-        <div style="float: left; height: 75px;">
-            <button id="username"></button>
-        </div>
-        <div style="height: 75px; float: right; width: 65%; padding-right: 35px;">
-            <label style="float: left; font-size: 32px; padding-top: 21px;">
-                @ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
-            </label>
-            <button style="float: right; text-align: center;" id="btscan"></button>
-        </div>
-    </div>
+	<div id="action_bar" style="color: white; overflow: auto;" class="xrx-action-bar xrx-background pink">
+		<div style="float: left; width: 20%">
+			<button id="username"></button>
+		</div>
+		<div style="float: left; width: 60%; padding-top: 21px">
+			<label style="font-size: 32px">
+				@ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
+			</label>
+		</div>
+		<div style="float: left; width: 20%">
+			<button style="text-align: center;" id="btscan"></button>
+		</div>
+	</div>
 
     <div id="demoContentContainer">
         @*<div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
