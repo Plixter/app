@@ -70,25 +70,25 @@ var templatename =  TempData["TemplateName"].ToString();
                 document.documentElement.style.overflow = 'hidden';
                 $("#demoContentContainer").xrxscrollable({});
 
-                $('#dhpath').xrxkeyboard({
-                    layout: 'xrxSmall-en',
-                    theme: 'green',
-                    width: 700
-                });
+                //$('#dhpath').xrxkeyboard({
+                //    layout: 'xrxSmall-en',
+                //    theme: 'green',
+                //    width: 700
+                //});
 
-                $('#tipodeficheiros').xrxbutton({
-                    icons: {
-                        glyph: "glyphicon-file"
-                    },
-                    text: true,
-                    label: "PDF",
-                    width: 155
-                });
+                //$('#tipodeficheiros').xrxbutton({
+                //    icons: {
+                //        glyph: "glyphicon-file"
+                //    },
+                //    text: true,
+                //    label: "PDF",
+                //    width: 155
+                //});
 
-                $('#filename').xrxkeyboard({
-                    layout: 'xrxSmall-en',
-                    theme: 'green'
-                });
+                //$('#filename').xrxkeyboard({
+                //    layout: 'xrxSmall-en',
+                //    theme: 'green'
+                //});
 
                 $('#b_Reset').xrxbutton({
                     disabled: false,
@@ -158,11 +158,11 @@ var templatename =  TempData["TemplateName"].ToString();
                 });
 
 
-                $("#FileType-xrx-popover-id").xrxpopover({
-                    theme: "green",
-                    arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#tipodeficheiros"
-                });
+                //$("#FileType-xrx-popover-id").xrxpopover({
+                //    theme: "green",
+                //    arrowPosition: "xrx-arrow-bottom",
+                //    targetControl: "#tipodeficheiros"
+                //});
                 
                 $("#Color-xrx-popover-id").xrxpopover({
 
@@ -223,20 +223,20 @@ var templatename =  TempData["TemplateName"].ToString();
                     }
                 });
 
-                $("#s_FileType").xrxsegmentedcontrol({
-                    type: "textonly",
-                    widgetSize: "xrx-small",
-                    theme: "green",
-                    themePrimary: false,
-                    height: 150,
-                    change: function (event, ui) {
-                        $('#tipodeficheiros').xrxbutton({
-                            text: true,
-                            label: ui.item.label
-                        });
-                        document.getElementById("tipodeficheiros").value = ui.item.label;
-                    }
-                });
+                //$("#s_FileType").xrxsegmentedcontrol({
+                //    type: "textonly",
+                //    widgetSize: "xrx-small",
+                //    theme: "green",
+                //    themePrimary: false,
+                //    height: 150,
+                //    change: function (event, ui) {
+                //        $('#tipodeficheiros').xrxbutton({
+                //            text: true,
+                //            label: ui.item.label
+                //        });
+                //        document.getElementById("tipodeficheiros").value = ui.item.label;
+                //    }
+                //});
 
                 $("#s_Color").xrxsegmentedcontrol({
                     type: "textonly",
@@ -410,11 +410,11 @@ var templatename =  TempData["TemplateName"].ToString();
             var UserDomain = '@Model.UserDomain';
             document.getElementById("userdomain").innerHTML = UserDomain;
 
-            var docname = '@Model.docName';
-            document.getElementById("filename").value = docname;
+            @*var docname = '@Model.docName';
+            document.getElementById("filename").value = docname;*@
 
            @* alert('@Model.homedirectory');*@
-            document.getElementById("dhpath").value = String('@Model.homedirectory');
+            @*document.getElementById("dhpath").value = String('@Model.homedirectory');*@
 
             var Color = '@Model.Color';
             document.getElementById("l_color").innerHTML = Color;
@@ -546,7 +546,7 @@ var templatename =  TempData["TemplateName"].ToString();
     </div>
 
     <div id="demoContentContainer">
-        <div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
+        @*<div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
             <table>
                 <tr>
                     <td>
@@ -558,14 +558,14 @@ var templatename =  TempData["TemplateName"].ToString();
                 <tr>
                     <td>
                         <input id="filename" type="text" style="width: 550px" />
-                        @*value="nomedoficheiro[date&time] size="150" "*@
+                        value="nomedoficheiro[date&time] size="150" "
                     </td>
                     <td style="width: 155px; padding-right: 25px;">
                         <button id="tipodeficheiros"></button>
                     </td>
                 </tr>
             </table>
-        </div>
+        </div>*@
         <div style="padding-top: 10px"></div>
         <div id="tableContainer" style="margin: auto">
             <table id="featureTable">
@@ -760,7 +760,7 @@ var templatename =  TempData["TemplateName"].ToString();
     <script>
         function CriaLog() {
 
-            document.getElementById('ScanDonepath').value = document.getElementById('dhpath').value;
+            /*document.getElementById('ScanDonepath').value = document.getElementById('dhpath').value;*/
             document.getElementById('ScanDonepass').value = document.getElementById("password").value;
             document.getElementById('ScanDoneuserName').value = document.getElementById('username').textContent;
             document.getElementById('ScanDoneDoctype').value = document.getElementById('s_FileType').value;
