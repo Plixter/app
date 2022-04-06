@@ -31,28 +31,6 @@ var template = "";
 function startScan2home() {
 	try {
 		//var templateName = templateName;// document.getElementById("templatename").value;
-		////caminho
-		//var caminho = document.getElementById('dhpath').value;
-		//var temp = caminho.replace("/", " ");
-		//var res = temp.split("/");
-		////Host
-		//var host = res[1];
-		////Share
-		//var share = res[2];
-		////Path 
-		//var path = "";
-		//for (i = 3; i < res.length; i++) {
-		//	if (i + 1 != res.length) {
-		//		path += res[i] + "&#92;&#92;&#92;";
-		//	}
-		//	else {
-		//		path += res[i];
-		//	}
-		//}
-		////Password 
-		//var password = document.getElementById("password").value;
-		////UserName 
-		//var username = document.getElementById('username').textContent;
 		////DocumentFormat 
 		//var documentFormat = document.getElementById('s_FileType').value;
 		//ColorMode
@@ -75,143 +53,11 @@ function startScan2home() {
 		// var SaturationVal = $("#s_Darken").xrxspinbox("value");
 		var SharpnessVal = $("#s_Contrast").xrxspinbox("value");
 		var DarknessVal = $("#s_Darken").xrxspinbox("value");
-		//DocumentImageMode  
-		//DocumentImageMode  
+		//DocumentImageMode
 		var DocumentImageVal = document.getElementById("s_Type").value;
 
 		//MediaSizeType
 		var MediaSizeVal = document.getElementById("s_Size").value;
-		//DocumentName
-		//var docVal = document.getElementById("filename").value;
-		//var UserDomain = document.getElementById("userdomain").innerHTML;
-
-		//var today = new Date();
-		//var n = docVal.indexOf("Date");
-		//var n1 = docVal.indexOf("Time");
-		//var n2 = docVal.indexOf("UserID");
-		//docVal = docVal.replace("[", "");
-		//docVal = docVal.replace("&", "");
-		//docVal = docVal.replace("&", "");
-		//docVal = docVal.replace("_", "");
-		//docVal = docVal.replace("_", "");
-		//docVal = docVal.replace("_", "");
-		//docVal = docVal.replace("]", "");
-		//docVal = docVal.replace("Date", "");
-		//docVal = docVal.replace("Time", "");
-		//docVal = docVal.replace("UserID", "");
-		//if (n != -1) {
-		//	var dd = today.getDate();
-		//	var mm = today.getMonth() + 1; //January is 0!
-		//	var yyyy = today.getFullYear();
-		//	var docvardate = mm + "-" + dd + "-" + yyyy;
-		//	docVal += "_" + docvardate;
-		//}
-
-		//if (n1 != -1) {
-		//	var hh = today.getHours();
-		//	var min = today.getMinutes();
-
-		//	if (dd < 10) {
-		//		dd = '0' + dd
-		//	}
-
-		//	if (mm < 10) {
-		//		mm = '0' + mm
-		//	}
-
-		//	docvarTime = hh + "-" + min;
-
-		//	docVal += "_" + docvarTime;
-		//}
-		//if (n2 != -1) {
-		//	docVal += "_" + username;
-		//}
-		//document.getElementById('ScanDoneDocName').value = docVal;
-
-		//var edgeVal = document.getElementById("l_edge").innerHTML;
-
-		////se as variaveis vierem preenchidas é para utilizar o servidor se não manda directo para o cliente
-		//var sts = document.getElementById("sts").value;
-		//if (sts == 'true') {
-
-		//	username = document.getElementById("serverUserName").value;
-		//	password = document.getElementById("UserPass").value;
-		//	host = document.getElementById("Server").value;
-		//	path = document.getElementById("Path").value;
-		//	share = document.getElementById("Share").value;
-		//}
-
-		//path = path.replace(/&#92;[tT]/g, "t"); //tab
-		//path = path.replace(/&#92;[nN]/g, "n"); // new line
-		//path = path.replace(/&#92;[bB]/g, "b"); // backspace
-		//path = path.replace(/&#92;[rR]/g, "r"); // retun
-		//path = path.replace(/&#92;[fF]/g, "f"); // feed
-		//path = path.replace(/&#92;[vV]/g, "v"); // vertical tab
-
-		//template = "[service xrx_svc_general]\n" +
-		//	" {\n" +
-		//	"      enum_DCS DCSDefinitionUsed = DCS_GENERIC;\n" +
-		//	"      enum_encoding JobTemplateCharacterEncoding = UTF-8;\n" +
-		//	"      string JobTemplateLanguageVersion = \"4.2.00\";\n" +
-		//	"      string JobTemplateName = \"" + templateName + "\";\n" +
-		//	"      enum_confmethod ConfirmationMethod = PRINT;\n" +
-		//	"    * string JobTemplateDescription = \"TemplateSMB\";\n" +
-		//	"    * string JobTemplateCreator = \"XeroxPortugal\";\n" +
-		//	"    * boolean SuppressJobLog = TRUE;\n" +
-		//	" }\n" +
-		//	"end\n" +
-		//	"\n" +
-		//	"[service xrx_svc_scan]\n" +
-		//	" {\n" +
-		//	"    * enum_colormode ColorMode = " + colorVal + ";\n" +
-		//	"    * boolean AutoContrast = FALSE;\n" +
-		//	"    * enum_autoexposure AutoExposure = OFF;\n" +
-		//	"    * integer CompressionQuality = 128;\n" +
-		//	"    * integer Darkness = 0;\n" +
-		//	"    * enum_imagemode DocumentImageMode = " + DocumentImageVal + ";\n" +
-		//	"    * enum_originalsubtype OriginalSubType = PRINTED_ORIGINAL;\n" +
-		//	"    * struct_borders InputEdgeErase = 0/0/0/0/MM;\n" +
-		//	"    * enum_inputorientation InputOrientation = " + OrientationVal + ";\n" +
-		//	"    * string outputUsage = \"sharePrint\";\n" +
-		//	"    * integer Sharpness = 0;\n" +
-		//	"    * enum_sided SidesToScan = " + sidesVal + ";\n" +
-		//	"    * enum_mediasize InputMediaSize = " + MediaSizeVal + ";\n" +
-		//	"    * enum_blankpageremoval BlankPageRemoval = INCLUDE_ALL_PAGES;\n" +
-		//	" }\n" +
-		//	"end\n" +
-		//	"\n" +
-		//	"[service xrx_svc_file]\n" +
-		//	" {\n" +
-		//	"	* enum_filingpolicy DocumentFilingPolicy = OVERWRITE;\n" +
-		//	"	* enum_filingprotocol FilingProtocol = SMB;\n" +
-		//	"	* string UserNetworkFilingLoginName = \"" + UserDomain + "\\\\" + username + "\";\n" +
-		//	"	* string UserNetworkFilingLoginId = \"" + password + "\";\n" +
-		//	"	* string RepositoryName = \"" + host + "\";\n" +
-		//	"	* string DocumentPath = \"" + path + "\";\n" +
-		//	"	* string RepositoryVolume = \"" + share + "\";\n" +
-		//	" }\n" +
-		//	"end\n" +
-		//	"\n" +
-		//	"[doc_object xrx_document]\n" +
-		//	" {\n" +
-		//	"    * enum_docformat DocumentFormat = " + documentFormat + ";\n" +
-		//	"    * string DocumentObjectName = \"" + docVal + "\";\n" +
-		//	"    * integer ImagesPerDocument = 0;\n" +
-		//	"    * boolean RotateTIFFUsingTag = FALSE;\n" +
-		//	"    * enum_compression CompressionsSupported = G4, FLATE, ARITHMETIC_ENCODED_JBIG2,\n" +
-		//	"                         HUFFMAN_ENCODED_JBIG2, FLATE_COMPRESSED_JPEG,\n" +
-		//	"                         MIXED, NEW_JPEG_TIFF_TTN2, OLD_JPEG_TIFF_V6;\n" +
-		//	"    * enum_mixedtype MixedTypesSupported = MULTI_MASK_MRC;\n" +
-		//	"    * enum_mixedcompressions MixedCompressionsSupported = G4, ARITHMETIC_ENCODED_JBIG2,\n" +
-		//	"                         HUFFMAN_ENCODED_JBIG2, JPEG, FLATE_COMPRESSED_JPEG;\n" +
-		//	"    * enum_optimizedforfastwebview OptimizedForFastWebView = NONE;\n" +
-		//	"    * enum_halftonemethod HalftoneMethod = ERRORDIFFUSE;\n" +
-		//	"    * enum_halftonescreen HalftoneScreen = AUTO;\n" +
-		//	"    * enum_resolution Resolution = " + resolutionVal + ";\n" +
-		//	"    * enum_searchabletext SearchableText = IMAGE_ONLY;\n" +
-		//	"    * enum_textcompression TextCompression = FLATE;\n" +
-		//	" }\n" +
-		//	"end\n";
 
 		var dt = new Date();
 		var filename = "Skan_" + dt.getFullYear() + (dt.getMonth() + 1) + dt.getDate() + "_" + dt.getHours() + dt.getMinutes() + dt.getSeconds();
@@ -298,42 +144,27 @@ function startScan2home() {
 			" }\n" +
 			"end\n";
 
-
 		//alert("xrxTemplateGetTemplateList");
 		xrxTemplateGetTemplateList("http://127.0.0.1", callback_success_templist, callback_failure_templist, 0);
 
-		//xrxTemplateGetTemplate("http://127.0.0.1", templateName, callback_success_template, callback_failure_template, 0);
-		//xrxTemplateGetTemplateList( url, callback_success, callback_failure, timeout )
-		//xrxTemplateReplaceTemplate(url, templateName, templateContent, priorChecksum, callback_success, callback_failure, timeout)
-		//xrxTemplateDeleteTemplate("http://127.0.0.1", templateName, checksum, callback_success_template, callback_failure_template, 0)
-		// xrxScanV2InitiateScanJobWithTemplate("http://127.0.0.1", "7A9C74C6-877C-4DA9-8177-47979442F6BF.xst", false, "", callback_success_scan_job, callback_failure_scan_job, 0, false);
-
 		//alert(jobTicket);
-		// xrxScanV2InitiateScanJob("http://127.0.0.1", jobTicket, callback_success_scan_job, callback_failure_scan_job);
 	} catch (e) {
 		alert("erro no startScan2home: " + e);
 	}
 }
 
 function callback_success_templist(request, response) {
-	alert("callback_success_templist");
+	//alert("callback_success_templist");
 	var result = new Array();
-	try {
-		//var data = xrxGetTheElement(xrxStringToDom(response), "TemplateEntries");
-		//var entries = xrxFindElements(data, "TemplateEntry");
-		var data = xrxGetTheElement(xrxStringToDom(response), "TemplateEntries");
-		var entries = xrxFindElements(data, "TemplateEntry");
-		var name, checksum;
-		if (entries != null)
-			for (var i = 0; i < entries.length; ++i)
-				if (((name = xrxGetElementValue(entries[i], "TemplateName")) != null) &&
-					((checksum = xrxGetElementValue(entries[i], "TemplateChecksum")) != null))
-					result[name] = checksum;
-		//alert("xrxTemplateDeleteTemplateRequest: " + result[templateName]);
-	}
-	catch (e) {
-		alert("deu erro xrxTemplateDeleteTemplateRequest: " + e);
-	}
+	var data = xrxGetTheElement(xrxStringToDom(response), "TemplateEntries");
+	var entries = xrxFindElements(data, "TemplateEntry");
+	var name, checksum;
+	if (entries != null)
+		for (var i = 0; i < entries.length; ++i)
+			if (((name = xrxGetElementValue(entries[i], "TemplateName")) != null) &&
+				((checksum = xrxGetElementValue(entries[i], "TemplateChecksum")) != null))
+				result[name] = checksum;
+	//alert("xrxTemplateDeleteTemplateRequest: " + result[templateName]);
 	xrxTemplateDeleteTemplate("http://127.0.0.1", templateName, result[templateName], callback_success_delete, callback_failure_delete, 0);
 }
 function callback_failure_templist(request, response) {
@@ -342,7 +173,7 @@ function callback_failure_templist(request, response) {
 }
 
 function callback_success_delete(request, response) {
-	alert("callback_success_delete");
+	//alert("callback_success_delete");
 	xrxTemplatePutTemplate("http://127.0.0.1", templateName, template, callback_success_template, callback_failure_template, 0);
 }
 function callback_failure_delete(request, response) {
@@ -351,12 +182,11 @@ function callback_failure_delete(request, response) {
 }
 
 function callback_success_template(request, response) {
-	alert("callback_success_template");
+	//alert("callback_success_template");
 	xrxScanV2InitiateScanJobWithTemplate("http://127.0.0.1", templateName, false, "", callback_success_scan_job, callback_failure_scan_job, 0, false);
 }
 
 function callback_failure_template(request, response) {
-
 	alert("callback_failure_template failed: " + response + " request " + request);
 }
 
@@ -369,7 +199,7 @@ function callback_failure_template(request, response) {
 function callback_success_scan_job(request, response) {
 
 	jobId = xrxScanV2ParseInitiateScanJobWithTemplate(response);
-	alert("callback_success_scan_job jobid " + jobId);
+	//alert("callback_success_scan_job jobid " + jobId);
 	//xrxGetJobDetails("http://127.0.0.1", "Smb", "JobId", jobId, callback_success_job_details, callback_failure_job_details);
 	xrxJobMgmtGetJobDetails("http://127.0.0.1", "WorkflowScanning", jobId, callback_success_job_details, callback_failure_job_details);
 	//xrxJobMgmtGetJobDetails( url, jobType, jobId, callback_success, callback_failure, timeout, async ) 
@@ -402,7 +232,7 @@ function callback_success_job_details(request, response) {
 	var jobState = xrxGetValue(jobStateNode);
 
 	var jobStateMsg = jobId + " : " + jobState;
-	alert("jobStateMsg " + jobStateMsg);
+	//alert("jobStateMsg " + jobStateMsg);
 	var substring = 'Unknown';
 	var substring1 = 'Completed';
 
