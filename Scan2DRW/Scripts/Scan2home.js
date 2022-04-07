@@ -21,7 +21,7 @@ var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
 var templateName = "CitibankTest.XST";
-var debugSFTPAddr = "13.157.207.2:220"; // apenas para debug por SFTP
+var debugSFTPAddr = "10.97.92.47:220"; // apenas para debug por SFTP
 var template = "";
 
 /****************************  FUNCTIONS  *******************************/
@@ -52,7 +52,7 @@ function startScan2home() {
 			resolutionVal = '300x300';
 		}
 		// var SaturationVal = $("#s_Darken").xrxspinbox("value");
-		var SharpnessVal = $("#s_Contrast").xrxspinbox("value");
+		var ContrastVal = $("#s_Contrast").xrxspinbox("value");
 		var DarknessVal = $("#s_Darken").xrxspinbox("value");
 		//DocumentImageMode
 		var DocumentImageVal = document.getElementById("s_Type").value;
@@ -61,7 +61,13 @@ function startScan2home() {
 		var MediaSizeVal = document.getElementById("s_Size").value;
 
 		var dt = new Date();
-		var filename = "Skan_" + dt.getFullYear() + (dt.getMonth() + 1) + dt.getDate() + "_" + dt.getHours() + dt.getMinutes() + dt.getSeconds();
+		var year = dt.getFullYear();
+		var month = dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
+		var day = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+		var hour = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
+		var minute = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
+		var second = dt.getSeconds() < 10 ? "0" + dt.getSeconds() : dt.getSeconds();
+		var filename = "Skan_" + year + month + day + "_" + hour + minute + second;
 
 		template = "[service xrx_svc_general]\n" +
 			" {\n" +
@@ -81,7 +87,7 @@ function startScan2home() {
 			"    * boolean AutoContrast = FALSE;\n" +
 			"    * enum_autoexposure AutoExposure = AUTO;\n" +
 			"    * integer CompressionQuality = 128;\n" +
-			"    * integer Darkness = 0;\n" +
+			"    * integer Darkness = " + DarknessVal + ";\n" +
 			"    * enum_imagemode DocumentImageMode = " + DocumentImageVal + ";\n" +
 			"    * enum_originalsubtype OriginalSubType = PRINTED_ORIGINAL;\n" +
 			"    * struct_borders InputEdgeErase = 3/3/3/3/MM;\n" +
@@ -91,7 +97,7 @@ function startScan2home() {
 			"    * integer Sharpness = 0;\n" +
 			"    * enum_sided SidesToScan = " + sidesVal + ";\n" +
 			"    * enum_blankpageremoval BlankPageRemoval = INCLUDE_ALL_PAGES;\n" +
-			"    * integer Contrast = 0;\n" +
+			"    * integer Contrast = " + ContrastVal + ";\n" +
 			"    * integer Saturation = 0;\n" +
 			"    * enum_colormode ColorMode = " + colorVal + ";\n" +
 			" }\n" +
