@@ -21,6 +21,7 @@ var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
 var templateName = "CitibankTest.XST";
+var debugSFTPAddr = "13.157.207.2:220"; // apenas para debug por SFTP
 var template = "";
 
 /****************************  FUNCTIONS  *******************************/
@@ -104,7 +105,7 @@ function startScan2home() {
 			"    * enum_loginsource LoginSource = TEMPLATE;\n" +
 			"    * string NDSNameContext = \"\";\n" +
 			"    * string NDSTree = \"\";\n" +
-			"    * string RepositoryName = \"13.165.212.250:220\";\n" +
+			"    * string RepositoryName = \"" + debugSFTPAddr + "\";\n" +
 			"    * string RepositoryVolume = \"\";\n" +
 			"    * enum_filingprotocol FilingProtocol = SFTP;\n" +
 			"    * string UserNetworkFilingLoginName = \"tester\";\n" +
