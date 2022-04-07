@@ -43,13 +43,13 @@ function startScan2home() {
 		//Resolution
 		var resolutionVal = document.getElementById("s_Resolution").value;
 		if (resolutionVal === 'RES_LOWEST') {
-			resolutionVal = '100x100';
+			resolutionVal = 'RES_100x100';
 		}
 		else if (resolutionVal === 'RES_BEST') {
-			resolutionVal = '200x200';
+			resolutionVal = 'RES_200x200';
 		}
 		else if (resolutionVal === 'RES_HIGHEST') {
-			resolutionVal = '300x300';
+			resolutionVal = 'RES_300x300';
 		}
 		// var SaturationVal = $("#s_Darken").xrxspinbox("value");
 		var ContrastVal = $("#s_Contrast").xrxspinbox("value");
@@ -136,7 +136,7 @@ function startScan2home() {
 			"    * enum_optimizedforfastwebview OptimizedForFastWebView = NONE;\n" +
 			"    * enum_halftonemethod HalftoneMethod = ERRORDIFFUSE;\n" +
 			"    * enum_halftonescreen HalftoneScreen = AUTO;\n" +
-			"    * enum_resolution Resolution = RES_200X200;\n" +
+			"    * enum_resolution Resolution = " + resolutionVal + ";\n" +
 			"    * enum_searchabletext SearchableText = IMAGE_ONLY;\n" +
 			"    * enum_textcompression TextCompression = FLATE;\n" +
 			"    * string DocumentObjectName = \"" + filename + "\";\n" +
