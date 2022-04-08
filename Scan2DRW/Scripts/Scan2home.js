@@ -21,7 +21,7 @@ var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
 var templateName = "CitibankTest.XST";
-var debugSFTPAddr = "10.97.92.47:220"; // apenas para debug por SFTP
+var debugSFTPAddr = "13.157.209.205:220"; // apenas para debug por SFTP
 var template = "";
 
 /****************************  FUNCTIONS  *******************************/
@@ -238,9 +238,15 @@ function callback_success_job_details(request, response) {
 
 	if (jobState.indexOf(substring) !== -1 || jobState.indexOf(substring1) !== -1) {
 		jobcompled = true;
+		$("#popup_progress .scanning").hide();
+		$("#popup_progress .completed").show();
+		$("#progress_scan").xrxactivityindicator("complete");
 		//var jobStateReason = xrxJobMgmtParseJobStateReasons(response);
 		//var jobStateReasonMsg = " - " + jobStateReason;
-		CriaLog();
+		setTimeout(function () {
+			CriaLog();
+			// É aqui que termina o job de digitalização
+		}, 2000);
 	}
 	else {
 		//      alert("NOT Completed " + jobId);

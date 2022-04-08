@@ -1,37 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Language>
-  <l_send>Send</l_send>
-  <l_color>Output Color</l_color>
-  <l_sidedScanning>2 - Sided Scanning</l_sidedScanning>
-  <l_orientation>Orientation</l_orientation>
-  <l_resolution>Resolution</l_resolution>
-  <l_originalSize>Original Size</l_originalSize>
-  <l_lightenDarken>Lighten/Darken</l_lightenDarken>
-  <l_contrast>Contrast</l_contrast>
-  <l_backSuppression>Blank Pag. Remov.</l_backSuppression>
-  <l_reset>Reset</l_reset>
-  <l_name>Scan2DRW</l_name>
-  <l_faxnumber>Enter fax number</l_faxnumber>
-  <c_twosided>Two Sided</c_twosided>
-  <c_oneside>One Sided</c_oneside>
-  <c_portrait>Portrait</c_portrait>
-  <c_landscape>Landscape</c_landscape>
-  <c_low>Low</c_low>
-  <c_medium>Medium</c_medium>
-  <c_high>High</c_high>
-  <c_auto>Auto</c_auto> 
-  <c_FullColor>FullColor</c_FullColor>
-  <c_Grayscale>Grayscale</c_Grayscale> 
-  <c_BlackAndWhite>BlackAndWhite</c_BlackAndWhite> 
-  <l_ScanType>Original Type</l_ScanType>
-  <Photo>Photo</Photo>
-  <Text>Text</Text>
-  <PhotoAndText>Photo And Text</PhotoAndText>
-  <Map>Map</Map>
-  <NewspaperOrMagazine>Newspaper Or Magazine</NewspaperOrMagazine>
-  <l_exittext>Are you sure you want to exit application?</l_exittext>
-  <l_cancel>Cancel</l_cancel>
-  <l_exit>Exit</l_exit>
-  <l_queue_erro1>There are too many jobs in progress to continue.</l_queue_erro1>
-  <l_queue_erro2>Delete jobs or wait for jobs to complete and try again.</l_queue_erro2>
+	<l_send>Send</l_send>
+	<l_color>Output Color</l_color>
+	<l_sidedScanning>2 - Sided Scanning</l_sidedScanning>
+	<l_orientation>Orientation</l_orientation>
+	<l_resolution>Resolution</l_resolution>
+	<l_originalSize>Original Size</l_originalSize>
+	<l_lightenDarken>Lighten/Darken</l_lightenDarken>
+	<l_contrast>Contrast</l_contrast>
+	<l_backSuppression>Blank Pag. Remov.</l_backSuppression>
+	<l_reset>Reset</l_reset>
+	<l_name>Scan2DRW</l_name>
+	<l_faxnumber>Enter fax number</l_faxnumber>
+	<c_twosided>Two Sided</c_twosided>
+	<c_oneside>One Sided</c_oneside>
+	<c_portrait>Portrait</c_portrait>
+	<c_landscape>Landscape</c_landscape>
+	<c_low>Low</c_low>
+	<c_medium>Medium</c_medium>
+	<c_high>High</c_high>
+	<c_auto>Auto</c_auto>
+	<c_FullColor>FullColor</c_FullColor>
+	<c_Grayscale>Grayscale</c_Grayscale>
+	<c_BlackAndWhite>BlackAndWhite</c_BlackAndWhite>
+	<l_ScanType>Original Type</l_ScanType>
+	<Photo>Photo</Photo>
+	<Text>Text</Text>
+	<PhotoAndText>Photo And Text</PhotoAndText>
+	<Map>Map</Map>
+	<NewspaperOrMagazine>Newspaper Or Magazine</NewspaperOrMagazine>
+	<l_exittext>Are you sure you want to exit application?</l_exittext>
+	<l_cancel>Cancel</l_cancel>
+	<l_exit>Exit</l_exit>
+	<l_queue_erro1>There are too many jobs in progress to continue.</l_queue_erro1>
+	<l_queue_erro2>Delete jobs or wait for jobs to complete and try again.</l_queue_erro2>
+	<Scanning>Scanning</Scanning>
+	<Complete>Complete</Complete>
 </Language>

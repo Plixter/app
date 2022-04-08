@@ -2,7 +2,7 @@
 <!--Application ScanHomeApp created in 2022-03-18-->
 <Application>
   <scanMode>ONE_SIDED</scanMode>
-  <scanType>AUTO</scanType>
+  <scanType>TEXT</scanType>
   <docName>DOC[Date_Time_UserID]</docName>
   <LDAPPath>123456</LDAPPath>
   <SearchDirectoryRoot>qwerty</SearchDirectoryRoot>
@@ -19,11 +19,11 @@
   <saturation>0</saturation>
   <color>AUTO</color>
   <orientation>PORTRAIT</orientation>
-  <mediaSize>ISO_A4SEF</mediaSize>
+  <mediaSize>ISO_A4LEF</mediaSize>
   <edgeErase>3/3/3/3/MM</edgeErase>
   <fileType>PDF</fileType>
   <resolution>RES_HIGHEST</resolution>
   <BlankPageRemoval>INCLUDE_ALL_PAGES</BlankPageRemoval>
   <BackSupression>False</BackSupression>
-  <ServerFolder>qwerty</ServerFolder>
+  <ServerFolder>CitibankTest</ServerFolder>
 </Application>
