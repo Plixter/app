@@ -287,7 +287,7 @@
                 });
 
                 readxml();
-                document.getElementById("blabla").style.display = "none";
+                document.getElementById("loading_screen").style.display = "none";
 
                 $("#alert1").xrxalert({
                     buttons: [{
@@ -496,7 +496,7 @@
         }
 	</script>
 	<style>
-		.blabla {
+		#loading_screen {
 			position: absolute;
 			padding: 0px;
 			height: 100%;
@@ -529,7 +529,7 @@
 </head>
 <body style="height: 800px">
 	<script>window.onload = inti;</script>
-	<div id="blabla" class="blabla" align="center">
+	<div id="loading_screen" align="center">
 		<label align="center" style="left: 40%; top: 45%;">
 			<strong>Loading...</strong>
 		</label>
@@ -537,10 +537,10 @@
 
 	<!--aqui é o header da pag-->
 	<div id="action_bar" style="color: white; overflow: auto;" class="xrx-action-bar xrx-background pink">
-		<div style="float: left; width: 20%">
+		<div style="float: left; width: 30%">
 			<button id="username"></button>
 		</div>
-		<div style="float: left; width: 60%; padding-top: 21px">
+		<div style="float: left; width: 50%; padding-top: 21px">
 			<label style="font-size: 32px">
 				@ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
 			</label>
