@@ -1,0 +1,32 @@
+[description xrx_dscrpt_metadata]
+ 1{
+    * string MetaDataDefaultValue = "pdf";
+    * string MetaDataFieldName = "split_out_format";
+    * string MetaDataType = "string";
+      string MetaDataPrompt = "";
+      string MetaDataValue = "pdf";
+      boolean MetaDataValidationRequired = FALSE;
+      enum_metadatamaskingrequired MetaDataMaskingRequired = NONE;
+      boolean MetaDataRequiredEntry = FALSE;
+ }
+ 2{
+    * string MetaDataDefaultValue = "scan_split";
+    * string MetaDataFieldName = "split_barcode";
+    * string MetaDataType = "string";
+      string MetaDataPrompt = "";
+      string MetaDataValue = "scan_split";
+      boolean MetaDataValidationRequired = FALSE;
+      enum_metadatamaskingrequired MetaDataMaskingRequired = NONE;
+      boolean MetaDataRequiredEntry = FALSE;
+ }
+ 3{
+    * string MetaDataDefaultValue = "ToRepo";
+    * string MetaDataFieldName = "destination";
+    * string MetaDataType = "string";
+      string MetaDataPrompt = "";
+      string MetaDataValue = "ToRepo";
+      boolean MetaDataValidationRequired = FALSE;
+      enum_metadatamaskingrequired MetaDataMaskingRequired = NONE;
+      boolean MetaDataRequiredEntry = FALSE;
+ }
+end

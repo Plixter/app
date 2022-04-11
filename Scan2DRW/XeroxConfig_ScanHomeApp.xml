@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--Application ScanHomeApp created in 2022-03-18-->
 <Application>
-  <scanMode>ONE_SIDED</scanMode>
-  <scanType>TEXT</scanType>
-  <docName>DOC[Date_Time_UserID]</docName>
+  <scanMode>TWO_SIDED</scanMode>
+  <scanType>MIXED</scanType>
+  <docName>Skan</docName>
   <LDAPPath>123456</LDAPPath>
   <SearchDirectoryRoot>qwerty</SearchDirectoryRoot>
   <UserDomain>domain</UserDomain>
@@ -17,13 +17,13 @@
   <darkness>0</darkness>
   <sharpness>0</sharpness>
   <saturation>0</saturation>
-  <color>AUTO</color>
+  <color>GRAYSCALE</color>
   <orientation>PORTRAIT</orientation>
   <mediaSize>ISO_A4LEF</mediaSize>
   <edgeErase>3/3/3/3/MM</edgeErase>
   <fileType>PDF</fileType>
-  <resolution>RES_HIGHEST</resolution>
-  <BlankPageRemoval>INCLUDE_ALL_PAGES</BlankPageRemoval>
+  <resolution>RES_BEST</resolution>
+  <BlankPageRemoval>OMIT_ALL_BLANK_PAGES</BlankPageRemoval>
   <BackSupression>False</BackSupression>
   <ServerFolder>CitibankTest</ServerFolder>
 </Application>

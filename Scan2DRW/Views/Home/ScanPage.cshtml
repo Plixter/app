@@ -61,7 +61,7 @@
 
 	@*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
 
-	<script>
+<script>
         function inti() {
             try {
                 document.documentElement.style.overflow = 'hidden';
@@ -409,17 +409,16 @@
 
             var Color = '@Model.Color';
             document.getElementById("l_color").innerHTML = Color;
-            if (Color  == "BlackAndWhite")
-            {
+            if (Color == "BlackAndWhite") {
                 Color = "BLACK_AND_WHITE";
             }
-            else if (Color  == "FullColor" )
-            {
+            else if (Color == "FullColor") {
                 Color = "FULL_COLOR";
-            }else if (Color  == "Auto" )
-            {
+            } else if (Color == "Auto") {
                 Color = "AUTO";
-            }
+            } else if (Color == "Grayscale") {
+				Color = "GRAYSCALE";
+			}
 
             document.getElementById("s_Color").value = Color;
 
@@ -494,7 +493,7 @@
                 startScan2home();
             //}
         }
-	</script>
+</script>
 	<style>
 		#loading_screen {
 			position: absolute;

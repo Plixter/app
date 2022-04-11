@@ -148,7 +148,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\on_32.png" />
     <Content Include="images\ScanAGS-DRW.png" />
     <Content Include="images\texture\aqua.png" />
     <Content Include="images\texture\black.png" />
@@ -172,12 +171,14 @@
     <Content Include="images\texture\turquoise.png" />
     <Content Include="images\texture\violet.png" />
     <Content Include="images\texture\yellow.png" />
+    <Content Include="images\tools.png" />
     <Content Include="Language\EN-US.xml" />
     <Content Include="Language\PL-PL.xml" />
     <Content Include="Language\PT-BR.xml" />
     <Content Include="Scripts\base64v1_0.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="XeroxConfig_ScanHomeApp.xml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CommonHelper.js" />

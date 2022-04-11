@@ -20,8 +20,8 @@ var userId = null;
 var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
-var templateName = "CitibankTest.XST";
-var debugAddr = "10.97.92.47:443"; // apenas para debug
+var templateName = "Scan2DRW.XST";
+var debugAddr = "10.97.92.47:443";
 var template = "";
 var filename = "";
 
@@ -61,6 +61,8 @@ function startScan2home() {
 		//MediaSizeType
 		var MediaSizeVal = document.getElementById("s_Size").value;
 
+		var BlankPageRemoval = document.getElementById("l_blankpageremoval").innerHTML;
+
 		var dt = new Date();
 		var year = dt.getFullYear();
 		var month = dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
@@ -97,7 +99,7 @@ function startScan2home() {
 			"    * string outputUsage = \"custom\";\n" +
 			"    * integer Sharpness = 0;\n" +
 			"    * enum_sided SidesToScan = " + sidesVal + ";\n" +
-			"    * enum_blankpageremoval BlankPageRemoval = INCLUDE_ALL_PAGES;\n" +
+			"    * enum_blankpageremoval BlankPageRemoval = " + BlankPageRemoval + ";\n" +
 			"    * integer Contrast = " + ContrastVal + ";\n" +
 			"    * integer Saturation = 0;\n" +
 			"    * enum_colormode ColorMode = " + colorVal + ";\n" +
@@ -107,7 +109,7 @@ function startScan2home() {
 			"[service xrx_svc_file]\n" +
 			" {\n" +
 			"    * enum_filingpolicy DocumentFilingPolicy = NEW_AUTO_GENERATE;\n" +
-			"    * string RepositoryAlias = \"CitibankTest\";\n" +
+			"    * string RepositoryAlias = \"" + templateName + "\";\n" +
 			"    * string DocumentPath = \"/inetpub/wwwroot/HTTPS/Citibank\";\n" +
 			"    * enum_loginsource LoginSource = TEMPLATE;\n" +
 			"    * string NDSNameContext = \"\";\n" +
