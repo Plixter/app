@@ -773,19 +773,13 @@
 
 	@using (Html.BeginForm("ScanDone", "Home", FormMethod.Post, new { id = "ScanDone" }))
 	{
-		<input type="hidden" name="ScanDonepass" id="ScanDonepass" value="" /><br />
-		<input type="hidden" name="ScanDoneuserName" id="ScanDoneuserName" value="" /><br />
-		@*<input type="hidden" name="ScanDonepath" id="ScanDonepath" value="" /><br />*@
-		<input type="hidden" name="ScanDoneDocName" id="ScanDoneDocName" value="" /><br />
-		@*<input type="hidden" name="ScanDoneDoctype" id="ScanDoneDoctype" value="" /><br />*@
+		<input type="hidden" name="ScanDonename" id="ScanDonename" value="" />
 	}
 
 	<script>
 		function CriaLog() {
 			try {
-				// Popula campos no form para serem enviados no pedido
-				document.getElementById('ScanDoneuserName').value = document.getElementById('username').textContent;
-
+				// O campo com o nome do documento gerado já foi preenchido no Scan2home.js
 				var form1 = document.getElementById('ScanDone');
 				form1.submit();
 			} catch (e) {

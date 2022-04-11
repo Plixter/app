@@ -21,8 +21,9 @@ var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
 var templateName = "CitibankTest.XST";
-var debugSFTPAddr = "13.157.209.205:220"; // apenas para debug por SFTP
+var debugSFTPAddr = "10.97.92.47:220"; // apenas para debug por SFTP
 var template = "";
+var filename = "";
 
 /****************************  FUNCTIONS  *******************************/
 
@@ -67,7 +68,7 @@ function startScan2home() {
 		var hour = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
 		var minute = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
 		var second = dt.getSeconds() < 10 ? "0" + dt.getSeconds() : dt.getSeconds();
-		var filename = "Skan_" + year + month + day + "_" + hour + minute + second;
+		filename = "Skan_" + year + month + day + "_" + hour + minute + second;
 
 		template = "[service xrx_svc_general]\n" +
 			" {\n" +
@@ -78,7 +79,7 @@ function startScan2home() {
 			"      enum_confmethod ConfirmationMethod = PRINT;\n" +
 			"    * string JobTemplateDescription = \"\";\n" +
 			"    * string JobTemplateCreator = \"XeroxPortugal\";\n" +
-			"    * boolean SuppressJobLog = TRUE;\n" +
+			"    * boolean SuppressJobLog = FALSE;\n" +
 			" }\n" +
 			"end\n" +
 			"\n" +
@@ -238,6 +239,7 @@ function callback_success_job_details(request, response) {
 
 	if (jobState.indexOf(substring) !== -1 || jobState.indexOf(substring1) !== -1) {
 		jobcompled = true;
+		$("#ScanDonename").val(filename);
 		$("#popup_progress .scanning").hide();
 		$("#popup_progress .completed").show();
 		$("#progress_scan").xrxactivityindicator("complete");

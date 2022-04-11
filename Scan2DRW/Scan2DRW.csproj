@@ -335,6 +335,7 @@
     <Content Include="Views\Home\ScanPage - alerts.cshtml" />
     <Content Include="Views\Home\ScanPage.cshtml" />
     <Content Include="styles\fonts\XeroxGlyph-Regular.ttf" />
+    <Content Include="template_addendum.xst" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

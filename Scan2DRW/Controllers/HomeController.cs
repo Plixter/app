@@ -12,8 +12,8 @@ using System.Diagnostics;
 using System.DirectoryServices;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
+using System.Threading;
 using System.Web.Mvc;
 
 namespace ScanHomeEIP.Controllers
@@ -145,94 +145,46 @@ namespace ScanHomeEIP.Controllers
 		}
 
 		public ActionResult ScanDone(
-		  string ScanDoneuserName,
-		  string ScanDonepass,
-		  string ScanDonepath,
-		  string ScanDoneDocName,
-		  string ScanDoneDoctype)
+		  string ScanDonename)
 		{
+			ActionResult result;
 			try
 			{
-				string str1 = this.Server.MapPath("~/Logs/");
-				if (!Directory.Exists(str1))
-					Directory.CreateDirectory(str1);
-				string str2 = Path.Combine(str1, DateTime.Now.ToString("yyyyMMdd") + "_ScanHome.Log");
-				string username = this.TempData["username"].ToString();
-				this.KeepVariables();
-				EasyXML easyXml = new EasyXML();
-				foreach (string path in Directory.EnumerateFiles(this.Server.MapPath("~/"), "*.xml").ToList<string>())
-				{
-					if (path.Contains("XeroxConfig_"))
-					{
-						string model = this.TempData["mfpModel"].ToString();
-						this.TempData["mfpModel"] = (object)model;
-						this.TempData.Keep("mfpModel");
-						easyXml = easyXml.le_xml(path, model);
-					}
-				}
-				if (ScanDoneDoctype == "PDFA1b")
-					ScanDoneDoctype = "PDF";
-				string str3 = Path.Combine(easyXml.Server, easyXml.Share, easyXml.Path, ScanDoneDocName + "." + ScanDoneDoctype).Replace("\\\\\\", "\\").Replace("\\\\", "\\");
-				if (!str3.StartsWith("\\\\"))
-					str3 = "\\\\" + str3;
-				string str4 = str3.Replace(";", "");
-				string str5 = Path.Combine(easyXml.Server, easyXml.Share, easyXml.Path, ScanDoneDocName + ".XST").Replace("\\\\\\", "\\").Replace("\\\\", "\\");
-				if (!str5.StartsWith("\\\\"))
-					str5 = "\\\\" + str5;
-				string path1 = str5.Replace(";", "");
-				bool flag = false;
-				Log_Creator.WriteToLog(str2, username, nameof(ScanDone), "path ficheiro existe: " + str4);
-				string str6 = str4;
-				string str7 = ScanDonepath;
-				if (!str6.StartsWith("\\\\"))
-					str6 = "\\\\" + str6;
-				string str8 = str7.Replace("/", "\\");
-				if (!str8.StartsWith("\\\\"))
-					str8 = "\\\\" + str8;
-				if (!flag)
-				{
-					if (ConfigurationManager.AppSettings["SendToServer"].ToLower() == "true")
-					{
-						NetworkCredential credentials = new NetworkCredential();
-						credentials.Password = ScanDonepass;
-						credentials.UserName = ScanDoneuserName;
-						credentials.Domain = easyXml.UserDomain;
-						try
-						{
-							using (new NetworkConnection(str8, credentials, str2))
-							{
-								System.IO.File.Copy(str6, Path.Combine(str8, Path.GetFileName(str6)), true);
-								Log_Creator.WriteToLog(str2, username, nameof(ScanDone), "File Moved to: " + Path.Combine(str8, Path.GetFileName(str6)));
-							}
-							Log_Creator.WriteToLog(str2, username, nameof(ScanDone), "Delete files: " + path1 + " and " + str6);
-							System.IO.File.Delete(path1);
-							System.IO.File.Delete(str6);
-						}
-						catch (Exception ex)
-						{
-							Log_Creator.WriteToLog(str2, username, "LDAP", "error moving file: " + ex.ToString());
-						}
-					}
-					Log_Creator.WriteToLog(str2, username, "Scan Home", "OK");
-				}
-				if (SetLanguage.in_lang == null)
-					SetLanguage.IniciaLinguage(this.Server.MapPath("~/Language/"));
-				try
-				{
-					EIPScanTemplate.DeleteTemplate(Log_Creator.GetUserIP(), ConfigurationManager.AppSettings["TemplateName"]);
-					this.TempData["TemplateName"] = (object)ConfigurationManager.AppSettings["TemplateName"];
-					this.TempData.Keep("TemplateName");
-				}
-				catch
-				{
-				}
-				return (ActionResult)this.RedirectToAction("Index", "Home");
+				Thread templateThread = new Thread(new ParameterizedThreadStart(TemplateWorker));
+				templateThread.Start(ScanDonename);
 			}
-			catch (Exception ex)
+			finally
 			{
-				ex.ToString();
-				return (ActionResult)this.RedirectToAction("Index", "Home");
+				result = (ActionResult)this.RedirectToAction("Index", "Home");
 			}
+			return result;
+		}
+
+		private void TemplateWorker(object data)
+		{
+			string scanFolder = ConfigurationManager.AppSettings["ScanFolder"];
+			string fileExt = ConfigurationManager.AppSettings["FileExt"];
+			string scanDoneFilename = (string)data + fileExt;
+			string scanDonePath = Path.Combine(scanFolder, scanDoneFilename);
+			string scansDir = Path.Combine(scanFolder, "Scans");
+			string addedumPath = ConfigurationManager.AppSettings["TemplateAddedum"];
+			string templateFilename = (string)data + ".XST";
+			string templateFilepath = Path.Combine(scanFolder, templateFilename);
+
+			try
+			{
+				if (System.IO.File.Exists(templateFilepath))
+				{
+					string[] addedumLines = System.IO.File.ReadAllLines(addedumPath);
+					System.IO.File.AppendAllLines(templateFilepath, addedumLines);
+
+					System.IO.File.Copy(scanDonePath, Path.Combine(scansDir, scanDoneFilename));
+					System.IO.File.Copy(templateFilepath, Path.Combine(scansDir, templateFilename));
+					System.IO.File.Delete(scanDonePath);
+					System.IO.File.Delete(templateFilepath);
+				}
+			}
+			catch { /*oops*/ }
 		}
 
 		public static int ExecuteCommand(string command, int timeout)
