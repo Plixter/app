@@ -336,6 +336,7 @@
     <Content Include="Views\Home\ScanPage.cshtml" />
     <Content Include="styles\fonts\XeroxGlyph-Regular.ttf" />
     <Content Include="template_addendum.xst" />
+    <None Include="Web.config.template" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
