@@ -184,7 +184,7 @@ namespace ScanHomeEIP.Controllers
 					System.IO.File.Delete(templateFilepath);
 				}
 			}
-			catch { /*oops*/ }
+			catch (Exception ex) { Console.Error.WriteLine("Error: " + ex.Message); }
 		}
 
 		public static int ExecuteCommand(string command, int timeout)

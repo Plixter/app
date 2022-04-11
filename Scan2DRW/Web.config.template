@@ -13,10 +13,10 @@
 		<add key="Testes" value="false" />
 		<add key="SendToServer" value="false" />
 		<add key="TemplateName" value="CitibankTest.XST" />
-		
-		<add key="TemplateAddedum" value="C:\Users\50540533\Documents\Visual Studio 2019\Projects\Scan2HomeWebSite\Scan2DRW\template_addendum.xst"/>
+
+		<add key="TemplateAddedum" value="template_addendum.xst"/>
 		<add key="FileExt" value=".tif"/><!-- .pdf ou .tif -->
-		<add key="ScanFolder" value="C:\Users\50540533\Downloads\RebexTinySftpServer-Binaries-Latest\data\Citibank"/>
+		<add key="ScanFolder" value=""/>
 	</appSettings>
 	<!--
     For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.

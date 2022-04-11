@@ -21,7 +21,7 @@ var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
 var templateName = "CitibankTest.XST";
-var debugSFTPAddr = "10.97.92.47:220"; // apenas para debug por SFTP
+var debugAddr = "10.97.92.47:443"; // apenas para debug
 var template = "";
 var filename = "";
 
@@ -108,18 +108,17 @@ function startScan2home() {
 			" {\n" +
 			"    * enum_filingpolicy DocumentFilingPolicy = NEW_AUTO_GENERATE;\n" +
 			"    * string RepositoryAlias = \"CitibankTest\";\n" +
-			"    * string DocumentPath = \"/Citibank\";\n" +
+			"    * string DocumentPath = \"/inetpub/wwwroot/HTTPS/Citibank\";\n" +
 			"    * enum_loginsource LoginSource = TEMPLATE;\n" +
 			"    * string NDSNameContext = \"\";\n" +
 			"    * string NDSTree = \"\";\n" +
-			"    * string RepositoryName = \"" + debugSFTPAddr + "\";\n" +
+			"    * string RepositoryName = \"" + debugAddr + "\";\n" +
 			"    * string RepositoryVolume = \"\";\n" +
-			"    * enum_filingprotocol FilingProtocol = SFTP;\n" +
-			"    * string UserNetworkFilingLoginName = \"tester\";\n" +
+			"    * enum_filingprotocol FilingProtocol = XRXHTTPS;\n" +
+			"    * string UserNetworkFilingLoginName = \"\";\n" +
 			"    * boolean ServerValidationReq = FALSE;\n" +
-			"    * string XrxHTTPScriptLocation = \"\";\n" +
+			"    * string XrxHTTPScriptLocation = \"/HTTPS/xerox.ashx\";\n" +
 			"    * boolean DocumentDirectoryXSM = TRUE;\n" +
-			"    * string UserNetworkFilingLoginID = \"password\";\n" +
 			" }\n" +
 			"end\n" +
 			"\n" +
