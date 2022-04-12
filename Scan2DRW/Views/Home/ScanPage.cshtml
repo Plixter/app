@@ -708,8 +708,8 @@
 	</div>
 	<div id="Scanning-xrx-popover-id">
 		<select name="s_Scanning" id="s_Scanning">
-			<option value="TWO_SIDED">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
-			<option value="ONE_SIDED" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+			<option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+			<option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
 		</select>
 	</div>
 	<div id="Orientation-xrx-popover-id">
@@ -727,17 +727,19 @@
 	</div>
 	<div id="Size-xrx-popover-id">
 		<select name="s_Size" id="s_Size">
-			<option value="ISO_A4LEF" selected="selected">A4LEF</option>
+			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+			<option value="ISO_A4LEF">A4LEF</option>
 			<option value="ISO_A4SEF">A4SEF</option>
 		</select>
 	</div>
 	<div id="ScanType-xrx-popover-id">
 		<select name="s_Type" id="s_Type">
-			<option value="PHOTO">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
-			<option value="TEXT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
-			<option value="MIXED">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
-			<option value="MAP">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
-			<option value="NEWSPAPERANDMAGAZINE">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
+            <option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+			<option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
+			<option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
+			<option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
+			<option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
+			<option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
 		</select>
 	</div>
 

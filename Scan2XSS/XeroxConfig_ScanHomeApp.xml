@@ -19,7 +19,6 @@
 	<saturation>0</saturation>
 	<color>AUTO</color>
 	<orientation>PORTRAIT</orientation>
-	<!--<mediaSize>ISO_A4LEF</mediaSize>-->
 	<mediaSize>AUTO</mediaSize>
 	<edgeErase>3/3/3/3/MM</edgeErase>
 	<fileType>PDF</fileType>

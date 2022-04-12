@@ -21,7 +21,7 @@ var acctId = null;
 var acctType = null;
 //var templateName = "XTemplate0001.xst";
 var templateName = "Scan2XSS.XST";
-var debugAddr = "10.97.92.47:443";
+var debugAddr = "13.165.209.124:443";
 var template = "";
 var filename = "";
 
@@ -39,6 +39,16 @@ function startScan2home() {
 		var colorVal = document.getElementById('s_Color').value;//document.getElementById("l_color").innerHTML; // //blackandwhite
 		//Sides 
 		var sidesVal = document.getElementById('s_Scanning').value; //one_sided
+
+		switch (sidesVal) {
+			case "OneSided":
+				sidesVal = "ONE_SIDED";
+				break;
+			case "TwoSided":
+				sidesVal = "TWO_SIDED";
+				break;
+		}
+
 		//InputOrientation
 		var OrientationVal = document.getElementById('s_Orientation').value; //PORTRAIT
 		//Resolution
@@ -58,8 +68,30 @@ function startScan2home() {
 		//DocumentImageMode
 		var DocumentImageVal = document.getElementById("s_Type").value;
 
+		switch (DocumentImageVal) {
+			case "Auto":
+				DocumentImageVal = "AUTO";
+				break;
+			case "Photo":
+				DocumentImageVal = "PHOTO";
+				break;
+			case "Text":
+				DocumentImageVal = "TEXT";
+				break;
+			case "PhotoAndText":
+				DocumentImageVal = "MIXED";
+				break;
+			case "Map":
+				DocumentImageVal = "MAP";
+				break;
+			case "NewspaperOrMagazine":
+				DocumentImageVal = "NEWSPAPERANDMAGAZINE";
+				break;
+		}
+
 		//MediaSizeType
 		var MediaSizeVal = document.getElementById("s_Size").value;
+		if (MediaSizeVal == "AUTO") MediaSizeVal = ""; // Para AUTO o template leva esta prop a vazio
 
 		var BlankPageRemoval = document.getElementById("l_blankpageremoval").innerHTML;
 
