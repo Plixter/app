@@ -67,26 +67,6 @@
                 document.documentElement.style.overflow = 'hidden';
                 $("#demoContentContainer").xrxscrollable({});
 
-                //$('#dhpath').xrxkeyboard({
-                //    layout: 'xrxSmall-en',
-                //    theme: 'green',
-                //    width: 700
-                //});
-
-                //$('#tipodeficheiros').xrxbutton({
-                //    icons: {
-                //        glyph: "glyphicon-file"
-                //    },
-                //    text: true,
-                //    label: "PDF",
-                //    width: 155
-                //});
-
-                //$('#filename').xrxkeyboard({
-                //    layout: 'xrxSmall-en',
-                //    theme: 'green'
-                //});
-
                 $('#b_Reset').xrxbutton({
                     disabled: false,
                     text: true,
@@ -153,13 +133,6 @@
                     theme: "blue",
                     widgetSize: "xrx-small"
                 });
-
-
-                //$("#FileType-xrx-popover-id").xrxpopover({
-                //    theme: "green",
-                //    arrowPosition: "xrx-arrow-bottom",
-                //    targetControl: "#tipodeficheiros"
-                //});
 
                 $("#Color-xrx-popover-id").xrxpopover({
 
@@ -272,7 +245,8 @@
                 });
 
                 readxml();
-                document.getElementById("loading_screen").style.display = "none";
+				document.getElementById("loading_screen").style.display = "none";
+				document.getElementById("hide_while_loading").style.display = "";
 
                 $("#alert1").xrxalert({
                     buttons: [{
@@ -496,6 +470,7 @@
 			text-align: center;
 			vertical-align: middle;
 			padding-top: 250px;
+			overflow: hidden;
 		}
 
 		.align-mid.outer {
@@ -521,259 +496,261 @@
 		</label>
 	</div>
 
-	<!--aqui é o header da pag-->
-	<div id="action_bar" style="color: white; overflow: auto;" class="xrx-action-bar xrx-background pink">
-		<div style="float: left; width: 30%">
-			<button id="username"></button>
+	<div id="hide_while_loading" style="display: none">
+		<!--aqui é o header da pag-->
+		<div id="action_bar" style="color: white; overflow: auto;" class="xrx-action-bar xrx-background pink">
+			<div style="float: left; width: 30%">
+				<button id="username"></button>
+			</div>
+			<div style="float: left; width: 50%; padding-top: 21px">
+				<label style="font-size: 32px">
+					@ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
+				</label>
+			</div>
+			<div style="float: left; width: 20%">
+				<button style="text-align: center;" id="btscan"></button>
+			</div>
 		</div>
-		<div style="float: left; width: 50%; padding-top: 21px">
-			<label style="font-size: 32px">
-				@ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
-			</label>
-		</div>
-		<div style="float: left; width: 20%">
-			<button style="text-align: center;" id="btscan"></button>
-		</div>
-	</div>
 
-	<div id="demoContentContainer">
-		@*<div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
-				<table>
-					<tr>
-						<td>
-							<input id="dhpath" type="text" style="width: 718px;" disabled/>
-						</td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td>
-							<input id="filename" type="text" style="width: 550px" />
-							value="nomedoficheiro[date&time] size="150" "
-						</td>
-						<td style="width: 155px; padding-right: 25px;">
-							<button id="tipodeficheiros"></button>
-						</td>
-					</tr>
-				</table>
-			</div>*@
-		<div style="padding-top: 10px"></div>
-		<div id="tableContainer" style="margin: auto">
-			<table id="featureTable">
-				<tbody>
-					<tr id="Color">
-						<td>
-							<img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
-						</td>
-						<td>
-							<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
-						</td>
-						<td style="width: 25%; padding-right: 10px;" align="right" id="l_color"></td>
-					</tr>
-					<tr id="Scanning">
-						<td>
-							<img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
-						</td>
-						<td>
-							<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
-						</td>
-						<td style="width: 25%; padding-right: 10px;" align="right">
-							<label id="l_Scanning" style="text-align: right"></label>
-						</td>
-					</tr>
-					<tr id="ScanType">
-						<td>
-							<img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
-						</td>
-						<td>
-							<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
-						</td>
-						<td style="width: 25%; padding-right: 10px;" align="right">
-							<label id="l_Type" style="text-align: right"></label>
-						</td>
-					</tr>
-					<tr id="Orientation">
-						<td>
-							<img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
-						</td>
-						<td>
-							@ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
-						</td>
-						<td style="width: 25%; padding-right: 10px;" align="right">
-							<label id="l_Orientation" style="text-align: right"></label>
-						</td>
-					</tr>
-					<tr id="Resolution">
-						<td style="width: 48px">
-							<img src="~/styles/images/sharpness_48.png" height="48" width="48" />
-						</td>
-						<td style="width: 60%">
-							@ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
-						</td>
-						<td style="width: 25%; padding-right: 10px;" align="right">
-							<label id="l_Resolution" style="text-align: right"></label>
-						</td>
-					</tr>
-					<tr id="Size">
-						<td style="width: 48px">
-							<img src="~/styles/images/original_size_48.png" height="48" width="48" />
-						</td>
-						<td style="width: 60%">
-							@ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
-						</td>
-						<td style="width: 25%; padding-right: 10px;" align="right">
-							<label id="l_Size"></label>
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 48px">
-							<img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
-						</td>
-						<td style="width: 60%">
-							@ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
-						</td>
-						<td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
-							<input id="s_Darken" />
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 48px">
-							<img src="~/styles/images/contrast_48.png" height="48" width="48" />
-						</td>
-						<td style="width: 60%">
-							@ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
-						</td>
-						<td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
-							<input id="s_Contrast" />
-						</td>
-					</tr>
-					@*<tr>
+		<div id="demoContentContainer">
+			@*<div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
+					<table>
+						<tr>
+							<td>
+								<input id="dhpath" type="text" style="width: 718px;" disabled/>
+							</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td>
+								<input id="filename" type="text" style="width: 550px" />
+								value="nomedoficheiro[date&time] size="150" "
+							</td>
+							<td style="width: 155px; padding-right: 25px;">
+								<button id="tipodeficheiros"></button>
+							</td>
+						</tr>
+					</table>
+				</div>*@
+			<div style="padding-top: 10px"></div>
+			<div id="tableContainer" style="margin: auto">
+				<table id="featureTable">
+					<tbody>
+						<tr id="Color">
+							<td>
+								<img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
+							</td>
+							<td>
+								<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
+							</td>
+							<td style="width: 25%; padding-right: 10px;" align="right" id="l_color"></td>
+						</tr>
+						<tr id="Scanning">
+							<td>
+								<img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
+							</td>
+							<td>
+								<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
+							</td>
+							<td style="width: 25%; padding-right: 10px;" align="right">
+								<label id="l_Scanning" style="text-align: right"></label>
+							</td>
+						</tr>
+						<tr id="ScanType">
+							<td>
+								<img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
+							</td>
+							<td>
+								<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
+							</td>
+							<td style="width: 25%; padding-right: 10px;" align="right">
+								<label id="l_Type" style="text-align: right"></label>
+							</td>
+						</tr>
+						<tr id="Orientation">
+							<td>
+								<img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
+							</td>
+							<td>
+								@ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
+							</td>
+							<td style="width: 25%; padding-right: 10px;" align="right">
+								<label id="l_Orientation" style="text-align: right"></label>
+							</td>
+						</tr>
+						<tr id="Resolution">
 							<td style="width: 48px">
-								<img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
+								<img src="~/styles/images/sharpness_48.png" height="48" width="48" />
 							</td>
-							<td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
-							<td style="width: 35%">
-								<!--<label id="BackgroundSuppression"></label>-->
-								<div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
+							<td style="width: 60%">
+								@ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
 							</td>
-						</tr>*@
-				</tbody>
-			</table>
-			<table style="width: 100%;">
-				<tr>
-					<td align="center">
-						<button style="text-align: center" id="b_Reset" onclick="readxml()"></button>
-					</td>
-				</tr>
-			</table>
+							<td style="width: 25%; padding-right: 10px;" align="right">
+								<label id="l_Resolution" style="text-align: right"></label>
+							</td>
+						</tr>
+						<tr id="Size">
+							<td style="width: 48px">
+								<img src="~/styles/images/original_size_48.png" height="48" width="48" />
+							</td>
+							<td style="width: 60%">
+								@ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
+							</td>
+							<td style="width: 25%; padding-right: 10px;" align="right">
+								<label id="l_Size"></label>
+							</td>
+						</tr>
+						<tr>
+							<td style="width: 48px">
+								<img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
+							</td>
+							<td style="width: 60%">
+								@ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
+							</td>
+							<td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+								<input id="s_Darken" />
+							</td>
+						</tr>
+						<tr>
+							<td style="width: 48px">
+								<img src="~/styles/images/contrast_48.png" height="48" width="48" />
+							</td>
+							<td style="width: 60%">
+								@ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
+							</td>
+							<td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+								<input id="s_Contrast" />
+							</td>
+						</tr>
+						@*<tr>
+								<td style="width: 48px">
+									<img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
+								</td>
+								<td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
+								<td style="width: 35%">
+									<!--<label id="BackgroundSuppression"></label>-->
+									<div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
+								</td>
+							</tr>*@
+					</tbody>
+				</table>
+				<table style="width: 100%;">
+					<tr>
+						<td align="center">
+							<button style="text-align: center" id="b_Reset" onclick="readxml()"></button>
+						</td>
+					</tr>
+				</table>
+
+			</div>
 
 		</div>
+		<div>
+			<label id="l_DocumentFormat" style="visibility: hidden"></label>
+			<label id="l_blankpageremoval" style="visibility: hidden"></label>
+			<label id="l_edge" style="visibility: hidden"></label>
+			<label id="userdomain" style="visibility: hidden"></label>
+			<label id="serverUserName" style="visibility: hidden"></label>
+			<label id="UserPass" style="visibility: hidden"></label>
+			<label id="Server" style="visibility: hidden"></label>
+			<label id="Share" style="visibility: hidden"></label>
+			<label id="Path" style="visibility: hidden"></label>
+			<label id="sts" style="visibility: hidden"></label>
+			<label id="templatename" style="visibility: hidden"></label>
+		</div>
 
-	</div>
-	<div>
-		<label id="l_DocumentFormat" style="visibility: hidden"></label>
-		<label id="l_blankpageremoval" style="visibility: hidden"></label>
-		<label id="l_edge" style="visibility: hidden"></label>
-		<label id="userdomain" style="visibility: hidden"></label>
-		<label id="serverUserName" style="visibility: hidden"></label>
-		<label id="UserPass" style="visibility: hidden"></label>
-		<label id="Server" style="visibility: hidden"></label>
-		<label id="Share" style="visibility: hidden"></label>
-		<label id="Path" style="visibility: hidden"></label>
-		<label id="sts" style="visibility: hidden"></label>
-		<label id="templatename" style="visibility: hidden"></label>
-	</div>
+		<!--selected="selected" style="z-index: 1200;"-->
+		<div id="Color-xrx-popover-id">
+			<select name="s_Color" id="s_Color">
+				<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+				<option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+				<option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+				<option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+			</select>
+		</div>
+		<div id="Scanning-xrx-popover-id">
+			<select name="s_Scanning" id="s_Scanning">
+				<option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+				<option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+			</select>
+		</div>
+		<div id="Orientation-xrx-popover-id">
+			<select name="s_Orientation" id="s_Orientation">
+				<option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
+				<option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
+			</select>
+		</div>
+		<div id="Resolution-xrx-popover-id">
+			<select name="s_Resolution" id="s_Resolution">
+				<option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
+				<option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
+				<option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
+			</select>
+		</div>
+		<div id="Size-xrx-popover-id">
+			<select name="s_Size" id="s_Size">
+				<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+				<option value="ISO_A4LEF">A4LEF</option>
+				<option value="ISO_A4SEF">A4SEF</option>
+			</select>
+		</div>
+		<div id="ScanType-xrx-popover-id">
+			<select name="s_Type" id="s_Type">
+				<option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+				<option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
+				<option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
+				<option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
+				<option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
+				<option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
+			</select>
+		</div>
 
-	<!--selected="selected" style="z-index: 1200;"-->
-	<div id="Color-xrx-popover-id">
-		<select name="s_Color" id="s_Color">
-			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-			<option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
-			<option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
-			<option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
-		</select>
-	</div>
-	<div id="Scanning-xrx-popover-id">
-		<select name="s_Scanning" id="s_Scanning">
-			<option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
-			<option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
-		</select>
-	</div>
-	<div id="Orientation-xrx-popover-id">
-		<select name="s_Orientation" id="s_Orientation">
-			<option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
-			<option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
-		</select>
-	</div>
-	<div id="Resolution-xrx-popover-id">
-		<select name="s_Resolution" id="s_Resolution">
-			<option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
-			<option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
-			<option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
-		</select>
-	</div>
-	<div id="Size-xrx-popover-id">
-		<select name="s_Size" id="s_Size">
-			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-			<option value="ISO_A4LEF">A4LEF</option>
-			<option value="ISO_A4SEF">A4SEF</option>
-		</select>
-	</div>
-	<div id="ScanType-xrx-popover-id">
-		<select name="s_Type" id="s_Type">
-            <option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-			<option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
-			<option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
-			<option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
-			<option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
-			<option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
-		</select>
-	</div>
+		<input type="hidden" id="s_FileType" name="s_FileType" value="" />
 
-    <input type="hidden" id="s_FileType" name="s_FileType" value="" />
+		<div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
 
-	<div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
-
-	<div id="popup_progress">
-		<!--Todas estas divs são necessárias para os alinhamentos verticais! -->
-		<div class="align-mid outer">
-			<div class="align-mid inner">
-				<div style="float: left; width: 33%;">
-					<div id="progress_scan" style="margin: auto"></div>
-				</div>
-				<div style="float: left; height: 128px; position: relative">
-					<div style="position: absolute; left: 0; top: 37%;">
-						<div class="scanning">@ScanHomeEIP.Models.SetLanguage.in_lang["Scanning"]</div>
-						<div class="completed" style="display: none">@ScanHomeEIP.Models.SetLanguage.in_lang["Complete"]</div>
+		<div id="popup_progress">
+			<!--Todas estas divs são necessárias para os alinhamentos verticais! -->
+			<div class="align-mid outer">
+				<div class="align-mid inner">
+					<div style="float: left; width: 33%;">
+						<div id="progress_scan" style="margin: auto"></div>
+					</div>
+					<div style="float: left; height: 128px; position: relative">
+						<div style="position: absolute; left: 0; top: 37%;">
+							<div class="scanning">@ScanHomeEIP.Models.SetLanguage.in_lang["Scanning"]</div>
+							<div class="completed" style="display: none">@ScanHomeEIP.Models.SetLanguage.in_lang["Complete"]</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	@using (Html.BeginForm("ScanDone", "Home", FormMethod.Post, new { id = "ScanDone" }))
-	{
-		<input type="hidden" name="ScanDonename" id="ScanDonename" value="" />
-	}
-
-	<script>
-		function CriaLog() {
-			try {
-				// O campo com o nome do documento gerado já foi preenchido no Scan2home.js
-				var form1 = document.getElementById('ScanDone');
-				form1.submit();
-			} catch (e) {
-				//alert("deu erro no crialog:" + e);
-			}
+		@using (Html.BeginForm("ScanDone", "Home", FormMethod.Post, new { id = "ScanDone" }))
+		{
+			<input type="hidden" name="ScanDonename" id="ScanDonename" value="" />
 		}
 
-	</script>
-	<div id="banner1">
-		<div class="firstline">
-			<h2><span>@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro1"]</span></h2>
-		</div>
-		<div class="secondline">
-			@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro2"]
+		<script>
+			function CriaLog() {
+				try {
+					// O campo com o nome do documento gerado já foi preenchido no Scan2home.js
+					var form1 = document.getElementById('ScanDone');
+					form1.submit();
+				} catch (e) {
+					//alert("deu erro no crialog:" + e);
+				}
+			}
+
+		</script>
+		<div id="banner1">
+			<div class="firstline">
+				<h2><span>@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro1"]</span></h2>
+			</div>
+			<div class="secondline">
+				@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro2"]
+			</div>
 		</div>
 	</div>
 </body>
