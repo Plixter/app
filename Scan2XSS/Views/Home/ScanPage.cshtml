@@ -660,52 +660,6 @@
 			<label id="templatename" style="visibility: hidden"></label>
 		</div>
 
-		<!--selected="selected" style="z-index: 1200;"-->
-		<div id="Color-xrx-popover-id">
-			<select name="s_Color" id="s_Color">
-				<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-				<option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
-				<option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
-				<option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
-			</select>
-		</div>
-		<div id="Scanning-xrx-popover-id">
-			<select name="s_Scanning" id="s_Scanning">
-				<option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
-				<option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
-			</select>
-		</div>
-		<div id="Orientation-xrx-popover-id">
-			<select name="s_Orientation" id="s_Orientation">
-				<option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
-				<option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
-			</select>
-		</div>
-		<div id="Resolution-xrx-popover-id">
-			<select name="s_Resolution" id="s_Resolution">
-				<option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
-				<option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
-				<option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
-			</select>
-		</div>
-		<div id="Size-xrx-popover-id">
-			<select name="s_Size" id="s_Size">
-				<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-				<option value="ISO_A4LEF">A4LEF</option>
-				<option value="ISO_A4SEF">A4SEF</option>
-			</select>
-		</div>
-		<div id="ScanType-xrx-popover-id">
-			<select name="s_Type" id="s_Type">
-				<option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-				<option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
-				<option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
-				<option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
-				<option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
-				<option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
-			</select>
-		</div>
-
 		<input type="hidden" id="s_FileType" name="s_FileType" value="" />
 
 		<!--<div id="FileType-xrx-popover-id">
@@ -762,6 +716,50 @@
 				@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro2"]
 			</div>
 		</div>
+	</div>
+	<div id="Color-xrx-popover-id">
+		<select name="s_Color" id="s_Color">
+			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+			<option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+			<option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+			<option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+		</select>
+	</div>
+	<div id="Scanning-xrx-popover-id">
+		<select name="s_Scanning" id="s_Scanning">
+			<option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+			<option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+		</select>
+	</div>
+	<div id="Orientation-xrx-popover-id">
+		<select name="s_Orientation" id="s_Orientation">
+			<option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
+			<option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
+		</select>
+	</div>
+	<div id="Resolution-xrx-popover-id">
+		<select name="s_Resolution" id="s_Resolution">
+			<option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
+			<option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
+			<option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
+		</select>
+	</div>
+	<div id="Size-xrx-popover-id">
+		<select name="s_Size" id="s_Size">
+			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+			<option value="ISO_A4LEF">A4LEF</option>
+			<option value="ISO_A4SEF">A4SEF</option>
+		</select>
+	</div>
+	<div id="ScanType-xrx-popover-id">
+		<select name="s_Type" id="s_Type">
+			<option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+			<option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
+			<option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
+			<option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
+			<option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
+			<option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
+		</select>
 	</div>
 </body>
 </html>
