@@ -220,21 +220,6 @@
                     }
                 });
 
-                //$("#s_FileType").xrxsegmentedcontrol({
-                //    type: "textonly",
-                //    widgetSize: "xrx-small",
-                //    theme: "green",
-                //    themePrimary: false,
-                //    height: 150,
-                //    change: function (event, ui) {
-                //        $('#tipodeficheiros').xrxbutton({
-                //            text: true,
-                //            label: ui.item.label
-                //        });
-                //        document.getElementById("tipodeficheiros").value = ui.item.label;
-                //    }
-                //});
-
                 $("#s_Color").xrxsegmentedcontrol({
                     type: "textonly",
                     widgetSize: "xrx-small",
@@ -425,6 +410,8 @@
             var type = '@Model.l_ScanType';
             document.getElementById("l_Type").innerHTML = type;
             document.getElementById("s_Type").value = '@Model.ScanType';
+
+            document.getElementById("s_FileType").value = "@Model.FileType";
 
             document.getElementById("s_Scanning").value = '@Model.ScanMode';
             document.getElementById("l_Scanning").innerHTML = '@Model.l_ScanMode';
@@ -743,15 +730,7 @@
 		</select>
 	</div>
 
-	<!--<div id="FileType-xrx-popover-id">
-		<select name="s_FileType" id="s_FileType">
-			<option value="PDF" selected="selected">PDF</option>
-			<option value="PDF/A-1b">PDF/A</option>
-			<option value="XPS">XPS</option>-->
-	@*<option value="TIFFV6">TIFF</option>
-		<option value="JFIFJPEG">JPEG</option>*@
-	<!--</select>
-	</div>-->
+    <input type="hidden" id="s_FileType" name="s_FileType" value="" />
 
 	<div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
 

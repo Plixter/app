@@ -33,8 +33,8 @@ var filename = "";
 function startScan2home() {
 	try {
 		//var templateName = templateName;// document.getElementById("templatename").value;
-		////DocumentFormat 
-		//var documentFormat = document.getElementById('s_FileType').value;
+		//DocumentFormat 
+		var documentFormat = document.getElementById('s_FileType').value;
 		//ColorMode
 		var colorVal = document.getElementById('s_Color').value;//document.getElementById("l_color").innerHTML; // //blackandwhite
 		//Sides 
@@ -158,7 +158,7 @@ function startScan2home() {
 			"\n" +
 			"[doc_object xrx_document]\n" +
 			" {\n" +
-			"    * enum_docformat DocumentFormat = PDF;\n" +
+			"    * enum_docformat DocumentFormat = " + documentFormat + ";\n" +
 			"    * integer ImagesPerDocument = 0;\n" +
 			"    * boolean RotateTIFFUsingTag = FALSE;\n" +
 			"    * enum_compression CompressionsSupported = G4, FLATE, ARITHMETIC_ENCODED_JBIG2, \n" +
