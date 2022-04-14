@@ -19,9 +19,12 @@ var jobcompled = false;
 var userId = null;
 var acctId = null;
 var acctType = null;
-//var templateName = "XTemplate0001.xst";
+
 var templateName = "Scan2XSS.XST";
-var debugAddr = "13.165.209.124:443";
+var serverAddr = "13.165.209.159:443";
+var documentPath = "/inetpub/wwwroot/HTTPS/Citibank";
+var HTTPSscriptLocation = "/HTTPS/xerox.ashx";
+
 var template = "";
 var filename = "";
 
@@ -142,16 +145,16 @@ function startScan2home() {
 			" {\n" +
 			"    * enum_filingpolicy DocumentFilingPolicy = NEW_AUTO_GENERATE;\n" +
 			"    * string RepositoryAlias = \"" + templateName + "\";\n" +
-			"    * string DocumentPath = \"/inetpub/wwwroot/HTTPS/Citibank\";\n" +
+			"    * string DocumentPath = \"" + documentPath + "\";\n" +
 			"    * enum_loginsource LoginSource = TEMPLATE;\n" +
 			"    * string NDSNameContext = \"\";\n" +
 			"    * string NDSTree = \"\";\n" +
-			"    * string RepositoryName = \"" + debugAddr + "\";\n" +
+			"    * string RepositoryName = \"" + serverAddr + "\";\n" +
 			"    * string RepositoryVolume = \"\";\n" +
 			"    * enum_filingprotocol FilingProtocol = XRXHTTPS;\n" +
 			"    * string UserNetworkFilingLoginName = \"\";\n" +
 			"    * boolean ServerValidationReq = FALSE;\n" +
-			"    * string XrxHTTPScriptLocation = \"/HTTPS/xerox.ashx\";\n" +
+			"    * string XrxHTTPScriptLocation = \"" + HTTPSscriptLocation + "\";\n" +
 			"    * boolean DocumentDirectoryXSM = TRUE;\n" +
 			" }\n" +
 			"end\n" +

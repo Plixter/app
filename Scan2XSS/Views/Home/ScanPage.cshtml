@@ -15,9 +15,9 @@
 	TempData["versio"] = v;
 	TempData.Keep("version");
 
-	string sts = TempData["SendToServer"].ToString();
-	TempData["SendToServer"] = sts;
-	TempData.Keep("SendToServer");
+	//string sts = TempData["SendToServer"].ToString();
+	//TempData["SendToServer"] = sts;
+	//TempData.Keep("SendToServer");
 
 	var jobsinprog = TempData["base64"];
 	TempData["base64"] = jobsinprog;
@@ -338,7 +338,7 @@
 
         function readxml() {
             //alert("ReadXML " );
-            var sts = '@sts';
+            @*var sts = '@sts';
             document.getElementById("sts").value = sts;
             if (sts == 'true') {
             var UserName = '@Model.UserName';
@@ -351,7 +351,7 @@
             document.getElementById("Share").value = Share;
             var Path = '@Model.Path';
             document.getElementById("Path").value = Path;
-            }
+            }*@
 
             var template = '@templatename';
             document.getElementById("templatename").value = template;

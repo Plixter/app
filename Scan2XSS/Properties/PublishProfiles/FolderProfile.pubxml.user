@@ -4,7 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>C:\inetpub\wwwroot\Scan2HomeApp</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\inetpub\Scan2XSS</_PublishTargetUrl>
+    <History>True|2022-04-13T13:33:57.7312491Z;True|2022-04-13T13:21:12.2543292+01:00;True|2022-04-13T13:11:42.4943304+01:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -109,6 +110,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="bin/Scan2DRW.pdb">
       <publishTime>04/04/2022 17:58:04</publishTime>
     </File>
+    <File Include="bin/Scan2XSS.dll">
+      <publishTime>04/13/2022 14:33:56</publishTime>
+    </File>
+    <File Include="bin/Scan2XSS.pdb">
+      <publishTime>04/13/2022 14:33:56</publishTime>
+    </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>11/28/2018 13:04:24</publishTime>
     </File>
@@ -164,7 +171,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:37:33</publishTime>
     </File>
     <File Include="description.xml">
-      <publishTime>03/21/2022 12:22:49</publishTime>
+      <publishTime>04/11/2022 17:24:17</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>04/04/2022 16:37:33</publishTime>
@@ -185,13 +192,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:37:36</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>04/04/2022 16:37:33</publishTime>
+      <publishTime>04/11/2022 17:23:53</publishTime>
     </File>
     <File Include="images/on_32.png">
       <publishTime>04/04/2022 16:55:02</publishTime>
     </File>
     <File Include="images/ScanAGS-DRW.png">
       <publishTime>04/04/2022 16:55:02</publishTime>
+    </File>
+    <File Include="images/ScanAGS-XSS.png">
+      <publishTime>09/27/2021 12:29:48</publishTime>
     </File>
     <File Include="images/texture/aqua.png">
       <publishTime>04/04/2022 16:55:02</publishTime>
@@ -259,14 +269,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="images/texture/yellow.png">
       <publishTime>04/04/2022 16:55:02</publishTime>
     </File>
+    <File Include="images/tools.png">
+      <publishTime>09/27/2021 12:29:48</publishTime>
+    </File>
     <File Include="Language/EN-US.xml">
-      <publishTime>04/04/2022 16:52:42</publishTime>
+      <publishTime>04/11/2022 17:39:30</publishTime>
     </File>
     <File Include="Language/PL-PL.xml">
-      <publishTime>04/04/2022 16:52:42</publishTime>
+      <publishTime>04/11/2022 17:39:48</publishTime>
     </File>
     <File Include="Language/PT-BR.xml">
-      <publishTime>04/04/2022 16:52:42</publishTime>
+      <publishTime>04/11/2022 17:24:43</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
       <publishTime>04/04/2022 17:46:18</publishTime>
@@ -317,7 +330,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:37:40</publishTime>
     </File>
     <File Include="Scripts/Scan2home.js">
-      <publishTime>04/04/2022 16:53:04</publishTime>
+      <publishTime>04/13/2022 12:48:52</publishTime>
     </File>
     <File Include="Scripts/Scan2home_alertas.js">
       <publishTime>04/04/2022 16:53:04</publishTime>
@@ -347,7 +360,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:52:25</publishTime>
     </File>
     <File Include="Scripts/XRXRouter.js">
-      <publishTime>04/04/2022 16:52:03</publishTime>
+      <publishTime>04/05/2022 13:46:54</publishTime>
     </File>
     <File Include="Scripts/XRXScan.js">
       <publishTime>04/04/2022 16:52:25</publishTime>
@@ -356,7 +369,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:52:25</publishTime>
     </File>
     <File Include="Scripts/XRXSession.js">
-      <publishTime>04/04/2022 17:57:25</publishTime>
+      <publishTime>04/04/2022 22:29:00</publishTime>
     </File>
     <File Include="Scripts/XRXTemplate.js">
       <publishTime>04/04/2022 16:52:25</publishTime>
@@ -365,7 +378,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:52:25</publishTime>
     </File>
     <File Include="Scripts/XRXWebservices.js">
-      <publishTime>04/04/2022 17:57:25</publishTime>
+      <publishTime>04/04/2022 22:29:04</publishTime>
     </File>
     <File Include="Scripts/XRXWebservicesDebug.js">
       <publishTime>04/04/2022 16:52:25</publishTime>
@@ -386,7 +399,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:52:25</publishTime>
     </File>
     <File Include="styles/common.css">
-      <publishTime>04/04/2022 16:54:20</publishTime>
+      <publishTime>04/07/2022 16:06:09</publishTime>
     </File>
     <File Include="styles/EmailPageStyle.css">
       <publishTime>04/04/2022 16:54:20</publishTime>
@@ -706,14 +719,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="styles/XRXWidgets.css">
       <publishTime>04/04/2022 16:54:20</publishTime>
     </File>
+    <File Include="template_addendum.xst">
+      <publishTime>04/11/2022 11:40:15</publishTime>
+    </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>04/04/2022 17:57:25</publishTime>
+      <publishTime>04/08/2022 12:59:18</publishTime>
     </File>
     <File Include="Views/Home/ScanPage - alerts.cshtml">
-      <publishTime>04/04/2022 16:41:57</publishTime>
+      <publishTime>04/07/2022 16:13:47</publishTime>
     </File>
     <File Include="Views/Home/ScanPage.cshtml">
-      <publishTime>04/04/2022 16:41:57</publishTime>
+      <publishTime>04/13/2022 13:20:40</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/04/2022 16:42:08</publishTime>
@@ -722,13 +738,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/04/2022 16:42:08</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>04/04/2022 16:37:33</publishTime>
+      <publishTime>04/11/2022 17:25:11</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>04/04/2022 16:42:17</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>04/04/2022 17:54:56</publishTime>
+    </File>
+    <File Include="XeroxConfig_ScanHomeApp.xml">
+      <publishTime>04/12/2022 12:15:12</publishTime>
     </File>
   </ItemGroup>
 </Project>

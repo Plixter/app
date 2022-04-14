@@ -51,8 +51,8 @@ namespace ScanHomeEIP.Controllers
 			this.TempData.Keep("useremail");
 			this.TempData[nameof(mfpModel)] = (object)mfpModel;
 			this.TempData.Keep(nameof(mfpModel));
-			this.TempData["SendToServer"] = (object)ConfigurationManager.AppSettings["SendToServer"].ToString().ToLower();
-			this.TempData.Keep("SendToServer");
+			//this.TempData["SendToServer"] = (object)ConfigurationManager.AppSettings["SendToServer"].ToString().ToLower();
+			//this.TempData.Keep("SendToServer");
 			string str = Encoding.UTF8.GetString(Convert.FromBase64String(base64.Replace("\\r", "").Replace("\\n", "")));
 			bool flag = false;
 			if (str.Contains("<JobId>"))
@@ -178,6 +178,11 @@ namespace ScanHomeEIP.Controllers
 					string[] addedumLines = System.IO.File.ReadAllLines(addedumPath);
 					System.IO.File.AppendAllLines(templateFilepath, addedumLines);
 
+					if (!Directory.Exists(scansDir))
+					{
+						Directory.CreateDirectory(scansDir);
+					}
+
 					System.IO.File.Copy(scanDonePath, Path.Combine(scansDir, scanDoneFilename));
 					System.IO.File.Copy(templateFilepath, Path.Combine(scansDir, templateFilename));
 					System.IO.File.Delete(scanDonePath);
@@ -209,8 +214,8 @@ namespace ScanHomeEIP.Controllers
 			this.TempData.Keep("useremail");
 			this.TempData["versio"] = (object)this.TempData["versio"].ToString();
 			this.TempData.Keep("version");
-			this.TempData["SendToServer"] = (object)this.TempData["SendToServer"].ToString();
-			this.TempData.Keep("SendToServer");
+			//this.TempData["SendToServer"] = (object)this.TempData["SendToServer"].ToString();
+			//this.TempData.Keep("SendToServer");
 			this.TempData["base64"] = this.TempData["base64"];
 			this.TempData.Keep("base64");
 		}
