@@ -20,8 +20,8 @@ var userId = null;
 var acctId = null;
 var acctType = null;
 
-var templateName = "Scan2DRW.XST";
-var serverAddr = "13.165.209.159:443";
+var templateName = "Scan2DRW.xst";
+var serverAddr = "13.165.216.214:443";
 var documentPath = "/inetpub/wwwroot/HTTPS/Citibank";
 var HTTPSscriptLocation = "/HTTPS/xerox.ashx";
 
@@ -234,7 +234,7 @@ function callback_success_template(request, response) {
 }
 
 function callback_failure_template(request, response) {
-	alert("callback_failure_template failed: " + response + " request " + request);
+	//alert("callback_failure_template failed: " + response + " request " + request);
 }
 
 /**
