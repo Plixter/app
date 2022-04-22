@@ -40,8 +40,8 @@
 
 	<link rel="stylesheet" href="~/styles/common.css" />
 
-	<link href="http://127.0.0.1/xrx_g9_widgets/XRXg9Widgets.min.css" type="text/css" rel="stylesheet" />
-	<script src="http://127.0.0.1/xrx_g9_widgets/XRXg9Widgets.min.js" type="text/javascript"></script>
+	<link href="/xrx_g9_widgets/XRXg9Widgets.min.css" type="text/css" rel="stylesheet" />
+	<script src="/xrx_g9_widgets/XRXg9Widgets.min.js" type="text/javascript"></script>
 
 	@*<script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>*@
 	<script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
@@ -54,14 +54,14 @@
 
 	<script type="text/javascript" src="~/Scripts/XRXTemplate.js"></script>
 
-
+	
 	<script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
 	<script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
 	<script type="text/javascript" src="~/Scripts/version.js"></script>
 
 	@*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
 
-<script>
+	<script>
         function inti() {
             try {
                 document.documentElement.style.overflow = 'hidden';
@@ -454,7 +454,7 @@
                 startScan2home();
             //}
         }
-</script>
+	</script>
 	<style>
 		#loading_screen {
 			position: absolute;
@@ -498,41 +498,41 @@
 
 	<div id="hide_while_loading" style="display: none">
 		<!--aqui é o header da pag-->
-		<div id="action_bar" style="color: white; overflow: hidden;" class="xrx-action-bar xrx-background pink">
+		<div id="action_bar" style="color: white; overflow: hidden; width: 100%" class="xrx-action-bar xrx-background pink">
 			<div style="float: left; width: 30%">
 				<button id="username"></button>
 			</div>
-			<div style="float: left; width: 45%; padding-top: 21px">
+			<div style="float: left; margin: 0 auto; width: 40%; padding-top: 21px; text-align: center">
 				<label style="font-size: 32px">
 					@ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
 				</label>
 			</div>
-			<div style="float: left; width: 25%">
+			<div style="float: right">
 				<button style="text-align: center;" id="btscan"></button>
 			</div>
 		</div>
 
 		<div id="demoContentContainer">
 			@*<div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
-					<table>
-						<tr>
-							<td>
-								<input id="dhpath" type="text" style="width: 718px;" disabled/>
-							</td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<td>
-								<input id="filename" type="text" style="width: 550px" />
-								value="nomedoficheiro[date&time] size="150" "
-							</td>
-							<td style="width: 155px; padding-right: 25px;">
-								<button id="tipodeficheiros"></button>
-							</td>
-						</tr>
-					</table>
-				</div>*@
+				<table>
+					<tr>
+						<td>
+							<input id="dhpath" type="text" style="width: 718px;" disabled/>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td>
+							<input id="filename" type="text" style="width: 550px" />
+							value="nomedoficheiro[date&time] size="150" "
+						</td>
+						<td style="width: 155px; padding-right: 25px;">
+							<button id="tipodeficheiros"></button>
+						</td>
+					</tr>
+				</table>
+			</div>*@
 			<div style="padding-top: 10px"></div>
 			<div id="tableContainer" style="margin: auto">
 				<table id="featureTable">
@@ -624,15 +624,15 @@
 							</td>
 						</tr>
 						@*<tr>
-								<td style="width: 48px">
-									<img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
-								</td>
-								<td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
-								<td style="width: 35%">
-									<!--<label id="BackgroundSuppression"></label>-->
-									<div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
-								</td>
-							</tr>*@
+							<td style="width: 48px">
+								<img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
+							</td>
+							<td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
+							<td style="width: 35%">
+								<!--<label id="BackgroundSuppression"></label>-->
+								<div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
+							</td>
+						</tr>*@
 					</tbody>
 				</table>
 				<table style="width: 100%;">

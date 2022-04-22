@@ -113,6 +113,8 @@ namespace ScanHomeEIP.Models
 					SetLanguage.in_lang.Add("l_color", language2.l_color);
 					SetLanguage.in_lang.Add("l_queue_erro1", language2.l_queue_erro1);
 					SetLanguage.in_lang.Add("l_queue_erro2", language2.l_queue_erro2);
+					SetLanguage.in_lang.Add("Scanning", language2.Scanning);
+					SetLanguage.in_lang.Add("Complete", language2.Complete);
 					streamReader.Close();
 					break;
 				}

