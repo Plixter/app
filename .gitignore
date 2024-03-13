@@ -15,5 +15,4 @@ UpgradeLog.htm
 *.csproj.user
 *.dbmdl
 *.jfm
-App.config
-Web.config
+

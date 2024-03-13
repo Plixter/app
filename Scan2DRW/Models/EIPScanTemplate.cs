@@ -7,6 +7,7 @@
 using System;
 using XRXNetWebservices.Template;
 
+
 namespace ScanHomeEIP.Models
 {
   public static class EIPScanTemplate

@@ -1,0 +1,74 @@
+[service xrx_svc_general]
+{
+	enum_DCS DCSDefinitionUsed = DCS_GENERIC;
+	enum_encoding JobTemplateCharacterEncoding = UTF-8;
+	string JobTemplateLanguageVersion = "4.2.00";
+	string JobTemplateName = "Template.xst";
+	* string JobTemplateDescription = "ScanTemplate";
+	* boolean SuppressJobLog = FALSE;
+	* string JobTemplateCreator = "RemoteDriver";
+}
+end
+
+[service xrx_svc_scan]
+{
+	* enum_colormode ColorMode = AUTO;
+	* enum_sided SidesToScan = ONE_SIDED;
+	* enum_originalsubtype OriginalSubType = PRINTED_ORIGINAL;
+	* enum_imagemode DocumentImageMode = MIXED;
+	* integer Darkness = 0;
+	* integer Sharpness = 0;
+	* boolean AutoContrast = FALSE;
+	* integer Contrast = 0;
+	* integer Saturation = 0;
+	* enum_orientation InputOrientation = PORTRAIT;
+	* enum_mediasize InputMediaSize = NA_8.5x11LEF;
+	* struct_borders InputEdgeErase = 0/0/0/0/IN;
+}
+end
+
+[service xrx_svc_file]
+{
+	* enum_filingprotocol FilingProtocol = FTP;
+	* string RepositoryAlias = "FTPFiling";
+	* string UserNetworkFilingLoginName = "";
+	* string UserNetworkFilingLoginId = "";
+	* string RepositoryName = "10.97.92.67:21";
+	* string DocumentPath = "/inetpub/wwwroot/ScanToEmailApp;
+}
+end
+
+
+
+[doc_object xrx_document]
+{
+	* string DocumentObjectName = "Scan";
+	* enum_docformat DocumentFormat = PDF;
+	* enum_searchabletext SearchableText = SEARCHABLE_IMAGE;
+	* string SourceDocumentLanguages = "en";
+	* enum_resolution Resolution = RES_300X300;
+	ref_invocation UserData = xrx_dscrpt_metadata:1, xrx_dscrpt_metadata:2, xrx_dscrpt_metadata:3;
+}
+end
+
+
+
+[description xrx_dscrpt_metadata]
+ 1{
+	* string MetaDataFieldName = "Name";
+	* string MetaDataType = "string";
+	* string MetaDataValue = "Name Value";
+}
+ 2{
+	* string MetaDataFieldName = "Title";
+	* string MetaDataType = "string";
+	* string MetaDataValue = "Title Value";
+}
+ 3{
+	* string MetaDataFieldName = "Author";
+	* string MetaDataType = "string";
+	* string MetaDataValue = "Author Value";
+}
+end
+
+

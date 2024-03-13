@@ -6,7 +6,7 @@
 
 using System;
 using System.Xml.Linq;
-using XRXNetWebservices.DeviceConfig;
+ using XRXNetWebservices.DeviceConfig;
 
 namespace ScanHomeEIP.Models
 {

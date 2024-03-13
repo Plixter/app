@@ -27,6 +27,7 @@ var templateName = "AirBusTemplate0001.xst";
 * This function initiates a scanv2 job
 */
 function startScan2home() {
+    
     var templateName = document.getElementById("templatename").value;
     //caminho
     var caminho = document.getElementById('dhpath').value;

@@ -4,11 +4,17 @@
 // MVID: 0C42E1EB-DAFE-4138-962A-8B9D50937472
 // Assembly location: C:\Users\50540533\Documents\Visual Studio 2019\Projects\Scan2HomeWebSite\Scan2HomeApp\Bin\ScanHomeEIP.dll
 
+using Scan2DRW.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.DirectoryServices;
+//using System.DirectoryServices.AccountManagement;
 using System.IO;
+using System.Security.Principal;
 using System.Xml.Serialization;
+
 
 namespace ScanHomeEIP.Models
 {
@@ -23,15 +29,32 @@ namespace ScanHomeEIP.Models
 		public List<string> list_MediaSize = new List<string>();
 		public List<string> list_FileType = new List<string>();
 		public List<string> list_Resolution = new List<string>();
+		public List<string> list_Groups = new List<string>();
+		public List<string> list_Mails = new List<string>();
+		public List<string> list_Unique_Groups = new List<string>();
+
+        public Dictionary<string, adinfo> list_ad_Groups = new Dictionary<string, adinfo>(); 
+
 
 		[RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Application name cannot be null, or contain any special char.")]
 		[DisplayName("App Name")]
 		[Required]
 		public string NomeApp { get; set; }
+		
 
 		[Required(ErrorMessage = "Server Fax domain name cannot be null.")]
 		[DisplayName("Server Fax domain name")]
-		public string Server { get; set; }
+		//Parte referente ao email os proximos 6 construtores
+		//public string assunto { get; set; } // assunto
+		//public string envia { get; set; } //quem evia
+		//public string corpo { get; set; } // mensagem
+		//public int nremailsSend { get; set; } //nr de emails para enviar
+		//public List<string> mailSend { get; set; } //lista emails enviar
+		//public List<String> mailCC { get; set; } //lista emails em CC
+		public string InputGetMail {  get; set; }
+        public string ReponseEmail { get; set; }
+
+        public string Server { get; set; }
 
 		public string UserName { get; set; }
 
@@ -178,7 +201,11 @@ namespace ScanHomeEIP.Models
 			easyXml.l_Orientation = SetLanguage.in_lang[application2.orientation];
 			easyXml.l_Resolution = SetLanguage.in_lang[application2.resolution];
 			streamReader.Close();
+
+			
 			return easyXml;
 		}
+
+
 	}
 }

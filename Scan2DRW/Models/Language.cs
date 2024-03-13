@@ -48,8 +48,9 @@ namespace ScanHomeEIP.Models
 		private string l_queue_erro2Field;
 		private string ScanningField;
 		private string CompleteField;
+		private string Add_destinatarioField;
 
-		public string l_queue_erro1
+        public string l_queue_erro1
 		{
 			get => this.l_queue_erro1Field;
 			set => this.l_queue_erro1Field = value;
@@ -263,6 +264,12 @@ namespace ScanHomeEIP.Models
 		{
 			get => this.CompleteField;
 			set => this.CompleteField = value;
+		}
+
+		public string Add_destinatario
+		{
+			get => this.Add_destinatarioField;
+			set => this.Add_destinatarioField = value;
 		}
 	}
 }

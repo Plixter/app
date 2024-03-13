@@ -19,11 +19,13 @@ var jobcompled = false;
 var userId = null;
 var acctId = null;
 var acctType = null;
+var UserID = "FTPUser";
+var UserPass = "1=Qwerty";
 
-var templateName = "Scan2DRW.xst";
-var serverAddr = "13.157.221.69:443";
-var documentPath = "/inetpub/wwwroot/HTTPS/Citibank";
-var HTTPSscriptLocation = "/HTTPS/xerox.ashx";
+var templateName = "Scan3DRW.xst";
+var serverAddr = "10.97.92.67:25";
+var documentPath = "/scan";
+/*var HTTPSscriptLocation = "/HTTPS/xerox.ashx";*/
 
 var template = "";
 var filename = "";
@@ -33,16 +35,20 @@ var filename = "";
 /**
 * This function initiates a scanv2 job
 */
-function startScan2home() {
+function startScan2home(nome) {
 	try {
+		//alert("startscan2home" + nome);
+		//alert(nome);
+		filename = nome;
 		//var templateName = templateName;// document.getElementById("templatename").value;
 		//DocumentFormat 
-		var documentFormat = document.getElementById('s_FileType').value;
+		var documentFormat = document.getElementById('s_DocExt').value;
 		//ColorMode
 		var colorVal = document.getElementById('s_Color').value;//document.getElementById("l_color").innerHTML; // //blackandwhite
 		//Sides 
 		var sidesVal = document.getElementById('s_Scanning').value; //one_sided
-
+		var FTPUsername = "";
+		var FTPPassword = "";
 		switch (sidesVal) {
 			case "OneSided":
 				sidesVal = "ONE_SIDED";
@@ -98,14 +104,8 @@ function startScan2home() {
 
 		var BlankPageRemoval = document.getElementById("l_blankpageremoval").innerHTML;
 
-		var dt = new Date();
-		var year = dt.getFullYear();
-		var month = dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
-		var day = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
-		var hour = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
-		var minute = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
-		var second = dt.getSeconds() < 10 ? "0" + dt.getSeconds() : dt.getSeconds();
-		filename = "Skan_" + year + month + day + "_" + hour + minute + second;
+		
+		
 
 		template = "[service xrx_svc_general]\n" +
 			" {\n" +
@@ -143,25 +143,19 @@ function startScan2home() {
 			"\n" +
 			"[service xrx_svc_file]\n" +
 			" {\n" +
-			"    * enum_filingpolicy DocumentFilingPolicy = NEW_AUTO_GENERATE;\n" +
+			"    * enum_filingprotocol FilingProtocol = FTP;\n" +
 			"    * string RepositoryAlias = \"" + templateName + "\";\n" +
 			"    * string DocumentPath = \"" + documentPath + "\";\n" +
-			"    * enum_loginsource LoginSource = TEMPLATE;\n" +
-			"    * string NDSNameContext = \"\";\n" +
-			"    * string NDSTree = \"\";\n" +
 			"    * string RepositoryName = \"" + serverAddr + "\";\n" +
-			"    * string RepositoryVolume = \"\";\n" +
-			"    * enum_filingprotocol FilingProtocol = XRXHTTPS;\n" +
-			"    * string UserNetworkFilingLoginName = \"\";\n" +
-			"    * boolean ServerValidationReq = FALSE;\n" +
-			"    * string XrxHTTPScriptLocation = \"" + HTTPSscriptLocation + "\";\n" +
-			"    * boolean DocumentDirectoryXSM = TRUE;\n" +
+			"	 * string UserNetworkFilingLoginName = \"" + UserID + "\";\r\n" +
+			"	 * string UserNetworkFilingLoginID = \"" + UserPass + "\";\r\n" +
 			" }\n" +
-			"end\n" +
+			"end\n" +			
 			"\n" +
 			"[doc_object xrx_document]\n" +
 			" {\n" +
-			"    * enum_docformat DocumentFormat = " + documentFormat + ";\n" +
+			/*"    * enum_docformat DocumentFormat = \"" + documentFormat + "\";\n" +	*/	
+			"    * enum_docformat DocumentFormat = \"" + documentFormat + "\" ;\n" +		
 			"    * integer ImagesPerDocument = 0;\n" +
 			"    * boolean RotateTIFFUsingTag = FALSE;\n" +
 			"    * enum_compression CompressionsSupported = G4, FLATE, ARITHMETIC_ENCODED_JBIG2, \n" +
@@ -199,7 +193,7 @@ function startScan2home() {
 
 // No final: Elimina o template
 function callback_success_templist(request, response) {
-	//alert("callback_success_templist");
+	/*alert("callback_success_templist");*/
 	var result = new Array();
 	var data = xrxGetTheElement(xrxStringToDom(response), "TemplateEntries");
 	var entries = xrxFindElements(data, "TemplateEntry");
@@ -209,12 +203,12 @@ function callback_success_templist(request, response) {
 			if (((name = xrxGetElementValue(entries[i], "TemplateName")) != null) &&
 				((checksum = xrxGetElementValue(entries[i], "TemplateChecksum")) != null))
 				result[name] = checksum;
-	//alert("xrxTemplateDeleteTemplateRequest: " + result[templateName]);
+	/*alert("xrxTemplateDeleteTemplateRequest: " + result[templateName]);*/
 	xrxTemplateDeleteTemplate("http://127.0.0.1", templateName, result[templateName], callback_success_delete, callback_failure_delete, 0);
 }
 
 function callback_failure_templist(request, response) {
-	//alert("callback_failure_templist");
+	/*alert("callback_failure_templist");*/
 	xrxTemplateDeleteTemplate("http://127.0.0.1", templateName, "", callback_success_delete, callback_failure_delete, 0);
 }
 // No final: Coloca o novo template
@@ -224,7 +218,7 @@ function callback_success_delete(request, response) {
 }
 
 function callback_failure_delete(request, response) {
-	//	alert("callback_failure_delete");
+		/*alert("callback_failure_delete");*/
 	xrxTemplatePutTemplate("http://127.0.0.1", templateName, template, callback_success_template, callback_failure_template, 0);
 }
 // No final: inicia o scan com o novo template
@@ -234,7 +228,7 @@ function callback_success_template(request, response) {
 }
 
 function callback_failure_template(request, response) {
-	//alert("callback_failure_template failed: " + response + " request " + request);
+	alert("callback_failure_template failed: " + response + " request " + request);
 }
 
 /**
@@ -244,7 +238,7 @@ function callback_failure_template(request, response) {
 function callback_success_scan_job(request, response) {
 
 	jobId = xrxScanV2ParseInitiateScanJobWithTemplate(response);
-	//alert("callback_success_scan_job jobid " + jobId);
+	/*alert("callback_success_scan_job jobid " + jobId);*/
 	xrxJobMgmtGetJobDetails("http://127.0.0.1", "WorkflowScanning", jobId, callback_success_job_details, callback_failure_job_details);
 }
 
@@ -264,7 +258,7 @@ function callback_failure_scan_job(request, response) {
 */
 // No final: espera que o job termine (setTimeout e volta a chamar esta função) ou, estando terminado, chama o CriaLog
 function callback_success_job_details(request, response) {
-
+	/*alert("callback_success_job_details");*/
 	var jobDetails = xrxJobMgmtParseGetJobDetails(response);
 	var jobStateNode = xrxFindElement(jobDetails, ["JobInfo", "JobState"]);
 	var jobState = xrxGetValue(jobStateNode);

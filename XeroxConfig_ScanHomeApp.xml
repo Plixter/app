@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Application ScanHomeApp created in 2022-03-18-->
+<Application>
+  <scanMode>TWO_SIDED</scanMode>
+  <scanType>MIXED</scanType>
+  <docName>Skan</docName>
+  <LDAPPath>123456</LDAPPath>
+  <SearchDirectoryRoot>qwerty</SearchDirectoryRoot>
+  <UserDomain>domain</UserDomain>
+  <UserName>username</UserName>
+  <UserPass>password</UserPass>
+  <Server>qwerty</Server>
+  <Share>qwerty</Share>
+  <Path>qwerty</Path>
+  <compressionQuality>0</compressionQuality>
+  <contrast>0</contrast>
+  <darkness>0</darkness>
+  <sharpness>0</sharpness>
+  <saturation>0</saturation>
+  <color>GRAYSCALE</color>
+  <orientation>PORTRAIT</orientation>
+  <mediaSize>AUTO</mediaSize>
+  <edgeErase>3/3/3/3/MM</edgeErase>
+  <fileType>TIFF_V6</fileType>
+  <resolution>RES_BEST</resolution>
+  <BlankPageRemoval>OMIT_ALL_BLANK_PAGES</BlankPageRemoval>
+  <BackSupression>False</BackSupression>
+  <ServerFolder>CitibankTest</ServerFolder>
+</Application>

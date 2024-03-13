@@ -1,71 +1,250 @@
 ﻿@model ScanHomeEIP.Models.EasyXML
+
+
 @{
-	ViewBag.Title = "ScanPage";
-	//Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ScanPage";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 
-	var un = TempData["username"].ToString();
-	TempData["username"] = un;
-	TempData.Keep("username");
+    var un = TempData["username"].ToString();
+    TempData["username"] = un;
+    TempData.Keep("username");
 
-	var ue = TempData["useremail"].ToString();
-	TempData["useremail"] = ue;
-	TempData.Keep("useremail");
+    var ue = TempData["useremail"].ToString();
+    TempData["useremail"] = ue;
+    TempData.Keep("useremail");
 
-	var v = TempData["versio"].ToString();
-	TempData["versio"] = v;
-	TempData.Keep("version");
+    var v = TempData["versio"].ToString();
+    TempData["versio"] = v;
+    TempData.Keep("version");
 
-	//string sts = TempData["SendToServer"].ToString();
-	//TempData["SendToServer"] = sts;
-	//TempData.Keep("SendToServer");
+    //string sts = TempData["SendToServer"].ToString();
+    //TempData["SendToServer"] = sts;
+    //TempData.Keep("SendToServer");
 
-	var jobsinprog = TempData["base64"];
-	TempData["base64"] = jobsinprog;
-	TempData.Keep("base64");
+    var jobsinprog = TempData["base64"];
+    TempData["base64"] = jobsinprog;
+    TempData.Keep("base64");
 
-	var templatename = "XTemplate0001.xst";
-	@*
-		var templatename =  TempData["TemplateName"].ToString();
-	*@
-	TempData["TemplateName"] = templatename;
-	TempData.Keep("TemplateName");
+    var templatename = "XTemplate0001.xst";
+
+    TempData["TemplateName"] = templatename;
+    TempData.Keep("TemplateName");
+
+    var bla = Model.list_ad_Groups;
+    List<string> listaemails = new List<string>();
+    string[] arrayemail = new string[bla.Count()];
+    int count = bla.Count();
+
+    //var emailsArray = ViewBag.EmailsArray as string[];
+    //var final_emails_view = TempData["final_emails_view"];
+    //TempData["final_emails_view"] = final_emails_view;
+    //TempData.Keep("final_emails_view");
+
+    int i = 0;
+    foreach (var item in bla)
+    {
+        //    listaemails.Add(item.Value.mail);
+        //    arrayemail.Append(item.Value.mail);
+        arrayemail[i] = Json.Encode(item.Value.mail);
+
+        //listaemails.Add(item.Value.mail);
+        //arrayemail.Prepend(item.Value.mail);
+        i++;
+    }
+
+    //  var arrayemail = Html.Raw(Json.Encode(Model.list_Mails));//
+
+    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails)); ; // new string[bla.Count()];
+
+
+
+
 
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title></title>
+    <title></title>
 
-	@*  <link href="~/styles/XRXWidgets.css" rel="stylesheet" />*@
+    @*  <link href="~/styles/XRXWidgets.css" rel="stylesheet" />*@
 
-	<link rel="stylesheet" href="~/styles/common.css" />
+    <link rel="stylesheet" href="~/styles/common.css" />
 
-	<link href="/xrx_g9_widgets/XRXg9Widgets.min.css" type="text/css" rel="stylesheet" />
-	<script src="/xrx_g9_widgets/XRXg9Widgets.min.js" type="text/javascript"></script>
+    <link href="/xrx_g9_widgets/XRXg9Widgets.min.css" type="text/css" rel="stylesheet" />
+    <script src="/xrx_g9_widgets/XRXg9Widgets.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-	@*<script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>*@
-	<script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
-	<script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
-	<script type="text/javascript" src="~/Scripts/XRXScanV2.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXRouter.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXWebservices.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXXmlHandler.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXScanV2.js"></script>
 
-	<script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
-	<script type="text/javascript" src="~/Scripts/XRXUtilities.js"></script>
-	<script type="text/javascript" src="~/Scripts/XRXJobManagement.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXSession.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXUtilities.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXJobManagement.js"></script>
 
-	<script type="text/javascript" src="~/Scripts/XRXTemplate.js"></script>
+    <script type="text/javascript" src="~/Scripts/XRXTemplate.js"></script>
 
-	
-	<script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
-	<script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
-	<script type="text/javascript" src="~/Scripts/version.js"></script>
 
-	@*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
 
-	<script>
+    <script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
+    <script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
+    <script type="text/javascript" src="~/Scripts/version.js"></script>
+
+
+
+
+    @*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
+
+<script>
         function inti() {
             try {
+
+                CriaNomeFile();
                 document.documentElement.style.overflow = 'hidden';
                 $("#demoContentContainer").xrxscrollable({});
+
+
+                $("#procuraAD").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: 'Procurar na lista de contactos',
+                    themePrimary: true,
+                    widgetSize: "xrx-medium",
+                    theme: "green",
+                    bordered: true
+                });
+
+                //$("#entradamanual").xrxbutton({
+                //    disabled: false,
+                //    text: true,
+                //    label: 'Entrada Manual',
+                //    themePrimary: true,
+                //    widgetSize: "xrx-medium",
+                //    theme: "green",
+                //    bordered: true
+                //});
+
+                $("#turnback").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    themePrimary: true,
+                    icons: {
+                        glyph: "glyphicon-arrow-left"
+                    },
+                    widgetSize: "xrx-medium",
+                    theme: "green",
+                    bordered: true
+                });
+
+
+
+
+                $("#SaveEmail").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: 'Guardar',
+                    themePrimary: true,
+                    widgetSize: "xrx-medium",
+                    theme: "green",
+                    bordered: true
+                });
+
+                //$("#tags").xrxkeyboard({
+                //    disabled: false,
+                //    text: true,
+                //    styleInput: true,
+                //    label: 'ContactAD',
+                //    initialPlaceholder: "Procurar Contactos",
+                //    theme: "tan",
+                //    themePrimary: true,
+                //    layout: "pt",
+                //    widgetSize: "xrx-medium",
+                //    usePreview: false
+                //});
+
+                $("#header_popup_AD").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: 'Contactos',
+                    themePrimary: true,
+                    widgetSize: "xrx-medium",
+                    theme: "tan",
+                    bordered: true
+                });
+
+                $("#header_popup_contacts").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: 'Favoritos',
+                    themePrimary: true,
+                    theme: "tan",
+                    widgetSize: "xrx-medium",
+                    bordered: true
+                });
+
+                //$("#close_popup_btn").xrxbutton({
+                //    disabled: false,
+                //    text: true,
+                //    label: '',
+                //    icons: {
+                //        glyph: "glyphicon-close-square"
+                //    },
+                //    themePrimary: true,
+                //    theme: "tan",
+                //    widgetSize: "xrx-medium",
+                //    bordered: true
+                //});
+
+                $("#MailCorpo").xrxkeyboard({
+                    disabled: false,
+                    text: true,
+                    styleInput: true,
+                    label: 'Anexo',
+                    initialPlaceholder: "Digitalizado em uma multifuncional Xerox",
+                    theme: "green",
+                    themePrimary: true,
+                    layout: "pt",
+                    usePreview: true,
+                    widgetSize: "xrx-medium"
+                });
+
+                $("#Assunto").xrxkeyboard({
+                    disabled: false,
+                    text: true,
+                    label: 'Assunto: Digitalizado de uma impressora multifuncional da Xerox',
+                    initialPlaceholder:  "Assunto: Digitalizado de uma impressora multifuncional da Xerox",
+                    icons: {
+                        glyph: "glyphicon-paperclip"
+                    },
+                    theme: "green",
+                    themePrimary: true,
+                    layout: "pt",
+                    usePreview: true,
+                    widgetSize: "xrx-medium"
+                });
+
+                $("#b_Add_contact").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: 'Adicionar Destinatário',
+                    icons: {
+                        glyph: "glyphicon-add-square"
+                    },
+                    theme: "green",
+                    themePrimary: true,
+                    widgetSize: "xrx-medium"
+                });
+
+                $("#b_email").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: '@un',
+                    theme: "green",
+                    themePrimary: true,
+                    widgetSize: "xrx-medium"
+                });
 
                 $('#b_Reset').xrxbutton({
                     disabled: false,
@@ -133,44 +312,61 @@
                     theme: "blue",
                     widgetSize: "xrx-small"
                 });
+                $("#Format-xrx-popover-id").xrxpopover({
+
+                    theme: "white",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#Color"
+                });
 
                 $("#Color-xrx-popover-id").xrxpopover({
 
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-					targetControl: "#Color"
+                    targetControl: "#Color"
+                });
+
+                $("#DocExt-xrx-popover-id").xrxpopover({
+
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#DocExt"
                 });
 
                 $("#ScanType-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-					targetControl: "#ScanType"
+                    targetControl: "#ScanType"
                 });
 
                 $("#Scanning-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-					targetControl: "#Scanning"
+                    targetControl: "#Scanning"
                 });
 
                 $("#Orientation-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-					targetControl: "#Orientation"
+                    targetControl: "#Orientation"
                 });
 
                 $("#Resolution-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-					targetControl: "#Resolution"
+                    targetControl: "#Resolution"
                 });
 
                 $("#Size-xrx-popover-id").xrxpopover({
                     theme: "green",
                     arrowPosition: "xrx-arrow-bottom",
-					targetControl: "#Size"
+                    targetControl: "#Size"
                 });
-
+                $("#ScanType-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#Size"
+                });
                 $("#s_Scanning").xrxsegmentedcontrol({
                     type: "textonly",
                     widgetSize: "xrx-small",
@@ -182,6 +378,16 @@
                     }
                 });
 
+                $("#s_format").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 175,
+                    change: function (event, ui) {
+                        document.getElementById("l_Type").innerHTML = ui.item.label;
+                    }
+                });
                 $("#s_Type").xrxsegmentedcontrol({
                     type: "textonly",
                     widgetSize: "xrx-small",
@@ -204,6 +410,18 @@
                     }
                 });
 
+                $("#s_DocExt").xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 125,
+                    change: function (event, ui) {
+                        document.getElementById("l_DocExt").innerHTML = ui.item.label;
+                        document.getElementById("l_DocExt").value = ui.item.value;
+                    }
+                });
+
                 $("#s_Orientation").xrxsegmentedcontrol({
                     type: "textonly",
                     widgetSize: "xrx-small",
@@ -213,6 +431,12 @@
                     change: function (event, ui) {
                         document.getElementById("l_Orientation").innerHTML = ui.item.label;
                     }
+                });
+
+                $("#color-xrx-popover-id").xrxpopover({
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-left",
+                    targetControl: "#color"
                 });
 
                 $("#s_Resolution").xrxsegmentedcontrol({
@@ -237,16 +461,17 @@
                     }
                 });
 
+
                 //Keyboard for Spin Box Entry
                 $('#xrx-spinner-input').xrxkeyboard({
                     layout: 'xrxNum',
                     appendLocally: false,
-                    styleInput: false,
+                    styleInput: false
                 });
 
                 readxml();
-				document.getElementById("loading_screen").style.display = "none";
-				document.getElementById("hide_while_loading").style.display = "";
+                document.getElementById("loading_screen").style.display = "none";
+                document.getElementById("hide_while_loading").style.display = "";
 
                 $("#alert1").xrxalert({
                     buttons: [{
@@ -269,7 +494,7 @@
                         glyph: "glyphicon-user"
                     },
                     text: true,
-                    label: '@un',
+                    label: '@un'
                 });
 
                 $('#username').bind("click", function () {
@@ -289,6 +514,8 @@
 
                 $('#btscan').bind("click", function () {
                     OpenAlert("btscan");
+
+                    /*('#SendEmail').Click();*/
                 });
 
                 $('#enter_pass').xrxkeyboard({
@@ -304,21 +531,24 @@
                     theme: "pink",
                     close: function (event, ui) {
                         StartScan();
+
+                        /*document.getElementById('SendEmail').click();*/
                     },
                 });
 
                 $("#progress_scan").xrxactivityindicator({
-					widgetSize: "xrx-large",
-					theme: "pink"
-				});
+                    widgetSize: "xrx-large",
+                    theme: "pink"
+                });
 
                 $("#banner1").xrxbanner({
+
                     bannerType: "active",
                     bannerTimeout: 3000,
                 });
             }catch (ex) {
                 alert(ex);
-			}
+            }
         };
 
         function OpenAlert(item) {
@@ -327,7 +557,10 @@
             }
             else if (item == "btscan") {
                 $("#popup_progress").xrxpopup("open");
-				StartScan();
+                StartScan();
+                /*SendMail();*/
+
+
             }
         }
 
@@ -337,21 +570,7 @@
         }
 
         function readxml() {
-            //alert("ReadXML " );
-            @*var sts = '@sts';
-            document.getElementById("sts").value = sts;
-            if (sts == 'true') {
-            var UserName = '@Model.UserName';
-            document.getElementById("serverUserName").value = UserName;
-            var UserPass = '@Model.UserPass';
-            document.getElementById("UserPass").value = UserPass;
-            var Server = '@Model.Server';
-            document.getElementById("Server").value = Server;
-            var Share = '@Model.Share';
-            document.getElementById("Share").value = Share;
-            var Path = '@Model.Path';
-            document.getElementById("Path").value = Path;
-            }*@
+
 
             var template = '@templatename';
             document.getElementById("templatename").value = template;
@@ -360,14 +579,12 @@
             var UserDomain = '@Model.UserDomain';
             document.getElementById("userdomain").innerHTML = UserDomain;
 
-            @*var docname = '@Model.docName';
-            document.getElementById("filename").value = docname;*@
 
-            @* alert('@Model.homedirectory');*@
-            @*document.getElementById("dhpath").value = String('@Model.homedirectory');*@
 
             var Color = '@Model.Color';
             document.getElementById("l_color").innerHTML = Color;
+
+
             if (Color == "BlackAndWhite") {
                 Color = "BLACK_AND_WHITE";
             }
@@ -376,8 +593,8 @@
             } else if (Color == "Auto") {
                 Color = "AUTO";
             } else if (Color == "Grayscale") {
-				Color = "GRAYSCALE";
-			}
+                Color = "GRAYSCALE";
+            }
 
             document.getElementById("s_Color").value = Color;
 
@@ -396,30 +613,19 @@
             var res = '@Model.Resolution';
             document.getElementById("s_Resolution").value = res;
             document.getElementById("l_Resolution").innerHTML = '@Model.l_Resolution';
-            //if (res == "RES_LOWEST") {
-            //    document.getElementById("s_Resolution").value = res;
-            //    document.getElementById("l_Resolution").innerHTML = 'Low';
-            //}
-            //else if (res == "RES_BEST") {
-            //    document.getElementById("s_Resolution").value = res;
-            //    document.getElementById("l_Resolution").innerHTML = 'Standard';
-            //}
-            //else if (res == "RES_HIGHEST") {
-            //    document.getElementById("s_Resolution").value = res;
-            //    document.getElementById("l_Resolution").innerHTML = 'Hight';
-            //}
+
 
             var mediasize = '@Model.MediaSize';
-            //alert("mediasize" + '@Model.MediaSize');
+
             document.getElementById("s_Size").value = mediasize;
             document.getElementById("l_Size").innerHTML = mediasize.replace("ISO_", "");
 
             var dark = '@Model.Darkness';
-            //document.getElementById("l_Darken").innerHTML = dark;
+
             $("#s_Darken").xrxspinbox("value", dark);
 
 
-            //document.getElementById("l_Contrast").innerHTML = 'Model.Contrast';
+
             $("#s_Contrast").xrxspinbox("value", '@Model.Contrast');
 
             var docformat = '@Model.FileType';
@@ -438,320 +644,1032 @@
 
             var edge = '@Model.EdgeErase';
             document.getElementById("l_edge").innerHTML = edge;
-        }
 
-        function StartScan() {
-           // alert("BT StartScan");
+
+            document.getElementById("s_DocExt").value = "PDF";
+            document.getElementById("l_DocExt").innerHTML = "pdf";
+            document.getElementById("l_DocExt").value = "pdf";
+            /*alert("PDF");*/
+        }
+            var flag = 0;
+    function StartScan() {
+        /*alert("startscan");*/
+        var token = 0;
+        flag ++;
+        if (flag == 1) {
+            //alert("BT StartScan");
             $("#btscan").xrxbutton({ disabled: true });
 
 
             @*if ('@jobsinprog'.toUpperCase() == "TRUE") {
                 $('#banner1').xrxbanner('call');
-                setTimeout("window.location.href = '@Url.Action("Index", "Home")'", 5000);
+                setTimeout("window.location.href = '@Url.Action("Index", "Home")'", 10000);
             }
             else {*@
-		    //alert("Inicia Scan");
-                startScan2home();
+            //alert("Inicia Scan");
+
+            startScan2home(nomefile);
             //}
         }
-	</script>
-	<style>
-		#loading_screen {
-			position: absolute;
-			padding: 0px;
-			height: 100%;
-			width: 100%;
-			/*box-shadow: 0px 10px 10px -5px rgba(29, 29, 29, .35);*/
-			z-index: 1200;
-			color: white;
-			font-size: 48px;
-			align-content: center;
-			background-color: rgba(0, 0, 0, .85);
-			text-align: center;
-			vertical-align: middle;
-			padding-top: 250px;
-			overflow: hidden;
-		}
+        else token = 1;
 
-		.align-mid.outer {
-			display: table;
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 100%;
-			width: 100%;
-		}
+    }
 
-		.align-mid.inner {
-			display: table-cell;
-			vertical-align: middle;
-		}
-	</style>
+        //INCIO DO JS PARA O POP DOS CONTACTOS DA AD
+        $popupAD = function (id) {
+            return document.getElementById(id);
+
+        }
+
+        var show = function (id) {
+            $popupAD(id).style.display = 'block';
+            //abre duas divs uma transparente para bloquear o background e outra com o popup
+
+        }
+        var hide = function (id) {
+            $popupAD(id).style.display = 'none';
+
+        }
+
+
+        function ShowAD(par) {
+            // INICIO DO HTML DO POPUP COM OS CONTACTOS DA AD
+
+
+            if (par == 0) {
+                document.getElementById('my_contacts_div').classList.toggle('active');
+            }
+            if (par == 1) {
+                document.getElementById('my_ad_contacts').classList.toggle('active');
+
+            }
+            if (par == 2) {
+                document.getElementById('popup2').classList.toggle('active');
+            }
+            else {
+                document.getElementById('blockBackground2').classList.toggle('active');
+
+            }
+
+
+        }
+
+        //codigo do email
+    function deleteEmailAndUpdateTable(indexRow) {
+
+        //alert("ola" + indexRow);
+        var emailsTo = list_emails_escolhidos.split(",");
+        var emailsCC = list_emails_CC.split(",");
+       /* document.getElementById("btscan").style.display = "none";*/
+        //alert(indexRow); //isto vai sempre ter o ultimo email inserido
+        var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+        var index = 0;
+        var indexCC = 0;
+        var indexTo = 0;
+        var flag = false;
+        //alert(emailsCC.length);
+        for (var x = 0; x < emailsCC.length; x++) {
+            if (emailsCC[x] == mail) {
+                flag = true;
+                indexCC = x;
+            }
+        }
+        if (flag) {
+            //alert("tentei flag");//list_emails_CC.includes(mail)
+            index = emailsCC.indexOf(mail);
+            
+            emailsCC.splice(index, 1);
+            list_emails_CC = emailsCC;
+        }
+        else {
+            //alert("tentei");
+            //alert(emailsTo.length+ '++');
+            index = emailsTo.indexOf(mail);
+            //alert(index + 'indexof');
+            emailsTo.splice(index, 1);
+           /* alert("a seguir ao indexof");*/
+            list_emails_escolhidos = emailsTo;
+        }
+        //var emails = list_emails_escolhidos.split(",");
+        //emails.splice(indexRow, 1);
+        //alert("");
+        document.getElementById("RowEmails_escolhidos_" + indexRow).style.display = "none";
+       
+      /*  list_emails_escolhidos = emails;*/
+        
+    }
+    //function GetIndex(email, list) {
+    //    if (list.includes(email)) {
+    //        return list.indexOf(email);
+            
+    //    }
+    //    else {
+    //        return -99;
+    //    }
+    //}
+    //function CheckIfCC(email) {
+    //    if (list_emails_CC.includes(mail)) {
+    //        return true;
+    //    }
+    //    else {
+    //        return false;
+    //    }
+    //}
+    //function ChangeStatus(indexRow) {
+    //    /*document.getElementById("CheckCC" + indexRow).value;*/
+
+    //}
+
+        function addstylebutton(i) {
+
+                $('#emails_escolhidos' + i).xrxbutton({
+                    disabled: false,
+                    text: true,
+                    theme: "green",
+                    themePrimary: true,
+                    widgetSize: "xrx-medium"
+                });
+            $('#emails_Cc' + i).xrxbutton({
+                disabled: false,
+                text: true,
+                theme: "green",
+                icons: {
+                    glyph: "glyphicon-recipient-cc"
+                },
+                themePrimary: true,
+                widgetSize: "xrx-small"
+            });
+            $('#emails_To' + i).xrxbutton({
+                disabled: false,
+                text: true,
+                theme: "green",
+                icons: {
+                    glyph: "glyphicon-recipient-to"
+                },
+                themePrimary: true,
+                widgetSize: "xrx-small"
+            });
+
+                $('#s_email' + i).xrxsegmentedcontrol({
+                    type: "textonly",
+                    widgetSize: "xrx-small",
+                    theme: "green",
+                    themePrimary: false,
+                    height: 175,
+                    change: function (event, ui) {
+                        document.getElementById('emails_escolhidos' + i).innerHTML = ui.item.label;
+                }
+                });
+            $('#delete_emails_escolhidos' + i).xrxbutton({
+                disabled: false,
+                text: true,
+                theme: "green",
+                icons: {
+                    glyph: "glyphicon-trash"
+                },
+                themePrimary: true,
+                widgetSize: "xrx-small"
+            });
+
+
+                $('#OptionsEmail-xrx-popover-' +i).xrxpopover({
+
+                    theme: "green",
+                    arrowPosition: "xrx-arrow-bottom",
+                    targetControl: "#Color"
+
+                });
+        }
+
+        //declarar vars
+    var i = 0;
+    var emails_escolhidos = "";
+    var list_emails_escolhidos = "";
+    var userligado = "";
+    var list_emails_CC = "";
+
+
+    /*ver se existe user ligado*/
+    function SaveOnTo(indexRow) {
+        var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+        alert("saveTO");
+        var flagcc = false;
+        var flagto = false;
+        var emailsTo = list_emails_escolhidos.split(",");
+        var emailsCC = list_emails_CC.split(",");
+        var indexCC = 0;
+        var indexTo = 0;
+
+        for (var x = 0; x < emailsTo.length; x++) {
+            if (emailsTo[x] == mail) {
+                flagto = true;
+                indexTo = x;
+            }
+        }
+        for (var x = 0; x < emailsCC.length; x++) {
+            if (emailsCC[x] == mail) {
+                flagcc = true;
+                indexCC = x;
+            }
+        }
+        if (flagto) {
+            list_emails_escolhidos = list_emails_escolhidos;
+        }
+        else {
+            if (flagcc) {
+                /*var index = list_emails_CC.indexOf(mail);*/
+                emailsCC.splice(indexCC, 1);
+                list_emails_CC = emailsCC;
+                list_emails_escolhidos = list_emails_escolhidos + mail;
+            }
+            else {
+                alert("tentei meter no TO");
+                list_emails_escolhidos = list_emails_escolhidos + mail;
+
+            }
+        }
+    }
+
+    function SaveOnCC( indexRow) {
+        alert("saveCC");
+        var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+
+        //alert(mail);
+        var flagcc = false;
+        var flagto = false;
+        var emailsTo = list_emails_escolhidos.split(",");
+        var emailsCC = list_emails_CC.split(",");
+        var indexCC = 0;
+        var indexTo = 0;
+        alert(emailsTo.length);
+        alert(emailsCC.length);
+        for (var x = 0; x < emailsTo.length; x++) {
+            if (emailsTo[x] == mail) {
+                flagto = true;
+                indexTo = x;
+            }
+        }
+        for (var x = 0; x < emailsCC.length; x++) {
+            if (emailsCC[x] == mail) {
+                flagcc = true;
+                indexCC = x;
+            }
+        }
+        alert(indexCC + "CC");
+        alert(indexTo + "TO");
+        /*verifica se o mail está na lista para CC*/
+        if (flagcc) {
+            list_emails_CC = emailsCC;
+        }
+        else {
+            
+            //verifica se o email está na lista para enviar
+            if (flagto){
+                //Update list_emails_escolhidos retira o email da lista
+                /*var index = list_emails_escolhidos.indexOf(mail);*/
+                emailsTo.splice(indexTo, 1);
+                list_emails_escolhidos = emailsTo;
+                list_emails_CC = list_emails_CC  + mail ;
+                //SaveOnCC(mail); //manda outra vez para o adicionar à lista
+            }
+            else {
+                alert("tentei meter no CC");
+                list_emails_CC = list_emails_CC  + mail;
+            }
+        }
+    }
+
+    //if (un == null) {
+    //    /*userligado = "joao.barata@xerox.com";*/
+    //    list_emails_escolhidos += userligado;
+    //}
+    //else {
+    //    list_emails_escolhidos += un + ","; //insere o email do utilizador na lista de emails para enviar
+    //}
+    function isValidEmail(email) {
+        // Regular expression for a simple email validation
+        var emailRegex = @Html.Raw(@"/^[^\s@]+@[^\s@]+\.[^\s@]+$/");
+        return emailRegex.test(email);
+    }
+
+    var NomeDoGrupo = "";
+
+    function SaveEmailLidos() {
+        //nrmailsgravados++;
+
+        emails_escolhidos = document.getElementById("tags").value.trim(); // Trim to remove leading/trailing spaces
+
+        // Check if the emails are valid
+        if (!isValidEmail(emails_escolhidos)) {
+            //2 opções, pode ser um username ou um grupo
+            //tratando do grupo
+            NomeDoGrupo = emails_escolhidos;
+        }
+        else {
+            list_emails_escolhidos += emails_escolhidos;
+
+        }
+        
+        
+        //$('#tabela-mail tbody').append('<tr style:"height=10%; width=100%;"><td><div id="OptionsEmail-xrx-popover-' + i + '"><select name="s_email" id="s_email"> <option value="Eliminar">Eliminar</option> </select></div></td></tr>');
+        
+        $('#tabela-mail tbody').append('<tr id="RowEmails_escolhidos_' + i + '" style="align-content:center;"><td><button class="xrxbutton" id="emails_escolhidos' + i + '" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;" >' + emails_escolhidos + '</button><button class="xrxbutton" id="emails_To' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(' + i + ');"></button><button class="xrxbutton" id="emails_Cc' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(' + i + ');"></button><button class="xrxbutton" id="delete_emails_escolhidos' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="deleteEmailAndUpdateTable(' + i + ');  "></button></td></tr>');
+        //alert(emails_escolhidos);
+
+        addstylebutton(i);
+        document.getElementById("tags").value = ""; // Clear the input to receive another email
+        i++;
+    }
+
+
+
+
+</script>
+<style>
+       
+
+        #loading_screen {
+            position: absolute;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+            /*box-shadow: 0px 10px 10px -5px rgba(29, 29, 29, .35);*/
+            z-index: 1200;
+            color: white;
+            font-size: 48px;
+            align-content: center;
+            background-color: rgba(0, 0, 0, .85);
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 250px;
+            overflow: hidden;
+        }
+
+        .align-mid.outer {
+            display: table;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .align-mid.inner {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .blockBackground {
+            display: none;
+        }
+
+        .blockBackground2 {
+            display: none;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            width: 80%;
+            left: 10%;
+            margin-left: 10%;
+            height: 80%;
+            top: 18%;
+            margin-top: 0%;
+            background: #debfa0;
+        }
+
+        .popup2 {
+            display: none;
+            position: fixed;
+            width: 80%;
+            left: 10%;
+            margin-left: 10%;
+            height:30%;
+            top: 18%;
+            margin-top: 0%;
+            background: #debfa0;
+        }
+
+        #popup:after {
+            position: fixed;
+            content: "";
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: -2;
+        }
+
+        #popup:before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: #FFF;
+            z-index: -1;
+        }
+
+        .popupk {
+            display: none;
+            position: fixed;
+            padding: 10px;
+            width: 280px;
+            left: 50%;
+            margin-left: -150px;
+            height: 180px;
+            top: 50%;
+            margin-top: -100px;
+            background: #FFF;
+            border: 3px solid #F04A49;
+            z-index: 20;
+        }
+
+        #popupk:after {
+            position: fixed;
+            content: "";
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: -2;
+        }
+
+        #popupk:before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: #FFF;
+            z-index: -1;
+        }
+
+        #popupselect {
+            font-size: 25px;
+            display: none;
+        }
+
+        popupselect.active {
+            display: block;
+        }
+
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #D2B48C;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+        /* CSS to make the form initially invisible */
+        #emailForm {
+            display: none;
+        }
+
+</style>
 </head>
 <body style="height: 800px">
-	<script>window.onload = inti;</script>
-	<div id="loading_screen" align="center">
-		<label align="center" style="left: 40%; top: 45%;">
-			<strong>Loading...</strong>
-		</label>
-	</div>
+    <script>window.onload = inti;</script>
+    <div id="loading_screen" align="center">
+        <label align="center" style="left: 40%; top: 45%;">
+            <strong>Loading...</strong>
+        </label>
+    </div>
 
-	<div id="hide_while_loading" style="display: none">
-		<!--aqui é o header da pag-->
-		<div id="action_bar" style="color: white; overflow: hidden; width: 100%" class="xrx-action-bar xrx-background pink">
-			<div style="float: left; width: 30%">
-				<button id="username"></button>
-			</div>
-			<div style="float: left; margin: 0 auto; width: 40%; padding-top: 21px; text-align: center">
-				<label style="font-size: 32px">
-					@ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
-				</label>
-			</div>
-			<div style="float: right">
-				<button style="text-align: center;" id="btscan"></button>
-			</div>
-		</div>
+    <div id="hide_while_loading" style="display: none">
+        <!--aqui é o header da pag-->
+        <div id="action_bar" style="color: white; overflow: hidden; width: 100%; height:17.5% " class="xrx-action-bar xrx-background green">
+            <div style=" float: left; width: 30%; margin-left:3.5%">
+                <button style="border-radius: 10px;" id="username"></button>
+            </div>
 
-		<div id="demoContentContainer">
-			@*<div style="height: 180px; padding-left: 20px; padding-right: 20px; color: white;" class="xrx-background pink">
-				<table>
-					<tr>
-						<td>
-							<input id="dhpath" type="text" style="width: 718px;" disabled/>
-						</td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td>
-							<input id="filename" type="text" style="width: 550px" />
-							value="nomedoficheiro[date&time] size="150" "
-						</td>
-						<td style="width: 155px; padding-right: 25px;">
-							<button id="tipodeficheiros"></button>
-						</td>
-					</tr>
-				</table>
-			</div>*@
-			<div style="padding-top: 10px"></div>
-			<div id="tableContainer" style="margin: auto">
-				<table id="featureTable">
-					<tbody>
-						<tr id="Color">
-							<td>
-								<img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
-							</td>
-							<td>
-								<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
-							</td>
-							<td style="width: 25%; padding-right: 10px;" align="right" id="l_color"></td>
-						</tr>
-						<tr id="Scanning">
-							<td>
-								<img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
-							</td>
-							<td>
-								<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
-							</td>
-							<td style="width: 25%; padding-right: 10px;" align="right">
-								<label id="l_Scanning" style="text-align: right"></label>
-							</td>
-						</tr>
-						<tr id="ScanType">
-							<td>
-								<img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
-							</td>
-							<td>
-								<label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
-							</td>
-							<td style="width: 25%; padding-right: 10px;" align="right">
-								<label id="l_Type" style="text-align: right"></label>
-							</td>
-						</tr>
-						<tr id="Orientation">
-							<td>
-								<img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
-							</td>
-							<td>
-								@ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
-							</td>
-							<td style="width: 25%; padding-right: 10px;" align="right">
-								<label id="l_Orientation" style="text-align: right"></label>
-							</td>
-						</tr>
-						<tr id="Resolution">
-							<td style="width: 48px">
-								<img src="~/styles/images/sharpness_48.png" height="48" width="48" />
-							</td>
-							<td style="width: 60%">
-								@ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
-							</td>
-							<td style="width: 25%; padding-right: 10px;" align="right">
-								<label id="l_Resolution" style="text-align: right"></label>
-							</td>
-						</tr>
-						<tr id="Size">
-							<td style="width: 48px">
-								<img src="~/styles/images/original_size_48.png" height="48" width="48" />
-							</td>
-							<td style="width: 60%">
-								@ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
-							</td>
-							<td style="width: 25%; padding-right: 10px;" align="right">
-								<label id="l_Size"></label>
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 48px">
-								<img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
-							</td>
-							<td style="width: 60%">
-								@ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
-							</td>
-							<td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
-								<input id="s_Darken" />
-							</td>
-						</tr>
-						<tr>
-							<td style="width: 48px">
-								<img src="~/styles/images/contrast_48.png" height="48" width="48" />
-							</td>
-							<td style="width: 60%">
-								@ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
-							</td>
-							<td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
-								<input id="s_Contrast" />
-							</td>
-						</tr>
-						@*<tr>
-							<td style="width: 48px">
-								<img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
-							</td>
-							<td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
-							<td style="width: 35%">
-								<!--<label id="BackgroundSuppression"></label>-->
-								<div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
-							</td>
-						</tr>*@
-					</tbody>
-				</table>
-				<table style="width: 100%;">
-					<tr>
-						<td align="center">
-							<button style="text-align: center" id="b_Reset" onclick="readxml()"></button>
-						</td>
-					</tr>
-				</table>
+            <div style="float: left; margin: 0 auto; width: 40%; padding-top: 21px; text-align: center">
+                <label style="font-size: 32px">
+                    @ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
+                </label>
+            </div>
+            <div style="float: right; margin-right:3.5%">
+                <button style="border-radius: 10px; text-align: center;" id="btscan"></button>
+                
+            </div>
+        </div>
+    </div>
 
-			</div>
+    <div id="demoContentContainer">
+        <div id="email_header" class="xrx-background green">
 
-		</div>
-		<div>
-			<label id="l_DocumentFormat" style="visibility: hidden"></label>
-			<label id="l_blankpageremoval" style="visibility: hidden"></label>
-			<label id="l_edge" style="visibility: hidden"></label>
-			<label id="userdomain" style="visibility: hidden"></label>
-			<label id="serverUserName" style="visibility: hidden"></label>
-			<label id="UserPass" style="visibility: hidden"></label>
-			<label id="Server" style="visibility: hidden"></label>
-			<label id="Share" style="visibility: hidden"></label>
-			<label id="Path" style="visibility: hidden"></label>
-			<label id="sts" style="visibility: hidden"></label>
-			<label id="templatename" style="visibility: hidden"></label>
-		</div>
+            <table id="tabela-mail" style="width:93%; margin-left:3.5%; margin-right:3.5%;">
+                <tbody>
+                    <tr style=" align-content:center;">
+                        <td>
+                            <button id="b_Add_contact" name="btn_destino" style="display:flex; border-radius: 10px; width:99%;  text-align: left;" href="#" class="xrx-background green" onclick=" show('popup2'); show('blockBackground2'); ShowAD(1);">   </button>
+                        </td>
+                    </tr>
+                    <tr id="pai" style=" align-content: center;">
+                        <td>
+                            <button id="b_email" name="display_destino" style=" border-radius: 10px; text-align: left; width: 99%; height:100%; padding-bottom: 5px;"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="tabela-corpo" style="width:93%; margin-left:3.5%; margin-right:3.5%;">
+                <tbody>
+                    <tr style=" align-content:center; ">
+                        <td>
+                            <input type="text" id="Assunto" placeholder="Digitalizado de uma impressora multifuncional da Xerox" name="display_Assunto" style=" display: flex; border-radius: 10px; width: 96%; text-align: left; padding-bottom: 5px; ">
+                        </td>
+                    </tr>
+                    <tr style=" align-content:center;">
+                        <td>
+                            <input type="text" id="MailCorpo" placeholder="Digitalizado em uma multifuncional Xerox" name="display_MailCorpo" style="display: flex;  border-radius: 10px; text-align: left; width: 70%; border-top: 15px; padding-bottom: 5px; ">
 
-		<input type="hidden" id="s_FileType" name="s_FileType" value="" />
+                        </td>
+                        <td id="DocExt">
+                            <label style="width: 25%; padding-right: 10px; border:solid 1px;" align="right" id="l_DocExt"></label>
 
-		<div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
 
-		<div id="popup_progress">
-			<!--Todas estas divs são necessárias para os alinhamentos verticais! -->
-			<div class="align-mid outer">
-				<div class="align-mid inner">
-					<div style="float: left; width: 33%;">
-						<div id="progress_scan" style="margin: auto"></div>
-					</div>
-					<div style="float: left; height: 128px; position: relative">
-						<div style="position: absolute; left: 0; top: 37%;">
-							<div class="scanning">@ScanHomeEIP.Models.SetLanguage.in_lang["Scanning"]</div>
-							<div class="completed" style="display: none">@ScanHomeEIP.Models.SetLanguage.in_lang["Complete"]</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-		@using (Html.BeginForm("ScanDone", "Home", FormMethod.Post, new { id = "ScanDone" }))
-		{
-			<input type="hidden" name="ScanDonename" id="ScanDonename" value="" />
-		}
 
-		<script>
-			function CriaLog() {
-				try {
-					// O campo com o nome do documento gerado já foi preenchido no Scan2home.js
-					var form1 = document.getElementById('ScanDone');
-					form1.submit();
-				} catch (e) {
-					//alert("deu erro no crialog:" + e);
-				}
-			}
 
-		</script>
-		<div id="banner1">
-			<div class="firstline">
-				<h2><span>@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro1"]</span></h2>
-			</div>
-			<div class="secondline">
-				@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro2"]
-			</div>
-		</div>
-	</div>
+        </div>
 
-	<div id="Color-xrx-popover-id">
-		<select name="s_Color" id="s_Color">
-			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-			<option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
-			<option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
-			<option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
-		</select>
-	</div>
-	<div id="Scanning-xrx-popover-id">
-		<select name="s_Scanning" id="s_Scanning">
-			<option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
-			<option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
-		</select>
-	</div>
-	<div id="Orientation-xrx-popover-id">
-		<select name="s_Orientation" id="s_Orientation">
-			<option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
-			<option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
-		</select>
-	</div>
-	<div id="Resolution-xrx-popover-id">
-		<select name="s_Resolution" id="s_Resolution">
-			<option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
-			<option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
-			<option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
-		</select>
-	</div>
-	<div id="Size-xrx-popover-id">
-		<select name="s_Size" id="s_Size">
-			<option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-			<option value="ISO_A4LEF">A4LEF</option>
-			<option value="ISO_A4SEF">A4SEF</option>
-		</select>
-	</div>
-	<div id="ScanType-xrx-popover-id">
-		<select name="s_Type" id="s_Type">
-			<option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-			<option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
-			<option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
-			<option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
-			<option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
-			<option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
-		</select>
-	</div>
+        <div style=" position:relative; padding-top: 10px; width:100%;" class="xrx-background green"></div>
+        <div style=" position:relative; padding-top: 10px; width: 100%; background-color: lightgrey;"></div>
+        <div id="tableContainer" style=" position:relative;">
+            <table id="featureTable" style="position:relative;">
+                <tbody>
+                    <tr id="Color">
+                        <td>
+                            <img src="~/styles/images/output_color_full_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_color"]</label>
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right" id="l_color"></td>
+                    </tr>
+                    <tr id="Scanning">
+                        <td>
+                            <img src="~/styles/images/2sided_2sided_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["l_sidedScanning"]</label>
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Scanning" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="ScanType">
+                        <td>
+                            <img src="~/styles/images/original_type_photo_text_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            <label style="padding-top: 20px; align-content: center">@ScanHomeEIP.Models.SetLanguage.in_lang["scantype"]</label>
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Type" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="Orientation">
+                        <td>
+                            <img src="~/styles/images/original_orientation_48.png" height="48" width="48" />
+                        </td>
+                        <td>
+                            @ScanHomeEIP.Models.SetLanguage.in_lang["l_orientation"]
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Orientation" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="Resolution">
+                        <td style="width: 48px">
+                            <img src="~/styles/images/sharpness_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">
+                            @ScanHomeEIP.Models.SetLanguage.in_lang["l_resolution"]
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Resolution" style="text-align: right"></label>
+                        </td>
+                    </tr>
+                    <tr id="Size">
+                        <td style="width: 48px">
+                            <img src="~/styles/images/original_size_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">
+                            @ScanHomeEIP.Models.SetLanguage.in_lang["l_originalSize"]
+                        </td>
+                        <td style="width: 25%; padding-right: 10px;" align="right">
+                            <label id="l_Size"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 48px">
+                            <img src="~/styles/images/lighten_darken_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">
+                            @ScanHomeEIP.Models.SetLanguage.in_lang["l_lightenDarken"]
+                        </td>
+                        <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+                            <input id="s_Darken" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 48px">
+                            <img src="~/styles/images/contrast_48.png" height="48" width="48" />
+                        </td>
+                        <td style="width: 60%">
+                            @ScanHomeEIP.Models.SetLanguage.in_lang["l_contrast"]
+                        </td>
+                        <td style="width: 35%; padding-top: 5px; padding-bottom: 5px" align="right">
+                            <input id="s_Contrast" />
+                        </td>
+                    </tr>
+                    @*<tr>
+                            <td style="width: 48px">
+                                <img src="~/styles/images/paper_tray_48.png" height="48" width="48" />
+                            </td>
+                            <td style="width: 60%">@ScanHomeEIP.Models.SetLanguage.in_lang["l_backSuppression"]</td>
+                            <td style="width: 35%">
+                                <!--<label id="BackgroundSuppression"></label>-->
+                                <div style="float: right;" id="s_BackgroundSuppression" class="toggleswitch"></div>
+                            </td>
+                        </tr>*@
+                </tbody>
+            </table>
+            <table style="width: 100%;">
+                <tr>
+                    <td align="center">
+                        <button style="text-align: center" id="b_Reset" onclick="readxml()"></button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div>
+        <label id="l_DocumentFormat" style="visibility: hidden"></label>
+        <label id="l_blankpageremoval" style="visibility: hidden"></label>
+        <label id="l_edge" style="visibility: hidden"></label>
+        <label id="userdomain" style="visibility: hidden"></label>
+        <label id="serverUserName" style="visibility: hidden"></label>
+        <label id="UserPass" style="visibility: hidden"></label>
+        <label id="Server" style="visibility: hidden"></label>
+        <label id="Share" style="visibility: hidden"></label>
+        <label id="Path" style="visibility: hidden"></label>
+        <label id="sts" style="visibility: hidden"></label>
+        <label id="templatename" style="visibility: hidden"></label>
+    </div>
+
+    <input type="hidden" id="s_FileType" name="s_FileType" value="" />
+
+    <div id="alert1" title="@ScanHomeEIP.Models.SetLanguage.in_lang["l_exittext"]"></div>
+
+    <div id="popup_progress">
+        <!--Todas estas divs são necessárias para os alinhamentos verticais! -->
+        <div class="align-mid outer">
+            <div class="align-mid inner">
+                <div style="float: left; width: 33%;">
+                    <div id="progress_scan" style="margin: auto"></div>
+                </div>
+                <div style="float: left; height: 128px; position: relative">
+                    <div style="position: absolute; left: 0; top: 37%;">
+                        <div class="scanning">@ScanHomeEIP.Models.SetLanguage.in_lang["Scanning"]</div>
+                        <div class="completed" style="display: none">@ScanHomeEIP.Models.SetLanguage.in_lang["Complete"]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="blockBackground2" class="blockBackground2" style="width: 100%; height: 100%; background-color: transparent; position: relative; ">
+        <div id="popup2" class="popup2" style="width: 70%; height: 70%; border-radius: 10px; overscroll-behavior:contain;">
+            <div id="popupheader" style="width: 100%; height: 10%; display: block; position: relative;  ">
+                <button id="turnback" style="width:10%; border-radius:10px;" onclick="hide('popup2'); hide('blockBackground2');"></button>
+                <div id="header_popup_AD" style="width: 50%; border-radius: 10px; align-content: center; "> </div>
+                <button id="SaveEmail" style="width: 25%; border-radius: 10px;" onclick="SaveEmailLidos();  hide('popup2'); hide('blockBackground2'); "></button>
+                <div id="my_contacts_div" style="overscroll-behavior: contain;">
+                    <div id="my_ad_contacts" style="width: 100%; height: 80%; padding-top: 50px; display: block; position: relative; ">
+
+                        <input id="tags" style="width: 90%; height: 30%; border-radius: 10px; background-color: tan;  margin-left: 5%;">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("ScanDone", "Home", FormMethod.Post, new { id = "ScanDone" }))
+    {
+        <input type="hidden" name="ScanDonename" id="ScanDonename" value="" />
+    }
+
+    <script>
+        function CriaLog() {
+            try {
+                // O campo com o nome do documento gerado já foi preenchido no Scan2home.js
+                var form1 = document.getElementById('ScanDone');
+                form1.submit();
+            } catch (e) {
+                //alert("deu erro no crialog:" + e);
+            }
+        }
+
+    </script>
+    <div id="banner1">
+        <div class="firstline">
+            <h2>
+                <span>@ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro1"]</span>
+            </h2>
+        </div>
+        <div class="secondline">
+            @ScanHomeEIP.Models.SetLanguage.in_lang["l_queue_erro2"]
+        </div>
+    </div>
+
+
+    <div id="Color-xrx-popover-id">
+        <select name="s_Color" id="s_Color">
+            <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+            <option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+            <option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+            <option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+        </select>
+    </div>
+
+
+
+    <div id="DocExt-xrx-popover-id">
+        <select name="s_DocExt" id="s_DocExt">
+            <option value="PDF" selected="selected">.pdf</option>
+            <option value="XSM_TIFF_V6">.tiff</option>
+            <option value="JFIFJPEG">.jpg</option>
+            <option value="XPS">.xps</option>
+
+        </select>
+    </div>
+
+    
+
+    <div id="Scanning-xrx-popover-id">
+        <select name="s_Scanning" id="s_Scanning">
+            <option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+            <option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+        </select>
+    </div>
+    <div id="Orientation-xrx-popover-id">
+        <select name="s_Orientation" id="s_Orientation">
+            <option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
+            <option value="LANDSCAPE">@ScanHomeEIP.Models.SetLanguage.in_lang["LANDSCAPE"]</option>
+        </select>
+    </div>
+    <div id="Resolution-xrx-popover-id">
+        <select name="s_Resolution" id="s_Resolution">
+            <option value="RES_LOWEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_LOWEST"]</option>
+            <option value="RES_BEST" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_BEST"]</option>
+            <option value="RES_HIGHEST">@ScanHomeEIP.Models.SetLanguage.in_lang["RES_HIGHEST"]</option>
+        </select>
+    </div>
+    <div id="Size-xrx-popover-id">
+        <select name="s_Size" id="s_Size">
+            <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+            <option value="ISO_A4LEF">A4LEF</option>
+            <option value="ISO_A4SEF">A4SEF</option>
+        </select>
+    </div>
+    <div id="ScanType-xrx-popover-id">
+        <select name="s_Type" id="s_Type">
+            <option value="Auto">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+            <option value="Photo">@ScanHomeEIP.Models.SetLanguage.in_lang["Photo"]</option>
+            <option value="Text" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Text"]</option>
+            <option value="PhotoAndText">@ScanHomeEIP.Models.SetLanguage.in_lang["PhotoAndText"]</option>
+            <option value="Map">@ScanHomeEIP.Models.SetLanguage.in_lang["Map"]</option>
+            <option value="NewspaperOrMagazine">@ScanHomeEIP.Models.SetLanguage.in_lang["NewspaperOrMagazine"]</option>
+        </select>
+    </div>
+
+
+
+
+
+
+    @*<div id="formContainer" style="display: none;">
+            @using (Html.BeginForm("GetEmailsByGroup", "Home", FormMethod.Post, new { id = "FetchEmails" }))
+            {
+                <input type="text" id="groupName" name="groupName" />
+                <input type="submit" value="Get Emails" />
+            }
+        </div>*@
+    @*<script>
+            function fillAndSubmitForm(GroupName) {
+
+                document.getElementById('groupName').value = GroupName;
+
+
+                document.getElementById("FetchEmails").submit();
+            }
+        </script>*@
+    <div id="emailForm">
+        <form id="sendEmailForm" action="@Url.Action("SendEmailWithAttachments", "Home")" method="post" enctype="multipart/form-data">
+
+            <input type="text" class="subject-input" name="subject" id="subject" />
+            <input type="text" class="body-input" name="body" id="body" />
+            <input type="text" class="recipientsCC-input" name="recipientsCC" id="recipientsCC" /> @*Para*@
+            <input type="text" class="Group-input" name="about" id="GroupName" />
+            <input type="text" class="nome-doc" name="nomeDoc" id="nomeDoc" />
+            <input type="text" class="format" name="formatType" id="formatType" />
+            <input type="text" class="mailCC" name="mailCC" id="mailCC" /> @*Em CC*@
+
+        </form>
+
+    </div>
+
+    <script>
+        var nomefile = "";
+        function CriaNomeFile() {
+            /*alert("CriaNomeFile");*/
+            var dt = new Date();
+            var year = dt.getFullYear();
+            var month = dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
+            var day = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+            var hour = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
+            var minute = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
+            var second = dt.getSeconds() < 10 ? "0" + dt.getSeconds() : dt.getSeconds();
+            var filename = "Scan_" + year + month + day + "_" + hour + minute + second;
+            /*alert(filename);*/
+            nomefile = filename;
+        }
+
+        function FillForm() {
+
+
+
+
+            var subjectValue = document.getElementById("Assunto").value;
+            var bodyValue = document.getElementById("MailCorpo").value;
+            var recipientsCCValue = list_emails_escolhidos;
+            var nomegrups = NomeDoGrupo;
+            var nomedocumento = nomefile;
+            var tipodocumento = document.getElementById("l_DocExt").value;
+            var recipientsCC = list_emails_CC;
+            
+            /*alert(tipodocumento);*/
+            /*alert(nomefile);*/
+            /* alert(nomedocumento);*/
+            /*var aboutValue = document.getElementById(MailCorpo).value;*/
+            // Using jQuery with class selectors
+            $('.subject-input').val(subjectValue);
+            $('.body-input').val(bodyValue);
+            $('.recipientsCC-input').val(recipientsCCValue);
+            $('.Group-input').val(nomegrups);
+            $('.nome-doc').val(nomedocumento);
+            $('.mailCC').val(recipientsCC);
+            $('.format').val(tipodocumento);
+            
+
+
+            submitForm();
+
+
+        }
+
+    </script>
+
+
+    <script>
+        $(function () {
+
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+            function extractLast(term) {
+                return split(term).pop();
+            }
+
+            $("#tags")
+                // don't navigate away from the field on tab when selecting an item
+                .on("keydown", function (event) {
+                    if (event.keyCode === $.ui.keyCode.TAB &&
+                        $(this).autocomplete("instance").menu.active) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function (request, response) {
+                        // delegate back to autocomplete, but extract the last term
+                        response($.ui.autocomplete.filter(
+                            @arrayemail2, extractLast(request.term)));
+                    },
+                    focus: function () {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                    select: function (event, ui) {
+                        var terms = split(this.value);
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push(ui.item.value);
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push("");
+                        this.value = terms.join(", ");
+                        return false;
+                    }
+                });
+        });
+
+        function submitForm() {
+    // Use jQuery to submit the form with AJAX
+             $.ajax({
+                 url: '@Url.Action("SendEmailWithAttachments", "Home")',
+                 type: 'POST',
+                 data: {
+                    subject: $('#subject').val(),
+                    body: $('#body').val(),
+                    recipientsCC: $('#recipientsCC').val(),
+                    Grupo: $('#GroupName').val(),
+                    about: $('#about').val(),
+                     nomeDoc: $('#nomeDoc').val(),
+                     mailCC: $('#mailCC').val(),
+                    typeDoc: $('#formatType').val()
+                    
+
+
+                 },
+             success: function (response) {
+            // Handle success, e.g., show a success message
+                },
+             error: function (error) {
+            // Handle error, e.g., show an error message
+             }
+             });
+        }
+
+
+    // Attach the submitForm function to the click event of the button
+    $(document).ready(function () {
+        $('#btscan').click(function () {
+            FillForm();
+        });
+    });
+
+
+    </script>
+
+
 
 </body>
 </html>

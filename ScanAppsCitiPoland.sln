@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Scan2HomeWebSite", "Scan2HomeWebSite\", "{6975E38E-E195-46F6-B610-7F1890A02F69}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8.1"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_64078"
 		Debug.AspNetCompiler.PhysicalPath = "Scan2HomeWebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64078\"
@@ -25,9 +25,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Scan2HomeWebSite", "Scan2Ho
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scan2DRW", "Scan2DRW\Scan2DRW.csproj", "{28FAA006-0381-40C5-B43A-4CEB7F61D91D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scan2XSS", "Scan2XSS\Scan2XSS.csproj", "{0D550337-EA1B-4051-86DB-6CAFC20D285A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scan2DRW", "Scan2DRW\Scan2DRW.csproj", "{28FAA006-0381-40C5-B43A-4CEB7F61D91D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +39,14 @@ Global
 		{6975E38E-E195-46F6-B610-7F1890A02F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6975E38E-E195-46F6-B610-7F1890A02F69}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{6975E38E-E195-46F6-B610-7F1890A02F69}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D550337-EA1B-4051-86DB-6CAFC20D285A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D550337-EA1B-4051-86DB-6CAFC20D285A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D550337-EA1B-4051-86DB-6CAFC20D285A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D550337-EA1B-4051-86DB-6CAFC20D285A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FAA006-0381-40C5-B43A-4CEB7F61D91D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

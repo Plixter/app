@@ -193,10 +193,11 @@ function xrxTemplatePutTemplate( url, templateName, template, callback_success, 
 {
     if((url == null) || (url == ""))
         url = "http://127.0.0.1";
-    var sendUrl = url + XRX_TEMPLATE_PATH;
+	var sendUrl = url + XRX_TEMPLATE_PATH;
+	
     
     var sendReq = xrxTemplatePutTemplateRequest(templateName, template);
-   
+	//alert(template);
     xrxCallWebservice( sendUrl, sendReq, callback_success, callback_failure, timeout );
 } 
 
