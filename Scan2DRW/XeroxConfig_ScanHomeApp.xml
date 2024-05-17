@@ -25,5 +25,5 @@
   <resolution>RES_BEST</resolution>
   <BlankPageRemoval>OMIT_ALL_BLANK_PAGES</BlankPageRemoval>
   <BackSupression>False</BackSupression>
-  <ServerFolder>CitibankTest</ServerFolder>
+  <ServerFolder>Example</ServerFolder>
 </Application>

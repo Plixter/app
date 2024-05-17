@@ -24,6 +24,8 @@ namespace Scan2DRW.Models
         public string memberOf { get; set; }
         public List<string> l_memberOf { get; set; }
         public List<string> lista_groups { get; set; }
+
+        
         
 
     }

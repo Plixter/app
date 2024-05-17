@@ -13,6 +13,10 @@
     TempData["useremail"] = ue;
     TempData.Keep("useremail");
 
+    //string usermail = "";
+    //usermail = usermail.Join(",", ue);
+
+
     var v = TempData["versio"].ToString();
     TempData["versio"] = v;
     TempData.Keep("version");
@@ -34,27 +38,55 @@
     List<string> listaemails = new List<string>();
     string[] arrayemail = new string[bla.Count()];
     int count = bla.Count();
+    var email_log_user = ue;
 
+    var nomeDoc_antigo = TempData["nomeDocantigo"];
+    var corpo_antigo = TempData["corpoAntigo"];
+    var assunto_antigo = TempData["subject_antigo"];
+    var mails_antigos = TempData["destino_antigo"];
+    var mails_cc_antigos = TempData["emailsCC"];
+    //CONFIGS DA DIGITALIZAÇÃO
+    var color_antigo = TempData["color"];
+    var faces_antigo = TempData["faces"];
+    var tipo_documento = TempData["typeDoc"];
+
+    //List<string> list_emails_antigos = new List<string>();
+    //List<string> emailsAntigos = new List<string>();
+    //var teste = "";
+
+    //string emailsAntigos;
+    //if (TempData["destino_antigo"] != null)
+    //{
+    //    teste = "tempdata";
+    //    //foreach (var mail in (IEnumerable<string>)TempData["destino_antigo"])
+    //    //{
+    //    //    var i = 0;
+
+    //    //    //emailsAntigos += mail;
+    //    //    emailsAntigos.Add(mail);
+    //    //}
+    //}
     //var emailsArray = ViewBag.EmailsArray as string[];
     //var final_emails_view = TempData["final_emails_view"];
     //TempData["final_emails_view"] = final_emails_view;
     //TempData.Keep("final_emails_view");
+    //var menssagem_anterior = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.message_previous));//não está a ser usada, CONFIRMAR
 
-    int i = 0;
+    int ix = 0;
     foreach (var item in bla)
     {
         //    listaemails.Add(item.Value.mail);
         //    arrayemail.Append(item.Value.mail);
-        arrayemail[i] = Json.Encode(item.Value.mail);
+        arrayemail[ix] = Json.Encode(item.Value.mail);
 
         //listaemails.Add(item.Value.mail);
         //arrayemail.Prepend(item.Value.mail);
-        i++;
+        ix++;
     }
 
     //  var arrayemail = Html.Raw(Json.Encode(Model.list_Mails));//
 
-    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails)); ; // new string[bla.Count()];
+    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails));  // new string[bla.Count()];
 
 
 
@@ -66,7 +98,7 @@
 <head>
     <title></title>
 
-    @*  <link href="~/styles/XRXWidgets.css" rel="stylesheet" />*@
+
 
     <link rel="stylesheet" href="~/styles/common.css" />
 
@@ -88,6 +120,7 @@
 
 
 
+
     <script type="text/javascript" src="~/Scripts/Scan2home.js"></script>
     <script type="text/javascript" src="~/Scripts/CommonHelper.js"></script>
     <script type="text/javascript" src="~/Scripts/version.js"></script>
@@ -95,11 +128,13 @@
 
 
 
-    @*<link href="EmailPageStyle.css" type="text/css" rel="stylesheet"></link>*@
 
-<script>
+
+    <script>
         function inti() {
             try {
+
+
 
                 CriaNomeFile();
                 document.documentElement.style.overflow = 'hidden';
@@ -116,15 +151,6 @@
                     bordered: true
                 });
 
-                //$("#entradamanual").xrxbutton({
-                //    disabled: false,
-                //    text: true,
-                //    label: 'Entrada Manual',
-                //    themePrimary: true,
-                //    widgetSize: "xrx-medium",
-                //    theme: "green",
-                //    bordered: true
-                //});
 
                 $("#turnback").xrxbutton({
                     disabled: false,
@@ -139,7 +165,14 @@
                 });
 
 
-
+                $("#l_DocExt").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    themePrimary: true,
+                    widgetSize: "xrx-medium",
+                    theme: "green",
+                    bordered: true
+                });
 
                 $("#SaveEmail").xrxbutton({
                     disabled: false,
@@ -151,18 +184,6 @@
                     bordered: true
                 });
 
-                //$("#tags").xrxkeyboard({
-                //    disabled: false,
-                //    text: true,
-                //    styleInput: true,
-                //    label: 'ContactAD',
-                //    initialPlaceholder: "Procurar Contactos",
-                //    theme: "tan",
-                //    themePrimary: true,
-                //    layout: "pt",
-                //    widgetSize: "xrx-medium",
-                //    usePreview: false
-                //});
 
                 $("#header_popup_AD").xrxbutton({
                     disabled: false,
@@ -184,25 +205,15 @@
                     bordered: true
                 });
 
-                //$("#close_popup_btn").xrxbutton({
-                //    disabled: false,
-                //    text: true,
-                //    label: '',
-                //    icons: {
-                //        glyph: "glyphicon-close-square"
-                //    },
-                //    themePrimary: true,
-                //    theme: "tan",
-                //    widgetSize: "xrx-medium",
-                //    bordered: true
-                //});
-
                 $("#MailCorpo").xrxkeyboard({
                     disabled: false,
                     text: true,
                     styleInput: true,
                     label: 'Anexo',
-                    initialPlaceholder: "Digitalizado em uma multifuncional Xerox",
+                    icons: {
+                        glyph: "glyphicon-paperclip"
+                    },
+                    initialPlaceholder: "Mensagem: ",
                     theme: "green",
                     themePrimary: true,
                     layout: "pt",
@@ -210,6 +221,21 @@
                     widgetSize: "xrx-medium"
                 });
 
+                $("#NameFile").xrxkeyboard({
+                    disabled: false,
+                    text: true,
+                    styleInput: true,
+                    label: 'Anexo',
+                    icons: {
+                        glyph: "glyphicon-paperclip"
+                    },
+                    initialPlaceholder: "Digitalizado em uma multifuncional Xerox",
+                    theme: "green",
+                    themePrimary: true,
+                    layout: "pt",
+                    usePreview: true,
+                    widgetSize: "xrx-medium"
+                });
                 $("#Assunto").xrxkeyboard({
                     disabled: false,
                     text: true,
@@ -238,6 +264,15 @@
                 });
 
                 $("#b_email").xrxbutton({
+                    disabled: false,
+                    text: true,
+                    label: '@un',
+                    theme: "green",
+                    themePrimary: true,
+                    widgetSize: "xrx-medium"
+                });
+
+                $("#emails_escolhidos_user").xrxbutton({
                     disabled: false,
                     text: true,
                     label: '@un',
@@ -362,11 +397,7 @@
                     arrowPosition: "xrx-arrow-bottom",
                     targetControl: "#Size"
                 });
-                $("#ScanType-xrx-popover-id").xrxpopover({
-                    theme: "green",
-                    arrowPosition: "xrx-arrow-bottom",
-                    targetControl: "#Size"
-                });
+
                 $("#s_Scanning").xrxsegmentedcontrol({
                     type: "textonly",
                     widgetSize: "xrx-small",
@@ -532,6 +563,7 @@
                     close: function (event, ui) {
                         StartScan();
 
+
                         /*document.getElementById('SendEmail').click();*/
                     },
                 });
@@ -546,11 +578,121 @@
                     bannerType: "active",
                     bannerTimeout: 3000,
                 });
+
+                $('#delete_emails_escolhidos-1').xrxbutton({
+                    disabled: false,
+                    text: true,
+                    theme: "green",
+                    icons: {
+                        glyph: "glyphicon-trash"
+                    },
+                    themePrimary: true,
+                    widgetSize: "xrx-small"
+                });
+
+                $('#emails_escolhidos-1').xrxbutton({
+                    disabled: false,
+                    text: true,
+                    theme: "green",
+                    themePrimary: true,
+                    label: '@un'+ ',',
+                    widgetSize: "xrx-medium"
+                });
+
+                $('#emails_Cc-1').xrxbutton({
+                    disabled: false,
+                    text: true,
+                    theme: "green",
+                    label: "CC",
+                    themePrimary: true,
+                    widgetSize: "xrx-small"
+                });
+
+
+
+                $('#emails_To-1').xrxbutton({
+                    disabled: false,
+                    text: true,
+                    theme: "green",
+                    label: "To",
+                    themePrimary: true,
+                    widgetSize: "xrx-small"
+                });
+
+
+
+                preenchermails();
+                //Adicionado AGORA
+                //User logado é user que está logo na lista de destinatários
+
+                //if (tipo_documento != null) {
+                //    // Assuming you have a select element with id "mySelect"
+                //    $("#mySelect option[value='s_DocExt']").attr("selected", "selected");
+                //}
+
+
+
+
+
+
+
+
+
             }catch (ex) {
                 alert(ex);
             }
         };
 
+        var tenho_user_no_mail = false;
+        function preenchermails() {
+            var x = '@TempData["destino_antigo"]';
+            var y = '@TempData["emailsCC"]';
+            @*@TempData.Keep("destino_antigo");*@
+            var xy = x + y;
+            //alert(xy);
+            //Adicionar os que vêm da lista do To
+            if (x != "") {
+                var mails_novos_To = x.trim().split(",");
+                for (var ix = 0; ix < mails_novos_To.length; ix++) {
+                    if (mails_novos_To[ix] != "") {
+                        list_emails_escolhidos = list_emails_escolhidos + mails_novos_To[ix] + ",";
+                    }
+                }
+            }
+            //Adicionar à lista do cc os que vêm do cc
+            if (y != "") {
+                var mails_novos_CC = y.trim().split(",");
+                for (var iy = 0; iy < mails_novos_CC.length; iy++) {
+                    if (mails_novos_CC[iy] != "") {
+                        list_emails_CC = list_emails_CC + mails_novos_CC[iy] + ",";
+                    }
+                }
+            }
+
+            if (xy != "")
+            {
+                //alert("preenchermails()");
+                //alert("Emails que foram usados");
+                //alert(xy);
+                var mails_novos = xy.trim().split(",");
+                for (var ii = 0; ii < mails_novos.length; ii++)
+                {
+                    if (mails_novos[ii] != "") {
+
+                            var mail_completo = mails_novos[ii] + ",";
+                            $('#tabela-mail tbody').append('<tr id="RowEmails_escolhidos_' + ii + '" style="align-content:center;"><td><button class="xrxbutton" id="emails_escolhidos' + ii + '" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;" >' + mail_completo + '</button><button class="xrxbutton" id="emails_To' + ii + '" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(' + ii + ');">TO</button><button class="xrxbutton" id="emails_Cc' + ii + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(' + ii + ');">CC</button><button class="xrxbutton" id="delete_emails_escolhidos' + ii + '" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(' + ii + ');  "></button></td></tr>');
+                            addstylebutton(ii);
+
+
+
+
+                    }
+
+                }
+            }
+
+
+        }
         function OpenAlert(item) {
             if (item == "username") {
                 $("#alert1").xrxalert("open");
@@ -563,7 +705,9 @@
 
             }
         }
-
+    //function Close(item) {
+    //    $("#popup_progress").xrxpopup("close");
+    //}
         //Exit App
         function exitApp() {
             ExitCUIMode(); return false;
@@ -654,6 +798,8 @@
             var flag = 0;
     function StartScan() {
         /*alert("startscan");*/
+        /* alert("StartScan");*/
+        /*alert(emails_escolhidos);*/
         var token = 0;
         flag ++;
         if (flag == 1) {
@@ -717,68 +863,57 @@
         //codigo do email
     function deleteEmailAndUpdateTable(indexRow) {
 
-        //alert("ola" + indexRow);
-        var emailsTo = list_emails_escolhidos.split(",");
-        var emailsCC = list_emails_CC.split(",");
+        /*alert("ola" + indexRow);*/
+        var emailsTo = list_emails_escolhidos.trim().split(",");
+        var emailsCC = list_emails_CC.trim().split(",");
        /* document.getElementById("btscan").style.display = "none";*/
         //alert(indexRow); //isto vai sempre ter o ultimo email inserido
         var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+        var aux = "";
         var index = 0;
-        var indexCC = 0;
-        var indexTo = 0;
-        var flag = false;
-        //alert(emailsCC.length);
-        for (var x = 0; x < emailsCC.length; x++) {
-            if (emailsCC[x] == mail) {
-                flag = true;
-                indexCC = x;
+        //var indexCC = 0;
+        //var indexTo = 0;
+        //var flag = false;
+        var arrayaux = "";
+        var arrayauxCC = "";
+
+        //Ver no To
+        for (var x = 0; x < emailsTo.length; x++) {
+            if (emailsTo[x] != "") {
+                var mailtempTo = mail.replace(",", "").replace("", "");
+                var mailtemp = emailsTo[x].replace(",", "").replace("", "");
+
+                if (mailtempTo != mailtemp) {
+                    arrayaux = mailtemp + "," + arrayaux;
+                }
             }
         }
-        if (flag) {
-            //alert("tentei flag");//list_emails_CC.includes(mail)
-            index = emailsCC.indexOf(mail);
-            
-            emailsCC.splice(index, 1);
-            list_emails_CC = emailsCC;
+        list_emails_escolhidos = "";
+        if (arrayaux.length > 0) {
+            list_emails_escolhidos = arrayaux;
         }
-        else {
-            //alert("tentei");
-            //alert(emailsTo.length+ '++');
-            index = emailsTo.indexOf(mail);
-            //alert(index + 'indexof');
-            emailsTo.splice(index, 1);
-           /* alert("a seguir ao indexof");*/
-            list_emails_escolhidos = emailsTo;
-        }
-        //var emails = list_emails_escolhidos.split(",");
-        //emails.splice(indexRow, 1);
-        //alert("");
-        document.getElementById("RowEmails_escolhidos_" + indexRow).style.display = "none";
-       
-      /*  list_emails_escolhidos = emails;*/
-        
-    }
-    //function GetIndex(email, list) {
-    //    if (list.includes(email)) {
-    //        return list.indexOf(email);
-            
-    //    }
-    //    else {
-    //        return -99;
-    //    }
-    //}
-    //function CheckIfCC(email) {
-    //    if (list_emails_CC.includes(mail)) {
-    //        return true;
-    //    }
-    //    else {
-    //        return false;
-    //    }
-    //}
-    //function ChangeStatus(indexRow) {
-    //    /*document.getElementById("CheckCC" + indexRow).value;*/
 
-    //}
+        //Ver no CC
+        for (var x = 0; x < emailsCC.length; x++) {
+            if (emailsCC[x] != "") {
+                var mailtempCC = mail.replace(",", "").replace("", "");
+                var mailtempCCaux = emailsCC[x].replace(",", "").replace("", "");
+
+                if (mailtempCC != mailtempCCaux) {
+                    arrayauxCC = mailtempCCaux + "," + arrayauxCC;
+                }
+            }
+        }
+        list_emails_CC = "";
+        if (arrayauxCC.length > 0) {
+            list_emails_CC = arrayauxCC;
+        }
+        document.getElementById("RowEmails_escolhidos_" + indexRow).style.display = "none";
+
+
+
+    }
+
 
         function addstylebutton(i) {
 
@@ -793,19 +928,18 @@
                 disabled: false,
                 text: true,
                 theme: "green",
-                icons: {
-                    glyph: "glyphicon-recipient-cc"
-                },
+                label: "CC",
                 themePrimary: true,
                 widgetSize: "xrx-small"
             });
+
+
+
             $('#emails_To' + i).xrxbutton({
                 disabled: false,
                 text: true,
                 theme: "green",
-                icons: {
-                    glyph: "glyphicon-recipient-to"
-                },
+                label: "To",
                 themePrimary: true,
                 widgetSize: "xrx-small"
             });
@@ -832,6 +966,7 @@
             });
 
 
+
                 $('#OptionsEmail-xrx-popover-' +i).xrxpopover({
 
                     theme: "green",
@@ -839,119 +974,167 @@
                     targetControl: "#Color"
 
                 });
+
         }
 
+
         //declarar vars
-    var i = 0;
-    var emails_escolhidos = "";
-    var list_emails_escolhidos = "";
-    var userligado = "";
-    var list_emails_CC = "";
+        var i = 0;
+        @*alert('@TempData["useremail"]');*@
+
+        var aux = '@TempData["useremail"]';
+        aux.trim();
+        aux = aux + ",";
+         /*alert(aux + " ---- aux");*/
+        var emails_escolhidos = "";
+        //alert(emails_escolhidos);
+        emails_escolhidos = aux;
+       /* alert(emails_escolhidos + "--emails_escolhidos")*/
+        var list_emails_escolhidos = emails_escolhidos;
+       /* alert(list_emails_escolhidos +"-list_emails escolhidos");*/
+        var userligado = "";
+        var list_emails_CC ="" ;
 
 
     /*ver se existe user ligado*/
-    function SaveOnTo(indexRow) {
-        var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
-        alert("saveTO");
-        var flagcc = false;
-        var flagto = false;
-        var emailsTo = list_emails_escolhidos.split(",");
-        var emailsCC = list_emails_CC.split(",");
-        var indexCC = 0;
-        var indexTo = 0;
+        function SaveOnTo(indexRow) {
+            /*alert("SaveonTo");*/
+            // Get the email address from the specified element on the webpage
+            var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+            //mail.includes() USAR O INCLUDES PARA VER SE FUNCIONA COM ISSO
+            // Split the lists of emails into arrays
+            var emailsTo = list_emails_escolhidos.trim().split(",");
+            var emailsCC = list_emails_CC.trim().split(",");
 
-        for (var x = 0; x < emailsTo.length; x++) {
-            if (emailsTo[x] == mail) {
-                flagto = true;
-                indexTo = x;
-            }
-        }
-        for (var x = 0; x < emailsCC.length; x++) {
-            if (emailsCC[x] == mail) {
-                flagcc = true;
-                indexCC = x;
-            }
-        }
-        if (flagto) {
-            list_emails_escolhidos = list_emails_escolhidos;
-        }
-        else {
-            if (flagcc) {
-                /*var index = list_emails_CC.indexOf(mail);*/
-                emailsCC.splice(indexCC, 1);
-                list_emails_CC = emailsCC;
-                list_emails_escolhidos = list_emails_escolhidos + mail;
-            }
-            else {
-                alert("tentei meter no TO");
-                list_emails_escolhidos = list_emails_escolhidos + mail;
+            // Initialize an empty array to store the modified CC list
+            var arrayaux ="";
+
+            // Remove the email address from the CC list
+            for (var x = 0; x < emailsCC.length; x++) {
+                if (emailsTo[x] != "") {
+                    var mailtempcc = mail.replace(",", "").replace(" ", "");
+                    var mailtemp = emailsCC[x].replace(",", "").replace("", "");
+
+                    if (mailtempcc != mailtemp) {
+                        arrayaux = mailtemp + "," + arrayaux;
+                    }
+                }
 
             }
-        }
-    }
+            // Update the CC list
+            list_emails_CC = "";
+            if (arrayaux.length > 0) {
+                list_emails_CC = arrayaux;
+            }
+            emailsTo = emailsTo + mail;
+            list_emails_escolhidos = emailsTo.slice();
+            /*list_emails_CC = arrayaux;*/
+            //    arrayaux.slice();
 
-    function SaveOnCC( indexRow) {
-        alert("saveCC");
-        var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+            // Add the email address to the TO list
+            /*emailsTo.push(mail+",");*/
+            // Update the TO list
+            /*list_emails_escolhidos = emailsTo.slice();*/
 
-        //alert(mail);
-        var flagcc = false;
-        var flagto = false;
-        var emailsTo = list_emails_escolhidos.split(",");
-        var emailsCC = list_emails_CC.split(",");
-        var indexCC = 0;
-        var indexTo = 0;
-        alert(emailsTo.length);
-        alert(emailsCC.length);
-        for (var x = 0; x < emailsTo.length; x++) {
-            if (emailsTo[x] == mail) {
-                flagto = true;
-                indexTo = x;
-            }
+            // Alert the updated TO list
+            /*alert(list_emails_escolhidos);*/
         }
-        for (var x = 0; x < emailsCC.length; x++) {
-            if (emailsCC[x] == mail) {
-                flagcc = true;
-                indexCC = x;
-            }
-        }
-        alert(indexCC + "CC");
-        alert(indexTo + "TO");
-        /*verifica se o mail está na lista para CC*/
-        if (flagcc) {
-            list_emails_CC = emailsCC;
-        }
-        else {
-            
-            //verifica se o email está na lista para enviar
-            if (flagto){
-                //Update list_emails_escolhidos retira o email da lista
-                /*var index = list_emails_escolhidos.indexOf(mail);*/
-                emailsTo.splice(indexTo, 1);
-                list_emails_escolhidos = emailsTo;
-                list_emails_CC = list_emails_CC  + mail ;
-                //SaveOnCC(mail); //manda outra vez para o adicionar à lista
-            }
-            else {
-                alert("tentei meter no CC");
-                list_emails_CC = list_emails_CC  + mail;
-            }
-        }
-    }
 
-    //if (un == null) {
-    //    /*userligado = "joao.barata@xerox.com";*/
-    //    list_emails_escolhidos += userligado;
-    //}
-    //else {
-    //    list_emails_escolhidos += un + ","; //insere o email do utilizador na lista de emails para enviar
-    //}
+
+        function SaveOnCC(indexRow) {
+            // Get the email address from the specified element on the webpage
+            var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+
+            // Split the lists of emails into arrays
+           // alert(list_emails_escolhidos.length);
+            var emailsTo = list_emails_escolhidos.trim().split(",");
+            var emailsCC = list_emails_CC.split(",");
+            /*alert("emailsCC " + emailsCC);*/
+            /* var arrayaux = [];*/
+            var arrayaux = "";
+            //alert(emailsTo.length);
+            //alert(emailsTo[0]);
+            //alert(emailsTo[1]);
+
+            // Remove the email address from the TO list
+            for (var x = 0; x < emailsTo.length; x++) {
+                if (emailsTo[x] != "") {
+
+
+                    /*alert("mail" + mail); alert("emailto[x]" + emailsTo[x]); alert("comprimento do emails to" +emailsTo.length);*/
+                    var mailtemp = mail.replace(",", "").replace(" ", "");
+                    //alert(mailtemp);
+                    //alert(mailtemp.length);
+
+                    var mailCCtemp = emailsTo[x].replace(",", "").replace(" ", "");
+                    //alert(mailCCtemp);
+                    //alert(mailCCtemp.length);
+
+                   // if (mail.trim().replace(",", "").replace(" ", "") != emailsTo[x].trim().replace(",", "").replace(" ", "")) {
+                    if (mailtemp != mailCCtemp) {
+
+
+                        //alert("entrei2 " + mailCCtemp);
+                        //alert(arrayaux);
+                       // arrayaux.push(emailsTo[x]);
+                        arrayaux = mailCCtemp + ',' + arrayaux ;
+                    }
+                }
+            }
+            /*alert("1");*/
+            // Update the TO list
+            list_emails_escolhidos = "";
+            //alert("listemailsescolhidos" + list_emails_escolhidos);
+            //alert(arrayaux.length + "comp aux");
+            if (arrayaux.length > 0) {
+
+                list_emails_escolhidos = arrayaux; /*alert("listemails" + list_emails_escolhidos);*/
+
+            }
+
+            // Add the email address to the CC list
+            /*alert(mail);*/
+            //emailsCC.push(mail);
+            emailsCC = emailsCC + mail;
+            // Update the CC list
+            /*alert(emailsCC);*/
+            list_emails_CC = emailsCC.slice();
+
+            // Alert the updated CC list
+            //alert(list_emails_CC + "list_CC");
+            //alert(list_emails_escolhidos + "list_destino");
+        }
+
+
+
     function isValidEmail(email) {
         // Regular expression for a simple email validation
         var emailRegex = @Html.Raw(@"/^[^\s@]+@[^\s@]+\.[^\s@]+$/");
         return emailRegex.test(email);
     }
+    function TurnOnBtn(index, BtnName) {
 
+        var NameBtn = (BtnName + index).toString();
+        var Btn = document.getElementById(NameBtn);
+        Btn.style.backgroundColor = "";
+
+        Btn.removeAttribute("disabled");
+
+
+
+
+
+
+    }
+    function TurnOffBtn(index, BtnName) {
+
+        var NameBtn = (BtnName + index).toString();
+        var Btn = document.getElementById(NameBtn);
+        Btn.style.backgroundColor = "grey";
+
+        Btn.setAttribute("disabled", "");
+
+    }
     var NomeDoGrupo = "";
 
     function SaveEmailLidos() {
@@ -969,11 +1152,11 @@
             list_emails_escolhidos += emails_escolhidos;
 
         }
-        
-        
+
+
         //$('#tabela-mail tbody').append('<tr style:"height=10%; width=100%;"><td><div id="OptionsEmail-xrx-popover-' + i + '"><select name="s_email" id="s_email"> <option value="Eliminar">Eliminar</option> </select></div></td></tr>');
-        
-        $('#tabela-mail tbody').append('<tr id="RowEmails_escolhidos_' + i + '" style="align-content:center;"><td><button class="xrxbutton" id="emails_escolhidos' + i + '" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;" >' + emails_escolhidos + '</button><button class="xrxbutton" id="emails_To' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(' + i + ');"></button><button class="xrxbutton" id="emails_Cc' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(' + i + ');"></button><button class="xrxbutton" id="delete_emails_escolhidos' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="deleteEmailAndUpdateTable(' + i + ');  "></button></td></tr>');
+
+        $('#tabela-mail tbody').append('<tr id="RowEmails_escolhidos_' + i + '" style="align-content:center;"><td><button class="xrxbutton" id="emails_escolhidos' + i + '" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;" >' + emails_escolhidos + '</button><button class="xrxbutton" id="emails_To' + i + '" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(' + i + ');">TO</button><button class="xrxbutton" id="emails_Cc' + i + '" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(' + i + ');">CC</button><button class="xrxbutton" id="delete_emails_escolhidos' + i + '" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(' + i + ');  "></button></td></tr>');
         //alert(emails_escolhidos);
 
         addstylebutton(i);
@@ -984,9 +1167,9 @@
 
 
 
-</script>
-<style>
-       
+    </script>
+    <style>
+
 
         #loading_screen {
             position: absolute;
@@ -1045,7 +1228,7 @@
             width: 80%;
             left: 10%;
             margin-left: 10%;
-            height:30%;
+            height: 30%;
             top: 18%;
             margin-top: 0%;
             background: #debfa0;
@@ -1172,8 +1355,7 @@
         #emailForm {
             display: none;
         }
-
-</style>
+    </style>
 </head>
 <body style="height: 800px">
     <script>window.onload = inti;</script>
@@ -1190,14 +1372,14 @@
                 <button style="border-radius: 10px;" id="username"></button>
             </div>
 
-            <div style="float: left; margin: 0 auto; width: 40%; padding-top: 21px; text-align: center">
+            <div style="float: left; margin-left:5%; width: 25%; padding-top: 21px; text-align: center">
                 <label style="font-size: 32px">
                     @ScanHomeEIP.Models.SetLanguage.in_lang["l_name"]
                 </label>
             </div>
             <div style="float: right; margin-right:3.5%">
-                <button style="border-radius: 10px; text-align: center;" id="btscan"></button>
-                
+                <button style="border-radius: 10px; text-align: center; " id="btscan"></button>
+
             </div>
         </div>
     </div>
@@ -1212,27 +1394,75 @@
                             <button id="b_Add_contact" name="btn_destino" style="display:flex; border-radius: 10px; width:99%;  text-align: left;" href="#" class="xrx-background green" onclick=" show('popup2'); show('blockBackground2'); ShowAD(1);">   </button>
                         </td>
                     </tr>
-                    <tr id="pai" style=" align-content: center;">
+                    <tr id="RowEmails_escolhidos_-1" style=" align-content: center;">
                         <td>
-                            <button id="b_email" name="display_destino" style=" border-radius: 10px; text-align: left; width: 99%; height:100%; padding-bottom: 5px;"></button>
+                            @if (mails_antigos == null && mails_cc_antigos == null)
+                            {
+                                <button class="xrxbutton" id="emails_escolhidos-1" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;">ue</button><button class="xrxbutton" id="emails_To-1" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(-1);">TO</button><button class="xrxbutton" id="emails_Cc-1" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(-1);">CC</button><button class="xrxbutton" id="delete_emails_escolhidos-1" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(-1);  "></button>
+
+                            }
+                            @*<button id="b_email" name="display_destino" style=" border-radius: 10px; text-align: left; width: 99%; height:100%; padding-bottom: 5px;"></button>*@
                         </td>
                     </tr>
+
+
                 </tbody>
+
             </table>
-            <table id="tabela-corpo" style="width:93%; margin-left:3.5%; margin-right:3.5%;">
+
+            <table id="tabela-corpo" style="width:100%; margin-left:3.5%; margin-right:3.5%;">
                 <tbody>
                     <tr style=" align-content:center; ">
                         <td>
-                            <input type="text" id="Assunto" placeholder="Digitalizado de uma impressora multifuncional da Xerox" name="display_Assunto" style=" display: flex; border-radius: 10px; width: 96%; text-align: left; padding-bottom: 5px; ">
+                            @if (assunto_antigo != null)
+                            {
+                                <input type="text" value="@assunto_antigo" id="Assunto" placeholder="Assunto: Digitalizado de uma impressora multifuncional da Xerox" name="display_Assunto" style=" display: flex; border-radius: 10px; width: 100%; text-align: left; padding-bottom: 5px; ">
+
+                            }
+                            else
+                            {
+                                <input type="text" id="Assunto" placeholder="Assunto: Digitalizado de uma impressora multifuncional da Xerox" name="display_Assunto" style=" display: flex; border-radius: 10px; width: 100%; text-align: left; padding-bottom: 5px; ">
+
+                            }
                         </td>
                     </tr>
                     <tr style=" align-content:center;">
                         <td>
-                            <input type="text" id="MailCorpo" placeholder="Digitalizado em uma multifuncional Xerox" name="display_MailCorpo" style="display: flex;  border-radius: 10px; text-align: left; width: 70%; border-top: 15px; padding-bottom: 5px; ">
+                            @if (corpo_antigo != null)
+                            {
+                                <input type="text" value="@corpo_antigo" id="MailCorpo" placeholder="Mensagem" name="display_MailCorpo" style="display: flex;  border-radius: 10px; text-align: left; width: 70%; border-top: 15px; padding-bottom: 5px; ">
+
+                            }
+                            else
+                            {
+                                <input type="text" id="MailCorpo" placeholder="Mensagem" name="display_MailCorpo" style="display: flex;  border-radius: 10px; text-align: left; width: 70%; border-top: 15px; padding-bottom: 5px; ">
+
+                            }
+
+                        </td>
+                    </tr>
+                    <tr style=" align-content:center;">
+                        <td>
+
+                            @if (nomeDoc_antigo != null)
+                            {
+
+                                <input type="text" value="@nomeDoc_antigo" id="NameFile" name="display_NameFile" style="display: flex;  border-radius: 10px; text-align: left; width: 70%; border-top: 15px; padding-bottom: 5px; ">
+
+
+                            }
+                            else
+                            {
+                                <input type="text" id="NameFile" placeholder="Digitalizado em uma multifuncional Xerox" name="display_NameFile" style="display: flex;  border-radius: 10px; text-align: left; width: 70%; border-top: 15px; padding-bottom: 5px; ">
+
+
+                            }
+
+
 
                         </td>
                         <td id="DocExt">
-                            <label style="width: 25%; padding-right: 10px; border:solid 1px;" align="right" id="l_DocExt"></label>
+                            <label style=" display:inline-block; text-align:center; padding-top:20px; padding-right: 10px; padding-left:10px; border-radius: 10px; " id="l_DocExt"></label>
 
 
                         </td>
@@ -1386,6 +1616,7 @@
                 </div>
                 <div style="float: left; height: 128px; position: relative">
                     <div style="position: absolute; left: 0; top: 37%;">
+                        @*<button id="closebtnpop" onclick="Close(closebtnpop);">close</button>*@
                         <div class="scanning">@ScanHomeEIP.Models.SetLanguage.in_lang["Scanning"]</div>
                         <div class="completed" style="display: none">@ScanHomeEIP.Models.SetLanguage.in_lang["Complete"]</div>
                     </div>
@@ -1417,6 +1648,7 @@
     }
 
     <script>
+        $(".closebtnpop").xrxpopup("close");
         function CriaLog() {
             try {
                 // O campo com o nome do documento gerado já foi preenchido no Scan2home.js
@@ -1439,36 +1671,105 @@
         </div>
     </div>
 
+    @if (color_antigo != null) //Guardar a opção escolhida pelo user anteriormente
+    {
+        <div id="Color-xrx-popover-id">
+            <select name="s_Color" id="s_Color">
+                <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+                <option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+                <option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+                <option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+            </select>
+        </div>
 
-    <div id="Color-xrx-popover-id">
-        <select name="s_Color" id="s_Color">
-            <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-            <option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
-            <option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
-            <option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
-        </select>
-    </div>
+        <script>
+        // JavaScript code to select option based on color_antigo
+        var selectElement = document.getElementById("s_Color");
+        var options = selectElement.getElementsByTagName("option");
 
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === "@color_antigo") {
+                options[i].selected = true;
+                break;
+            }
+        }
+        </script>
+    }
+
+    else
+    {
+        <div id="Color-xrx-popover-id">
+            <select name="s_Color" id="s_Color">
+                <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+                <option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+                <option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+                <option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+            </select>
+        </div>
+    }
+
+
+    @*<div id="Color-xrx-popover-id">
+            <select name="s_Color" id="s_Color">
+                <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
+                <option value="BLACK_AND_WHITE">@ScanHomeEIP.Models.SetLanguage.in_lang["BlackAndWhite"]</option>
+                <option value="GRAYSCALE">@ScanHomeEIP.Models.SetLanguage.in_lang["Grayscale"]</option>
+                <option value="FULL_COLOR">@ScanHomeEIP.Models.SetLanguage.in_lang["FullColor"]</option>
+            </select>
+        </div>*@
 
 
     <div id="DocExt-xrx-popover-id">
+
         <select name="s_DocExt" id="s_DocExt">
             <option value="PDF" selected="selected">.pdf</option>
-            <option value="XSM_TIFF_V6">.tiff</option>
-            <option value="JFIFJPEG">.jpg</option>
-            <option value="XPS">.xps</option>
+            <option value="XSM_TIFF_V6">.tif</option>
+            <option value="Xps">.xps</option>
+            <option value="SPDF">.pdf Pesquisável</option>
+            <option value="JfifJpeg" disabled>JPG</option>
+
+
 
         </select>
     </div>
+    @*TESTAR SEGUNDA NÃO DEVE SER ESTE A FORMA DE CHAMAR MAS SE QUISER USAR C# USO O TEMPDATA IGUESS*@
+    @if (faces_antigo != null)
+    {
+        <div id="Scanning-xrx-popover-id">
+            <select name="s_Scanning" id="s_Scanning">
+                <option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+                <option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+            </select>
+        </div>
 
-    
+        <script>
 
-    <div id="Scanning-xrx-popover-id">
-        <select name="s_Scanning" id="s_Scanning">
-            <option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
-            <option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
-        </select>
-    </div>
+        var selectElement = document.getElementById("s_Scanning");
+        var options = selectElement.getElementsByTagName("option");
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === "@faces_antigo") { //Mesmo aqui que no ultimo comment
+                options[i].selected = true;
+                break;
+            }
+        }
+        </script>
+    }
+    else
+    {
+        <div id="Scanning-xrx-popover-id">
+            <select name="s_Scanning" id="s_Scanning">
+                <option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+                <option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+            </select>
+        </div>
+    }
+    @*<div id="Scanning-xrx-popover-id">
+            <select name="s_Scanning" id="s_Scanning">
+                <option value="TwoSided">@ScanHomeEIP.Models.SetLanguage.in_lang["TWO_SIDED"]</option>
+                <option value="OneSided" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["ONE_SIDED"]</option>
+            </select>
+        </div>*@
     <div id="Orientation-xrx-popover-id">
         <select name="s_Orientation" id="s_Orientation">
             <option value="PORTRAIT" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["PORTRAIT"]</option>
@@ -1485,8 +1786,14 @@
     <div id="Size-xrx-popover-id">
         <select name="s_Size" id="s_Size">
             <option value="AUTO" selected="selected">@ScanHomeEIP.Models.SetLanguage.in_lang["Auto"]</option>
-            <option value="ISO_A4LEF">A4LEF</option>
-            <option value="ISO_A4SEF">A4SEF</option>
+            <option value="ISO_A3SEF">A3 SEF</option>
+            <option value="ISO_A4LEF">A4 LEF</option>
+            <option value="ISO_A4SEF">A4 SEF</option>
+            <option value="ISO_A5LEF">A5 LEF</option>
+            <option value="ISO_A5SEF">A5 SEF</option>
+            <option value="ISO_A6LEF">A6 LEF</option>
+            <option value="ISO_A6SEF">A6 SEF</option>
+
         </select>
     </div>
     <div id="ScanType-xrx-popover-id">
@@ -1530,7 +1837,11 @@
             <input type="text" class="Group-input" name="about" id="GroupName" />
             <input type="text" class="nome-doc" name="nomeDoc" id="nomeDoc" />
             <input type="text" class="format" name="formatType" id="formatType" />
-            <input type="text" class="mailCC" name="mailCC" id="mailCC" /> @*Em CC*@
+            <input type="text" class="mailCC" name="mailCC" id="mailCC" />@*Em CC*@
+            <input type="text" class="nomedocumento_user" name="nomedocumento_user" id="userFileName" />@*Nome do file que o user quer dar*@
+            @*Definições de digitalização*@
+            <input type="text" class="color" name="color" id="color" />
+            <input type="text" class="facesdigitalclass" name="FacesDig" id="FacesDig" />
 
         </form>
 
@@ -1539,7 +1850,7 @@
     <script>
         var nomefile = "";
         function CriaNomeFile() {
-            /*alert("CriaNomeFile");*/
+
             var dt = new Date();
             var year = dt.getFullYear();
             var month = dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1);
@@ -1548,7 +1859,7 @@
             var minute = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
             var second = dt.getSeconds() < 10 ? "0" + dt.getSeconds() : dt.getSeconds();
             var filename = "Scan_" + year + month + day + "_" + hour + minute + second;
-            /*alert(filename);*/
+
             nomefile = filename;
         }
 
@@ -1560,15 +1871,17 @@
             var subjectValue = document.getElementById("Assunto").value;
             var bodyValue = document.getElementById("MailCorpo").value;
             var recipientsCCValue = list_emails_escolhidos;
+            //alert(recipientsCCValue + "recipientsCCValue");
+            //alert(list_emails_escolhidos + "listemails_escolhidos");
             var nomegrups = NomeDoGrupo;
             var nomedocumento = nomefile;
+            var nomedocumento_user = document.getElementById("NameFile").value;
             var tipodocumento = document.getElementById("l_DocExt").value;
             var recipientsCC = list_emails_CC;
-            
-            /*alert(tipodocumento);*/
-            /*alert(nomefile);*/
-            /* alert(nomedocumento);*/
-            /*var aboutValue = document.getElementById(MailCorpo).value;*/
+            var colordigital = document.getElementById('s_Color').value;
+            var facesdigital = document.getElementById('s_Scanning').value;
+
+            //alert("Colordigital---" + colordigital);
             // Using jQuery with class selectors
             $('.subject-input').val(subjectValue);
             $('.body-input').val(bodyValue);
@@ -1577,9 +1890,12 @@
             $('.nome-doc').val(nomedocumento);
             $('.mailCC').val(recipientsCC);
             $('.format').val(tipodocumento);
-            
+            $('.nomedocumento_user').val(nomedocumento_user);
+            $('.color').val(colordigital);
+            $('facesdigitalclass').val(facesdigital)
 
 
+            /*alert(recipientsCCValue);*/
             submitForm();
 
 
@@ -1642,10 +1958,13 @@
                     recipientsCC: $('#recipientsCC').val(),
                     Grupo: $('#GroupName').val(),
                     about: $('#about').val(),
-                     nomeDoc: $('#nomeDoc').val(),
-                     mailCC: $('#mailCC').val(),
-                    typeDoc: $('#formatType').val()
-                    
+                    nomeDoc: $('#nomeDoc').val(),
+                    mailCC: $('#mailCC').val(),
+                    typeDoc: $('#formatType').val(),
+                    userNomeDoc: $('#userFileName').val()
+                    //color: $('#color').val(),
+                    //faces: $('# submitForm').val()
+
 
 
                  },

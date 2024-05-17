@@ -23,7 +23,7 @@ var UserID = "FTPUser";
 var UserPass = "1=Qwerty";
 
 var templateName = "Scan3DRW.xst";
-var serverAddr = "10.97.92.67:25";
+var serverAddr = "10.97.92.67:25"; //10.97.92.67:25 //Alterar para o ip do server, até meter no server da xerox alterar todos os dias
 var documentPath = "/scan";
 /*var HTTPSscriptLocation = "/HTTPS/xerox.ashx";*/
 
@@ -103,8 +103,16 @@ function startScan2home(nome) {
 		if (MediaSizeVal == "AUTO") MediaSizeVal = ""; // Para AUTO o template leva esta prop a vazio
 
 		var BlankPageRemoval = document.getElementById("l_blankpageremoval").innerHTML;
+		var lag = "pt";
 
-		
+		if (document.getElementById("l_DocExt").value == "SPDF") {
+			var spdf = "* enum_searchabletext SearchableText = SEARCHABLE_IMAGE; \n";
+			documentFormat = "PDF";
+			lag = "pt";
+		}
+		else {
+			var spdf = " \n";
+		}
 		
 
 		template = "[service xrx_svc_general]\n" +
@@ -150,12 +158,12 @@ function startScan2home(nome) {
 			"	 * string UserNetworkFilingLoginName = \"" + UserID + "\";\r\n" +
 			"	 * string UserNetworkFilingLoginID = \"" + UserPass + "\";\r\n" +
 			" }\n" +
-			"end\n" +			
-			"\n" +
+			"end\n" +
+			"\n"+
+		
 			"[doc_object xrx_document]\n" +
-			" {\n" +
-			/*"    * enum_docformat DocumentFormat = \"" + documentFormat + "\";\n" +	*/	
-			"    * enum_docformat DocumentFormat = \"" + documentFormat + "\" ;\n" +		
+			" doc_1{\n" +
+			"    * enum_docformat DocumentFormat = " + documentFormat + " ;\n" +
 			"    * integer ImagesPerDocument = 0;\n" +
 			"    * boolean RotateTIFFUsingTag = FALSE;\n" +
 			"    * enum_compression CompressionsSupported = G4, FLATE, ARITHMETIC_ENCODED_JBIG2, \n" +
@@ -168,10 +176,14 @@ function startScan2home(nome) {
 			"    * enum_halftonemethod HalftoneMethod = ERRORDIFFUSE;\n" +
 			"    * enum_halftonescreen HalftoneScreen = AUTO;\n" +
 			"    * enum_resolution Resolution = " + resolutionVal + ";\n" +
-			"    * enum_searchabletext SearchableText = IMAGE_ONLY;\n" +
+					spdf +
+			"    * string SourceDocumentLanguages = \"" + lag + "\"; \n" +
+			"      integer BitsPerPixel = 24;\n" +  
 			"    * enum_textcompression TextCompression = FLATE;\n" +
+			"	   enum_compression Compression = MIXED;\n" +
+			"	   enum_compression MixedCompressions = ARITHMETIC_ENCODED_JBIG2, FLATE_COMPRESSED_JPEG;\n" +			
+			"	   enum_mixedtype MixedType = MULTI_MASK_MRC; \n" +  
 			"    * string DocumentObjectName = \"" + filename + "\";\n" +
-			"    * string SourceDocumentLanguages = \"\";\n" +
 			" }\n" +
 			"end\n" +
 			"\n" +
@@ -184,6 +196,7 @@ function startScan2home(nome) {
 
 		//alert("xrxTemplateGetTemplateList");
 		xrxTemplateGetTemplateList("http://127.0.0.1", callback_success_templist, callback_failure_templist, 0);
+		//xrxScanV2InitiateScanJobWithTemplate("http://127.0.0.1", "spdf.XST", false, "", callback_success_scan_job, callback_failure_scan_job, 0, false);
 
 		//alert(jobTicket);
 	} catch (e) {

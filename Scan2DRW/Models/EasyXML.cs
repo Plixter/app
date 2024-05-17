@@ -35,8 +35,15 @@ namespace ScanHomeEIP.Models
 
         public Dictionary<string, adinfo> list_ad_Groups = new Dictionary<string, adinfo>(); 
 
+		//O que envia depois do scan para a view com os dados anteriores
+		public List<string> list_previous_emails = new List<string>();
+		public string message_previous {  get; set; }
+        public string About_previous { get; set; }
+        public string NomeDoc_previous { get; set; }
 
-		[RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Application name cannot be null, or contain any special char.")]
+
+
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Application name cannot be null, or contain any special char.")]
 		[DisplayName("App Name")]
 		[Required]
 		public string NomeApp { get; set; }

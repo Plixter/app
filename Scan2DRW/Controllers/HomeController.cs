@@ -24,6 +24,7 @@ using System.Threading;
 using System.Web.Mvc;
 using WebGrease.Css.Ast.Selectors;
 using Microsoft.Ajax.Utilities;
+using System.Web.Razor.Parser.SyntaxTree;
 
 namespace ScanHomeEIP.Controllers
 {
@@ -39,9 +40,10 @@ namespace ScanHomeEIP.Controllers
         public ActionResult Index()
         {
             escrevelog("index");
+            // GetAdGroupsV2();
             //GetAdGroups();
-            
-
+            GetAdGroups();
+            //GetEmailsByGroup("PRT-CVG-DOC1-SUPPORT");
 
             try
             {
@@ -126,6 +128,8 @@ namespace ScanHomeEIP.Controllers
         {
             EasyXML easyXml1 = new EasyXML();
 
+            easyXml1.message_previous = "lol"; //TESTE JOAO B
+
             foreach (string path in Directory.EnumerateFiles(this.Server.MapPath("~/"), "*.xml").ToList<string>())
             {
                 if (path.Contains("XeroxConfig_"))
@@ -169,8 +173,8 @@ namespace ScanHomeEIP.Controllers
             //AdListGroups();
 
             easyXml1.list_ad_Groups = ad_dic;
+            /*easyXml1.message_previous = "lol";*/ //ACRESCENTADO AGORA
 
-           
             //easyXml1.list_Unique_Groups = ad_dic
             //.Where(item => item.Value.memberOf != null)
             //    .SelectMany(item => item.Value.memberOf.Select(member => member.ToString()))
@@ -185,8 +189,12 @@ namespace ScanHomeEIP.Controllers
                 if (item.Value.mail.Contains('@'))//verifica se é um email
                 {
                     easyXml1.list_Mails.Add(item.Value.username);
-
                 }
+            }
+
+            foreach (var item in easyXml1.list_Unique_Groups)
+            {
+                easyXml1.list_Mails.Add(item);
             }
 
             return (ActionResult)this.View((object)easyXml1);
@@ -218,6 +226,8 @@ namespace ScanHomeEIP.Controllers
             escrevelog("ScanDone " + ScanDonename);
             ActionResult result;
 
+            //EasyXML easyXml2 = new EasyXML();
+
             //try
             //{
             //    Thread templateThread = new Thread(new ParameterizedThreadStart(TemplateWorker));
@@ -228,14 +238,18 @@ namespace ScanHomeEIP.Controllers
             //result = (ActionResult)this.RedirectToAction("Index", "Home");
             //}
             //return result;
+            //return (ActionResult)this.RedirectToAction("ScanPage", "Home");
 
-            return  (ActionResult)this.RedirectToAction("Index", "Home");
+            return (ActionResult)this.RedirectToAction("Index", "Home");
         }
+
+
+
 
         private void TemplateWorker(object data)
         {
             string scanFolder = ConfigurationManager.AppSettings["ScanFolder"];
-            string fileExt =  ConfigurationManager.AppSettings["FileExt"];
+            string fileExt = ConfigurationManager.AppSettings["FileExt"];
             string scanDoneFilename = (string)data + fileExt;
             string scanDonePath = Path.Combine(scanFolder, scanDoneFilename);
             string scansDir = Path.Combine(scanFolder, "Scans");
@@ -245,11 +259,11 @@ namespace ScanHomeEIP.Controllers
 
             escrevelog("fileExt " + fileExt);
             escrevelog("scanDoneFilename " + (string)data + fileExt);
-            escrevelog("scanDonePath     "+ Path.Combine(scanFolder, scanDoneFilename));
-            escrevelog("scansDir         "+ Path.Combine(scanFolder, "Scans"));
-            escrevelog("addedumPath      "+ ConfigurationManager.AppSettings["TemplateAddedum"]);
-            escrevelog("templateFilename "+ (string)data + ".XST");
-            escrevelog("templateFilepath "+ Path.Combine(scanFolder, templateFilename));
+            escrevelog("scanDonePath     " + Path.Combine(scanFolder, scanDoneFilename));
+            escrevelog("scansDir         " + Path.Combine(scanFolder, "Scans"));
+            escrevelog("addedumPath      " + ConfigurationManager.AppSettings["TemplateAddedum"]);
+            escrevelog("templateFilename " + (string)data + ".XST");
+            escrevelog("templateFilepath " + Path.Combine(scanFolder, templateFilename));
 
             try
             {
@@ -263,8 +277,8 @@ namespace ScanHomeEIP.Controllers
                         Directory.CreateDirectory(scansDir);
                     }
 
-                    escrevelog("copy " +  Path.Combine(scansDir, scanDoneFilename));
-                    escrevelog("copy " +  Path.Combine(scansDir, templateFilename));
+                    escrevelog("copy " + Path.Combine(scansDir, scanDoneFilename));
+                    escrevelog("copy " + Path.Combine(scansDir, templateFilename));
 
                     System.IO.File.Copy(scanDonePath, Path.Combine(scansDir, scanDoneFilename));
                     System.IO.File.Copy(templateFilepath, Path.Combine(scansDir, templateFilename));
@@ -292,42 +306,122 @@ namespace ScanHomeEIP.Controllers
         }
 
         // Function to find PDF files in a folder and return their full paths
-        
+
         public void escrevelog(string message)
         {
-            using (var item = new StreamWriter(@"C:\inetpub\ftproot\scan\logs.txt",true))
+            using (var item = new StreamWriter(@"C:\inetpub\ftproot\scan\logs.txt", true))
             {
                 DateTime serverTime = DateTime.Now;
                 string log = serverTime + " -- " + message;
-                item.WriteLine(log );
+                item.WriteLine(log);
             }
         }
 
 
         [HttpPost]
-        public ActionResult SendEmailWithAttachments(string subject, string body, string recipientsCC, string about,string Grupo, string nomeDoc, string mailCC, string typeDoc)
+        public ActionResult SendEmailWithAttachments(string subject, string body, string recipientsCC, string about, string Grupo, string nomeDoc, string mailCC, string typeDoc, string userNomeDoc, string color, string faces)
         {
-
+            if (typeDoc == "XSM_TIFF_V6")
+            {
+                typeDoc = "tif";
+            }
+            if (typeDoc == "JfifJpeg")
+            {
+                typeDoc = "jpeg";
+            }
+            if (typeDoc == "XPS")
+            {
+                typeDoc = "xps";
+            }
+            if (typeDoc == "PDF")
+            {
+                typeDoc = "pdf";
+            }
+            if (typeDoc == "SPDF")
+            {
+                typeDoc = "pdf";
+            }
             escrevelog("//////////////////////////////////////////////////");
-            escrevelog(nomeDoc);           
+            escrevelog(nomeDoc);
             escrevelog(subject);
             escrevelog(body);
-            escrevelog(recipientsCC + "TO");
+            escrevelog("TO-----------" + recipientsCC);
             escrevelog(about);
-            escrevelog(mailCC + "CC");
+            escrevelog("CC-----------" + mailCC);
             escrevelog(typeDoc);
-            Thread.Sleep(10000);
+            escrevelog("color digitalização--" + color);
+            escrevelog("numero de faces a digitalizar--" + faces);
+
+            //se o email tiver o email do user tenho de mandar para o frontend uma flag para não o reproduzir no ecrã
+
+            TempData["nomeDocantigo"] = userNomeDoc;
+            TempData.Keep("nomeDocantigo");
+            TempData["corpoAntigo"] = body;
+            TempData.Keep("corpoAntigo");
+            TempData["subject_antigo"] = subject;
+            TempData.Keep("subject_antigo");
+            TempData["destino_antigo"] = recipientsCC;
+            TempData.Keep("destino_antigo");
+            TempData["emailsCC"] = mailCC;
+            TempData.Keep("emailsCC");
+            TempData["typeDoc"] = typeDoc;
+            TempData.Keep("typeDoc");
+            TempData["color"] = color;
+            TempData.Keep("color");
+            TempData["faces"] = faces;
+            TempData.Keep("faces");
+
+            //TempData.Keep("subject"); //VER SE RESOLVEU
+            //TempData.Keep("body");
+            //TempData.Keep("about");
+            //TempData.Keep("typeDoc");
+
+            Thread.Sleep(10000); // necessário para o documento existir na pasta
             //se o parametro do grupo for preenchido, o nome do grupo vai para o GetEmailsByGroup(nomegrupo) para devolver os emails
             if (Grupo != null && !string.IsNullOrEmpty(Grupo))
             {
+                escrevelog("entrei no fim");
+                escrevelog("nome do grupo" + Grupo);
                 GetEmailsByGroup(Grupo);
+                escrevelog("Saí do GetEmailsByGroup");
+                //if (list_emails_group) { escrevelog("list_final_group não contem o grupo"); }
+                //foreach(var lol in list_emails_group) { escrevelog(lol); }
+
                 foreach (var item in list_emails_group)
                 {
-                    recipientsCC += item + ',';
+                    escrevelog("email do grupo" + item);
+                    recipientsCC += item + ",";
                 }
 
             }
-            
+            var flagNomeDoc = false;
+            if (!string.IsNullOrEmpty(userNomeDoc))
+            {
+                flagNomeDoc = true;
+                if (System.IO.File.Exists(@"C:\inetpub\ftproot\scan\" + userNomeDoc + "." + typeDoc))
+                {
+                    System.IO.File.Delete(@"C:\inetpub\ftproot\scan\" + userNomeDoc + "." + typeDoc);
+                }
+                System.IO.File.Move(@"C:\inetpub\ftproot\scan\" + nomeDoc + "." + typeDoc, @"C:\inetpub\ftproot\scan\" + userNomeDoc + "." + typeDoc);
+            }
+            else
+            {
+                if (System.IO.File.Exists(@"C:\inetpub\ftproot\scan\" + "Digitalizado em uma multifuncional Xerox" + "." + typeDoc))
+                {
+                    System.IO.File.Delete(@"C:\inetpub\ftproot\scan\" + "Digitalizado em uma multifuncional Xerox" + "." + typeDoc);
+                }
+                System.IO.File.Move(@"C:\inetpub\ftproot\scan\" + nomeDoc + "." + typeDoc, @"C:\inetpub\ftproot\scan\" + "Digitalizado em uma multifuncional Xerox" + "." + typeDoc);
+
+            }
+
+            if (string.IsNullOrEmpty(subject))
+            {
+                subject = "Digitalizado de uma impressora multifuncional da Xerox";
+            }
+            if (string.IsNullOrEmpty(body))
+            {
+                body = "Please open the attached document. It was sent to you using a Xerox multifunction printer";
+            }
             //var formData = Request.Form;
             // Retrieve your SMTP server credentials from a secure location
             var smtpUsername = "";
@@ -343,16 +437,24 @@ namespace ScanHomeEIP.Controllers
 
             string usn = TempData["username"].ToString();
             TempData["username"] = usn;
-            this.TempData.Keep("username");
-            string sender;
-            if (usn != null && !string.IsNullOrEmpty(usn))
-            {
-                sender = usn;
-            }
-            else
-            {
-                sender = "joao.barata@xerox.com";
-            }
+            //this.TempData.Keep("username");
+            string sender = "";
+            //sender = recipientsCC;
+            //if (usn != null && !string.IsNullOrEmpty(usn))
+            //{
+            //    sender = usn;
+
+            //}
+            //else
+            //{
+
+            //    sender = usn;
+
+            //}
+
+            sender += usn.Trim();
+
+
             // Create a MailMessage
             var mailMessage = new MailMessage
             {
@@ -373,10 +475,13 @@ namespace ScanHomeEIP.Controllers
                     var trimmedRecipient = recipient.Trim();
                     if (!string.IsNullOrEmpty(trimmedRecipient))
                     {
+                        escrevelog("Email para enviar --" + trimmedRecipient );
                         mailMessage.To.Add(trimmedRecipient);
                     }
                 }
+
             }
+
 
             if (mailCC != null)
             {
@@ -385,11 +490,11 @@ namespace ScanHomeEIP.Controllers
                 foreach (var cc in CCmail)
                 {
                     var trimmedCC = cc.Trim();
-                    if (trimmedCC.StartsWith(","))
-                    {
-                        trimmedCC = trimmedCC.Substring(1);
-                        escrevelog(trimmedCC + "sem o 1 ");
-                    }
+                    //if (trimmedCC.StartsWith(","))
+                    //{
+                    //    trimmedCC = trimmedCC.Substring(1);
+                    //    escrevelog(trimmedCC + "sem o 1 ");
+                    //}
                     if (!string.IsNullOrEmpty(trimmedCC))
                     {
                         mailMessage.CC.Add(trimmedCC);
@@ -398,37 +503,54 @@ namespace ScanHomeEIP.Controllers
                 }
             }
 
-            if (typeDoc == "XSM_TIFF_V6")
-            {
-                typeDoc = "tif";
-            }
-            if (typeDoc == "JFIFJPEG")
-            {
-                typeDoc = "jpg";
-            }
-            if (typeDoc == "XPS")
-            {
-                typeDoc = "xps";
-            }
-            if (typeDoc == "PDF")
-            {
-                typeDoc = "pdf";
-            }
-            string[] filePaths = Directory.GetFiles(@"C:\inetpub\ftproot\scan\",  nomeDoc+"." + typeDoc ); //mudar a parte da extensão
-            escrevelog(typeDoc +"tipo de doc" );
-            //string[] filexst = Directory.GetFiles(@"C:\inetpub\ftproot\scan", "*.XST");
+
+            string[] filePaths;
             bool flagmail = false;
-            foreach (var filePath in filePaths)
+            if (flagNomeDoc == false)
             {
-                var attachment = new Attachment(filePath);
-                escrevelog(filePath);
-                
-                mailMessage.Attachments.Add(attachment);
-                if (System.IO.File.Exists(filePath))
+                filePaths = Directory.GetFiles(@"C:\inetpub\ftproot\scan\", "Digitalizado em uma multifuncional Xerox" + "." + typeDoc);
+                escrevelog(typeDoc + " -----tipo de doc");
+                escrevelog(nomeDoc + " -----NOME NA MAQUINA DO DOC");
+                //string[] filexst = Directory.GetFiles(@"C:\inetpub\ftproot\scan", "*.XST");
+
+
+
+                foreach (var filePath in filePaths)
                 {
-                    flagmail = true;
+                    var attachment = new Attachment(filePath);
+                    escrevelog(filePath);
+
+
+                    mailMessage.Attachments.Add(attachment);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        flagmail = true;
+                    }
                 }
             }
+            else
+            {
+                filePaths = Directory.GetFiles(@"C:\inetpub\ftproot\scan\", userNomeDoc + "." + typeDoc);
+                escrevelog(typeDoc + "   tipo de doc");
+                escrevelog(userNomeDoc + "nome do user");
+                //string[] filexst = Directory.GetFiles(@"C:\inetpub\ftproot\scan", "*.XST");
+
+
+
+                foreach (var filePath in filePaths)
+                {
+                    var attachment = new Attachment(filePath);
+                    escrevelog(filePath);
+
+
+                    mailMessage.Attachments.Add(attachment);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        flagmail = true;
+                    }
+                }
+            }
+
             //var attachment = new Attachment(attachmentPath);
             //mailMessage.Attachments.Add(attachment);
 
@@ -441,6 +563,7 @@ namespace ScanHomeEIP.Controllers
                 // Send the email
                 if (flagmail == true)
                 {
+
                     smtpClient.Send(mailMessage);
                     foreach (var attachment in mailMessage.Attachments)
                     {
@@ -459,17 +582,30 @@ namespace ScanHomeEIP.Controllers
                     //    System.IO.File.Delete(item);
 
                     //}
-                    
-                    
-                    escrevelog("apagar " + nomeDoc + typeDoc);
+
+
+                    escrevelog("apagar " + nomeDoc + "." + typeDoc);
                     //var pathcompleto = FolderPath + nomeDoc + ".pdf";
-                    System.IO.File.Delete(FolderPath + nomeDoc + "." + typeDoc);
-                    System.IO.File.Delete(FolderPath + nomeDoc + ".XST");
+                    if (flagNomeDoc)
+                    {
+                        System.IO.File.Delete(FolderPath + nomeDoc + ".XST");
+                        System.IO.File.Delete(FolderPath + userNomeDoc + "." + typeDoc);
+                    }
+                    else
+                    {
+                        System.IO.File.Delete(FolderPath + "Digitalizado em uma multifuncional Xerox" + "." + typeDoc);
+                        System.IO.File.Delete(FolderPath + nomeDoc + ".XST");
+
+                    }
+                    //System.IO.File.Delete(FolderPath + "Digitalizado em uma multifuncional Xerox" + "." + typeDoc);
+                    //System.IO.File.Delete(FolderPath + nomeDoc + ".XST");
+                    //System.IO.File.Delete(FolderPath + userNomeDoc + "." + typeDoc);
+
 
                 }
-               
-               
-               
+
+
+
                 //foreach (var template in filexst)
                 //{
                 //    System.IO.File.Delete(template);
@@ -483,8 +619,8 @@ namespace ScanHomeEIP.Controllers
                 {
                     attachment.Dispose();
                 }
-                
-                    return Content("No recipients specified. Email not sent.");
+
+                return Content("No recipients specified. Email not sent.");
 
             }
             // Dispose of the attachment
@@ -496,6 +632,7 @@ namespace ScanHomeEIP.Controllers
 
         public void KeepVariables()
         {
+
             this.TempData["username"] = (object)this.TempData["username"].ToString();
             this.TempData.Keep("username");
             this.TempData["useremail"] = (object)this.TempData["useremail"].ToString();
@@ -506,60 +643,89 @@ namespace ScanHomeEIP.Controllers
             //this.TempData.Keep("SendToServer");
             this.TempData["base64"] = this.TempData["base64"];
             this.TempData.Keep("base64");
+
+            ///////////////////////////////////////////////////
+            //this.TempData["subject"] = (object)this.TempData["subject"].ToString();
+            //this.TempData.Keep("subject");
+            //this.TempData["body"] = (object)this.TempData["body"].ToString();
+            //this.TempData.Keep("body");
+            //this.TempData["about"] = (object)this.TempData["about"].ToString();
+            //this.TempData.Keep("about");
+            //this.TempData["typeDoc"] = (object)this.TempData["typeDoc"].ToString();
+            //this.TempData.Keep("typeDoc");
+
+            //TempData.Keep("subject"); //VER SE RESOLVEU
+            //TempData.Keep("body");
+            //TempData.Keep("about");
+            //TempData.Keep("typeDoc");
         }
         //CODIGO DA AD
-        
+
         List<String> list_emails_group = new List<String>();
-        public void GetEmailsByGroup (string groupName)
+        public void GetEmailsByGroup(string groupName)
         {
+            escrevelog("entrei no GetEmailsByGroup");
             GetAdGroups();
+            escrevelog("saí do GetAdGroups() ");
+            //escrevelog("list_emails_group");
+            //foreach (var group in list_emails_group) { escrevelog(group.ToString()); }
+
             int count = 0;
             groupName = groupName.Replace(",", "");
             if (list_Groups_Temp.Contains(groupName))
             {
-                             
+                escrevelog("existe grupo");
 
-                var j = 0;
+                
                 List<string> lista_final_emails = new List<string>();
-               
+
                 foreach (var person in ad_dic)
                 {
-                    foreach(var inGroup in person.Value.l_memberOf)
+                    foreach (var inGroup in person.Value.lista_groups)
                     {
-                        if (inGroup.Contains(groupName))
+                        if (groupName == inGroup)
                         {
-                            if (lista_final_emails.Count == 0)
-                            {
-                                lista_final_emails.Add(person.Value.mail);
-                            }
-                            if (!lista_final_emails.Contains(person.Value.mail))
-                            {
-                                lista_final_emails.Add(person.Value.mail);
-                            }
-                            
+                            count++;
+                            lista_final_emails.Add(person.Value.mail);
+                            //if (lista_final_emails.Count == 0)
+                            //{
+                            //    lista_final_emails.Add(person.Value.mail);
+                            //}
+                            //if (!lista_final_emails.Contains(person.Value.mail))
+                            //{
+                            //    lista_final_emails.Add(person.Value.mail);
+                            //}
+
                         }
-                            
+
                     }
-                                     
-                    
+
+
                 }
-                
+
                 if (lista_final_emails == null) //se o grupo não tiver emails
                 {
                     list_emails_group = null;
+                    escrevelog("grupo nao tem emails");
+
                 }
                 else
                 {
+
+
                     list_emails_group = lista_final_emails; //se o grupo tiver emails passamo-los para a vista global
+                    escrevelog("else");
                 }
-                
+
             }
             else //se não houver o grupo
             {
                 list_emails_group = null;
+                escrevelog("grupo não existe");
             }
-
-           
+            //if (list_emails_group.Contains(groupName)) { escrevelog("lista de group temp contém o groupname"); }
+            //escrevelog("lista de emails");
+            //foreach (var email in list_emails_group) { escrevelog(email); }
 
         }
         public void AdListGroups()
@@ -569,7 +735,7 @@ namespace ScanHomeEIP.Controllers
                 //"LDAP://OU=Users,OU=PRT,DC=eu,DC=xerox,DC=net"                        
                 using (var searcher = new DirectorySearcher(root))
                 {
-                    
+
                     searcher.Filter = "(&(objectClass=group))";
                     searcher.SearchScope = SearchScope.Subtree;
 
@@ -585,7 +751,7 @@ namespace ScanHomeEIP.Controllers
         List<string> list_Groups_Temp = new List<string>();
         public void GetAdGroups()
         {
-            
+            escrevelog("entrei no GetAdGroups()");
 
             using (var root = new DirectoryEntry("LDAP://xerox.net:389/" + caminhoLDAP))
             {
@@ -619,34 +785,60 @@ namespace ScanHomeEIP.Controllers
                                 ad.sn = result.Properties["sn"][0].ToString();
                                 ad.mail = result.Properties["mail"][0].ToString();
                                 ad.username = result.Properties["cn"][0].ToString();
+                                //ad.memberOf = result.Properties["memberOf"][0].ToString(); //alterar para lista carregar os grupos para aqui
                                 List<string> memberof_temp = new List<string>();
-                                
                                
+                             
                                 foreach (var rpc in result.Properties["memberOf"])
                                 {
+
+                                    //ad.lista_groups.Add(rpc.ToString());
                                     memberof_temp.Add(rpc.ToString());
-                                    
+                                    //escrevelog(rpc.ToString());
                                     string[] temp = rpc.ToString().Split(',');
                                     for (int i = 0; i < temp.Count(); i++)
                                     {
-                                        if (temp[i].Contains("OU="))
+                                        if (ad.lista_groups == null)
                                         {
-                                            if(list_Groups_Temp.Count() == 0)
-                                            {
-                                                list_Groups_Temp.Add(temp[i].Replace("OU=", ""));
-                                                
-                                            }
-                                            if (!list_Groups_Temp.Contains(temp[i].Replace("OU=", "")))
-                                            list_Groups_Temp.Add(temp[i].Replace("OU=", ""));
+                                            ad.lista_groups = new List<string>();
+
                                         }
+                                        //if (temp[i].Contains("OU="))
+                                        //{
+                                        //    if(list_Groups_Temp.Count() == 0)
+                                        //    {
+                                        //        list_Groups_Temp.Add(temp[i].Replace("OU=", ""));
+
+                                        //    }
+                                        //    if (!list_Groups_Temp.Contains(temp[i].Replace("OU=", "")))
+                                        //    list_Groups_Temp.Add(temp[i].Replace("OU=", ""));
+                                        //}
+                                        if (temp[i].Contains("CN=PRT-"))
+                                        {
+                                            if (list_Groups_Temp.Count() == 0)
+                                            {
+                                                list_Groups_Temp.Add(temp[i].Replace("CN=", ""));
+                                               
+                                                //ad.lista_groups.Add(rpc.ToString());
+
+
+                                            }
+                                            if (!list_Groups_Temp.Contains(temp[i].Replace("CN=", "")))
+                                                list_Groups_Temp.Add(temp[i].Replace("CN=", ""));
+                                            ad.lista_groups.Add(temp[i].ToString().Replace("CN=", ""));
+                                        }
+
                                     }
                                 }
-
-                                ad.l_memberOf = memberof_temp;
-
-                                ad_dic.Add(result.Properties["cn"][0].ToString(), ad);
                                 
+                                ad.l_memberOf = list_Groups_Temp;
 
+                                //memberof_temp;
+                                if (!ad_dic.Keys.Contains(result.Properties["cn"][0].ToString())) 
+                                ad_dic.Add(result.Properties["cn"][0].ToString(), ad);
+
+                                //foreach(var memberof in memberof_temp) { escrevelog(memberof); }
+                               
                             }
 
                         }
@@ -654,9 +846,53 @@ namespace ScanHomeEIP.Controllers
                 }
             }
 
-             
+
         }
 
+
+        public void GetAdGroupsV2()
+        {
+
+            using (var root = new DirectoryEntry("LDAP://xerox.net:389/" + caminhoLDAP))
+            {
+                //"LDAP://OU=Users,OU=PRT,DC=eu,DC=xerox,DC=net"                        
+                using (var searcher = new DirectorySearcher(root))
+                {
+                    searcher.Filter = $"(&(objectCategory=group))";
+
+                    searcher.PropertiesToLoad.Add("cn"); //username                       
+
+
+                    // searcher.PageSize = 1000;
+
+                    var results = searcher.FindAll();
+                    foreach (SearchResult result in results)
+                    {
+                        //verificar se existe na bd 
+                        //se existe e é diferente atualizar
+                        //se não existe adicionar? 
+                        //se existe na bd e não existe em nenhuma LDAP desligar no IsDeleted
+                        if ((result != null))
+                        {
+                            if (result.Properties.Contains("mail"))
+                            {
+                                adinfo ad = new adinfo();
+
+                                ad.username = result.Properties["cn"][0].ToString();
+
+
+                                //ad_dic.Add(result.Properties["cn"][0].ToString(), ad);
+
+                                //foreach(var memberof in memberof_temp) { escrevelog(memberof); }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+        }
 
 
     }
