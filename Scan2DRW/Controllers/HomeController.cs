@@ -36,7 +36,7 @@ namespace ScanHomeEIP.Controllers
         //"LDAP://OU=Users,OU=PRT,DC=eu,DC=xerox,DC=net" 
         //string[] filePaths = Directory.GetFiles(@"C:\inetpub\ftproot\scan", "*.pdf");
         string FolderPath = "C:\\inetpub\\ftproot\\scan\\";
-        int flag = 0;
+        //int flag = 0;
         public ActionResult Index()
         {
             escrevelog("index");
@@ -224,7 +224,7 @@ namespace ScanHomeEIP.Controllers
           string ScanDonename)
         {
             escrevelog("ScanDone " + ScanDonename);
-            ActionResult result;
+            //ActionResult result;
 
             //EasyXML easyXml2 = new EasyXML();
 

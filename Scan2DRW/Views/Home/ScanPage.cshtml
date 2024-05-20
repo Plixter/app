@@ -45,48 +45,25 @@
     var assunto_antigo = TempData["subject_antigo"];
     var mails_antigos = TempData["destino_antigo"];
     var mails_cc_antigos = TempData["emailsCC"];
+
     //CONFIGS DA DIGITALIZAÇÃO
     var color_antigo = TempData["color"];
     var faces_antigo = TempData["faces"];
     var tipo_documento = TempData["typeDoc"];
 
-    //List<string> list_emails_antigos = new List<string>();
-    //List<string> emailsAntigos = new List<string>();
-    //var teste = "";
-
-    //string emailsAntigos;
-    //if (TempData["destino_antigo"] != null)
-    //{
-    //    teste = "tempdata";
-    //    //foreach (var mail in (IEnumerable<string>)TempData["destino_antigo"])
-    //    //{
-    //    //    var i = 0;
-
-    //    //    //emailsAntigos += mail;
-    //    //    emailsAntigos.Add(mail);
-    //    //}
-    //}
-    //var emailsArray = ViewBag.EmailsArray as string[];
-    //var final_emails_view = TempData["final_emails_view"];
-    //TempData["final_emails_view"] = final_emails_view;
-    //TempData.Keep("final_emails_view");
-    //var menssagem_anterior = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.message_previous));//não está a ser usada, CONFIRMAR
-
+    
     int ix = 0;
     foreach (var item in bla)
     {
-        //    listaemails.Add(item.Value.mail);
-        //    arrayemail.Append(item.Value.mail);
         arrayemail[ix] = Json.Encode(item.Value.mail);
 
-        //listaemails.Add(item.Value.mail);
-        //arrayemail.Prepend(item.Value.mail);
+      
         ix++;
     }
 
-    //  var arrayemail = Html.Raw(Json.Encode(Model.list_Mails));//
+    
 
-    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails));  // new string[bla.Count()];
+    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails)); 
 
 
 
@@ -985,10 +962,15 @@
         var aux = '@TempData["useremail"]';
         aux.trim();
         aux = aux + ",";
-         /*alert(aux + " ---- aux");*/
+        /*alert(aux + " ---- aux"); var mails_antigos = TempData["destino_antigo"];
+    var mails_cc_antigos = TempData["emailsCC"];*/ 
+        
         var emails_escolhidos = "";
         //alert(emails_escolhidos);
-        emails_escolhidos = aux;
+        if ('@TempData["destino_antigo"]' == "" && '@TempData["emailsCC"]' == "") {
+            emails_escolhidos = aux;
+
+        }
        /* alert(emails_escolhidos + "--emails_escolhidos")*/
         var list_emails_escolhidos = emails_escolhidos;
        /* alert(list_emails_escolhidos +"-list_emails escolhidos");*/
@@ -1398,10 +1380,13 @@
                         <td>
                             @if (mails_antigos == null && mails_cc_antigos == null)
                             {
-                                <button class="xrxbutton" id="emails_escolhidos-1" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;">ue</button><button class="xrxbutton" id="emails_To-1" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(-1);">TO</button><button class="xrxbutton" id="emails_Cc-1" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(-1);">CC</button><button class="xrxbutton" id="delete_emails_escolhidos-1" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(-1);  "></button>
+                                
+                                    <button class="xrxbutton" id="emails_escolhidos-1" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;">ue</button><button class="xrxbutton" id="emails_To-1" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(-1);">TO</button><button class="xrxbutton" id="emails_Cc-1" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(-1);">CC</button><button class="xrxbutton" id="delete_emails_escolhidos-1" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(-1);  "></button>
+
+                                
 
                             }
-                            @*<button id="b_email" name="display_destino" style=" border-radius: 10px; text-align: left; width: 99%; height:100%; padding-bottom: 5px;"></button>*@
+
                         </td>
                     </tr>
 
@@ -1892,7 +1877,7 @@
             $('.format').val(tipodocumento);
             $('.nomedocumento_user').val(nomedocumento_user);
             $('.color').val(colordigital);
-            $('facesdigitalclass').val(facesdigital)
+            $('.facesdigitalclass').val(facesdigital)
 
 
             /*alert(recipientsCCValue);*/

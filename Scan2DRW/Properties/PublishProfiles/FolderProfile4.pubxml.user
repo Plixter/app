@@ -100,10 +100,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/10/2023 14:49:20</publishTime>
     </File>
     <File Include="bin/Scan2DRW.dll">
-      <publishTime>05/17/2024 15:16:44</publishTime>
+      <publishTime>05/20/2024 14:24:58</publishTime>
     </File>
     <File Include="bin/Scan2DRW.pdb">
-      <publishTime>05/17/2024 15:16:44</publishTime>
+      <publishTime>05/20/2024 14:24:58</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>02/10/2023 14:49:19</publishTime>
@@ -127,7 +127,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/10/2023 14:49:19</publishTime>
     </File>
     <File Include="bin/Web.config">
-      <publishTime>03/11/2024 15:11:49</publishTime>
+      <publishTime>05/20/2024 10:29:14</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>02/10/2023 14:49:24</publishTime>
@@ -235,7 +235,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/10/2023 14:49:25</publishTime>
     </File>
     <File Include="Scripts/Scan2home.js">
-      <publishTime>05/17/2024 14:00:20</publishTime>
+      <publishTime>05/20/2024 12:25:37</publishTime>
     </File>
     <File Include="Scripts/Scan2home_alertas.js">
       <publishTime>12/13/2023 14:21:56</publishTime>
@@ -628,7 +628,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/10/2023 14:49:28</publishTime>
     </File>
     <File Include="Views/Home/ScanPage.cshtml">
-      <publishTime>05/17/2024 15:16:27</publishTime>
+      <publishTime>05/20/2024 14:24:55</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/10/2023 14:49:28</publishTime>
