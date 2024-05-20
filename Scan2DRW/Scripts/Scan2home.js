@@ -19,12 +19,12 @@ var jobcompled = false;
 var userId = null;
 var acctId = null;
 var acctType = null;
-var UserID = "FTPUser";
-var UserPass = "1=Qwerty";
+var UserID = ConfigurationManager.AppSettings["FTPUser"];  //FTPUser
+var UserPass = ConfigurationManager.AppSettings["FTPPassword"]; // "1=Qwerty"
 
 var templateName = "Scan3DRW.xst";
-var serverAddr = "10.97.92.67:25"; //10.97.92.67:25 //Alterar para o ip do server, até meter no server da xerox alterar todos os dias
-var documentPath = "/scan";
+var serverAddr = ConfigurationManager.AppSettings["FTPIp"]; //10.97.92.67:25 //Alterar para o ip do server, até meter no server da xerox alterar todos os dias
+var documentPath = ConfigurationManager.AppSettings["FTPFolder"]; //FTPFolder
 /*var HTTPSscriptLocation = "/HTTPS/xerox.ashx";*/
 
 var template = "";
