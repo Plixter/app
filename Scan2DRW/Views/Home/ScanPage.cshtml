@@ -53,19 +53,19 @@
     var faces_antigo = TempData["faces"];
     var tipo_documento = TempData["typeDoc"];
 
-    
+
     int ix = 0;
     foreach (var item in bla)
     {
         arrayemail[ix] = Json.Encode(item.Value.mail);
 
-      
+
         ix++;
     }
 
-    
 
-    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails)); 
+
+    var arrayemail2 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.list_Mails));
 
 
 
@@ -863,6 +863,8 @@
         /*alert("ola" + indexRow);*/
         var emailsTo = list_emails_escolhidos.trim().split(",");
         var emailsCC = list_emails_CC.trim().split(",");
+        var grupo = group_name_to.trim().split(",");
+        var grupoCC = group_name_cc.trim().split(",");
        /* document.getElementById("btscan").style.display = "none";*/
         //alert(indexRow); //isto vai sempre ter o ultimo email inserido
         var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
@@ -875,6 +877,35 @@
         var arrayauxCC = "";
         if (!isValidEmail(mail)) {
             NomeDoGrupo = "";
+            for (var ww = 0; ww < grupo.length; ww ++) { //ver no to dos grupos
+                if (grupo[ww] != "") {
+                    var grouptempto = mail.replace(",", "").replace("", "");
+                    var grouptemp = grupo[ww].replace(",", "").replace("", "");
+
+                    if (grouptempto != grouptemp) {
+                        arrayaux = grouptemp + "," + arrayaux;
+                    }
+                }
+            }
+            group_name_to = "";
+            if (arrayaux.length > 0) {
+                group_name_to = arrayaux;
+            }
+            //ver no CC dos grupos
+            for (var yy; yy < grupoCC.length; yy++) {
+                if (grupoCC[yy] != "") {
+                    var grouptempcc = mail.replace(",", "").replace("", "");
+                    var grouptempcc2 = grupoCC[yy].replace(",", "").replace("", "");
+
+                    if (grouptempcc != grouptempcc2) {
+                        arrayaux = grouptempcc2 + "," + arrayaux;
+                    }
+                }
+            }
+            group_name_cc = "";
+            if (arrayaux.length > 0) {
+                group_name_cc = arrayaux;
+            }
         }
         else {
 
@@ -915,7 +946,7 @@
             document.getElementById("RowEmails_escolhidos_" + indexRow).style.display = "none";
 
 
-        
+
     }
 
 
@@ -990,8 +1021,8 @@
         aux.trim();
         aux = aux + ",";
         /*alert(aux + " ---- aux"); var mails_antigos = TempData["destino_antigo"];
-    var mails_cc_antigos = TempData["emailsCC"];*/ 
-        
+    var mails_cc_antigos = TempData["emailsCC"];*/
+
         var emails_escolhidos = "";
         var group_name_to = "";
         var group_name_cc = "";
@@ -1007,9 +1038,9 @@
         var list_emails_CC ="" ;
 
 
-   
+
         function SaveOnTo(indexRow) {
-          
+
             // Get the email address from the specified element on the webpage
             var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
             var groupTo = group_name_to.trim().split(",");
@@ -1068,8 +1099,8 @@
                 emailsTo = emailsTo + mail;
                 list_emails_escolhidos = emailsTo.slice();
             }
-            
-           
+
+
         }
 
 
@@ -1159,7 +1190,7 @@
             }
             // Split the lists of emails into arrays
            // alert(list_emails_escolhidos.length);
-            
+
         }
 
 
@@ -1456,10 +1487,10 @@
                         <td>
                             @if (mails_antigos == null && mails_cc_antigos == null)
                             {
-                                
-                                    <button class="xrxbutton" id="emails_escolhidos-1" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;">ue</button><button class="xrxbutton" id="emails_To-1" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(-1);">TO</button><button class="xrxbutton" id="emails_Cc-1" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(-1);">CC</button><button class="xrxbutton" id="delete_emails_escolhidos-1" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(-1);  "></button>
 
-                                
+                                <button class="xrxbutton" id="emails_escolhidos-1" style="border-radius: 10px; line-height: 1.2; padding: 0px; text-align: left; vertical-align: middle; width: 65%; padding-bottom: 5px; height:100%;">ue</button><button class="xrxbutton" id="emails_To-1" style="width: 5%;  border-left:-5px; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnTo(-1);">TO</button><button class="xrxbutton" id="emails_Cc-1" style="width: 5%; border-radius: 10px; vertical-align: middle; height:100%; " onclick="SaveOnCC(-1);">CC</button><button class="xrxbutton" id="delete_emails_escolhidos-1" style="width: 5%; border-radius: 10px; vertical-align: center; height:100%; " onclick="deleteEmailAndUpdateTable(-1);  "></button>
+
+
 
                             }
 
@@ -1905,7 +1936,7 @@
             <input type="text" class="grupoTO-input" name="grupoTo" id="grupoTo" />
             <input type="text" class="grupoCC-input" name="grupoCC" id="grupoCC" />
             <input type="text" class="facesdigitalclass" name="FacesDig" id="FacesDig" />
-            
+
         </form>
 
     </div>
@@ -1945,7 +1976,7 @@
             var facesdigital = document.getElementById('s_Scanning').value;
             var groupTo = group_name_to;
             var groupCc = group_name_cc;
-            
+
 
             //alert("Colordigital---" + colordigital);
             // Using jQuery with class selectors
@@ -1958,11 +1989,11 @@
             $('.format').val(tipodocumento);
             $('.nomedocumento_user').val(nomedocumento_user);
             $('.color').val(colordigital);
-            $('.grupoTO-input').val(groupTo); 
-            $('.grupoCC-input').val(groupCc); 
+            $('.grupoTO-input').val(groupTo);
+            $('.grupoCC-input').val(groupCc);
             $('.facesdigitalclass').val(facesdigital)
 
-           
+
 
             /*alert(recipientsCCValue);*/
             submitForm();
