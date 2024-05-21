@@ -45,6 +45,8 @@
     var assunto_antigo = TempData["subject_antigo"];
     var mails_antigos = TempData["destino_antigo"];
     var mails_cc_antigos = TempData["emailsCC"];
+    var grupos_antigos = TempData["grupTo"];
+    var grupos_cc_antigos = TempData["grupCC"];
 
     //CONFIGS DA DIGITALIZAÇÃO
     var color_antigo = TempData["color"];
@@ -624,8 +626,10 @@
         function preenchermails() {
             var x = '@TempData["destino_antigo"]';
             var y = '@TempData["emailsCC"]';
+            var z = '@TempData["grupTo"]';
+            var w = '@TempData["grupCC"]';
             @*@TempData.Keep("destino_antigo");*@
-            var xy = x + y;
+            var xy = x + y + z + w;
             //alert(xy);
             //Adicionar os que vêm da lista do To
             if (x != "") {
@@ -642,6 +646,22 @@
                 for (var iy = 0; iy < mails_novos_CC.length; iy++) {
                     if (mails_novos_CC[iy] != "") {
                         list_emails_CC = list_emails_CC + mails_novos_CC[iy] + ",";
+                    }
+                }
+            }
+            if (z != "") {
+                var grupo_novos = z.trim().split(",");
+                for (var iz = 0; iz < grupo_novos.length; iz++) {
+                    if (grupo_novos[iz] != "") {
+                        group_name_to = group_name_to + grupo_novos[iz] + ",";
+                    }
+                }
+            }
+            if (w != "") {
+                var grupo_novos_cc = w.trim().split(",");
+                for (var iw = 0; iw < grupo_novos_cc.length; iw++) {
+                    if (grupo_novos_cc[iw] != "") {
+                        group_name_cc = group_name_cc + grupo_novos_cc[iw] + ",";
                     }
                 }
             }
@@ -853,42 +873,49 @@
         //var flag = false;
         var arrayaux = "";
         var arrayauxCC = "";
+        if (!isValidEmail(mail)) {
+            NomeDoGrupo = "";
+        }
+        else {
 
-        //Ver no To
-        for (var x = 0; x < emailsTo.length; x++) {
-            if (emailsTo[x] != "") {
-                var mailtempTo = mail.replace(",", "").replace("", "");
-                var mailtemp = emailsTo[x].replace(",", "").replace("", "");
 
-                if (mailtempTo != mailtemp) {
-                    arrayaux = mailtemp + "," + arrayaux;
+
+            //Ver no To
+            for (var x = 0; x < emailsTo.length; x++) {
+                if (emailsTo[x] != "") {
+                    var mailtempTo = mail.replace(",", "").replace("", "");
+                    var mailtemp = emailsTo[x].replace(",", "").replace("", "");
+
+                    if (mailtempTo != mailtemp) {
+                        arrayaux = mailtemp + "," + arrayaux;
+                    }
                 }
             }
-        }
-        list_emails_escolhidos = "";
-        if (arrayaux.length > 0) {
-            list_emails_escolhidos = arrayaux;
-        }
+            list_emails_escolhidos = "";
+            if (arrayaux.length > 0) {
+                list_emails_escolhidos = arrayaux;
+            }
 
-        //Ver no CC
-        for (var x = 0; x < emailsCC.length; x++) {
-            if (emailsCC[x] != "") {
-                var mailtempCC = mail.replace(",", "").replace("", "");
-                var mailtempCCaux = emailsCC[x].replace(",", "").replace("", "");
+            //Ver no CC
+            for (var x = 0; x < emailsCC.length; x++) {
+                if (emailsCC[x] != "") {
+                    var mailtempCC = mail.replace(",", "").replace("", "");
+                    var mailtempCCaux = emailsCC[x].replace(",", "").replace("", "");
 
-                if (mailtempCC != mailtempCCaux) {
-                    arrayauxCC = mailtempCCaux + "," + arrayauxCC;
+                    if (mailtempCC != mailtempCCaux) {
+                        arrayauxCC = mailtempCCaux + "," + arrayauxCC;
+                    }
                 }
             }
+            list_emails_CC = "";
+            if (arrayauxCC.length > 0) {
+                list_emails_CC = arrayauxCC;
+            }
         }
-        list_emails_CC = "";
-        if (arrayauxCC.length > 0) {
-            list_emails_CC = arrayauxCC;
-        }
-        document.getElementById("RowEmails_escolhidos_" + indexRow).style.display = "none";
+            document.getElementById("RowEmails_escolhidos_" + indexRow).style.display = "none";
 
 
-
+        
     }
 
 
@@ -966,6 +993,8 @@
     var mails_cc_antigos = TempData["emailsCC"];*/ 
         
         var emails_escolhidos = "";
+        var group_name_to = "";
+        var group_name_cc = "";
         //alert(emails_escolhidos);
         if ('@TempData["destino_antigo"]' == "" && '@TempData["emailsCC"]' == "") {
             emails_escolhidos = aux;
@@ -978,113 +1007,159 @@
         var list_emails_CC ="" ;
 
 
-    /*ver se existe user ligado*/
+   
         function SaveOnTo(indexRow) {
-            /*alert("SaveonTo");*/
+          
             // Get the email address from the specified element on the webpage
             var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
-            //mail.includes() USAR O INCLUDES PARA VER SE FUNCIONA COM ISSO
-            // Split the lists of emails into arrays
-            var emailsTo = list_emails_escolhidos.trim().split(",");
-            var emailsCC = list_emails_CC.trim().split(",");
+            var groupTo = group_name_to.trim().split(",");
+            var groupCC = group_name_cc.trim().split(",");
+            var array_group_aux = "";
+            if (!isValidEmail(mail)) //if it's not a email its a group
+            {
+                for (var q = 0; q < groupCC; q++)//remove from the list of group to
+                {
+                    if (groupCC[q] != "") {
+                        var temp = mail.replace(",", "").replace(" ", "");
+                        var nome_group = groupCC[q].replace(",", "").replace(" ", "");
 
-            // Initialize an empty array to store the modified CC list
-            var arrayaux ="";
-
-            // Remove the email address from the CC list
-            for (var x = 0; x < emailsCC.length; x++) {
-                if (emailsTo[x] != "") {
-                    var mailtempcc = mail.replace(",", "").replace(" ", "");
-                    var mailtemp = emailsCC[x].replace(",", "").replace("", "");
-
-                    if (mailtempcc != mailtemp) {
-                        arrayaux = mailtemp + "," + arrayaux;
+                        if (temp != array_group_aux) {
+                            array_group_aux = nome_group + '+' + array_group_aux;
+                        }
                     }
+
                 }
 
-            }
-            // Update the CC list
-            list_emails_CC = "";
-            if (arrayaux.length > 0) {
-                list_emails_CC = arrayaux;
-            }
-            emailsTo = emailsTo + mail;
-            list_emails_escolhidos = emailsTo.slice();
-            /*list_emails_CC = arrayaux;*/
-            //    arrayaux.slice();
+                group_name_cc = "";
 
-            // Add the email address to the TO list
-            /*emailsTo.push(mail+",");*/
-            // Update the TO list
-            /*list_emails_escolhidos = emailsTo.slice();*/
+                if (array_group_aux.length > 0) {
+                    group_name_cc = array_group_aux;
+                }
 
-            // Alert the updated TO list
-            /*alert(list_emails_escolhidos);*/
+
+                groupTo = groupTo + mail;
+                group_name_to = groupTo.slice();
+            }
+            else {
+                // Split the lists of emails into arrays
+                var emailsTo = list_emails_escolhidos.trim().split(",");
+                var emailsCC = list_emails_CC.trim().split(",");
+
+                // Initialize an empty array to store the modified CC list
+                var arrayaux = "";
+
+                // Remove the email address from the CC list
+                for (var x = 0; x < emailsCC.length; x++) {
+                    if (emailsTo[x] != "") {
+                        var mailtempcc = mail.replace(",", "").replace(" ", "");
+                        var mailtemp = emailsCC[x].replace(",", "").replace("", "");
+
+                        if (mailtempcc != mailtemp) {
+                            arrayaux = mailtemp + "," + arrayaux;
+                        }
+                    }
+
+                }
+                // Update the CC list
+                list_emails_CC = "";
+                if (arrayaux.length > 0) {
+                    list_emails_CC = arrayaux;
+                }
+                emailsTo = emailsTo + mail;
+                list_emails_escolhidos = emailsTo.slice();
+            }
+            
+           
         }
 
 
         function SaveOnCC(indexRow) {
             // Get the email address from the specified element on the webpage
             var mail = document.getElementById("emails_escolhidos" + indexRow).textContent;
+            var groupTo = group_name_to.trim().split(",");
+            var groupCC = group_name_cc.trim().split(",");
+            var array_group_aux = "";
+            if (!isValidEmail(mail)) //if it's not a email its a group
+            {
+                for (var q = 0; q < groupTo; q++)//remove from the list of group to
+                {
+                    if (groupTo[q] != "") {
+                        var temp = mail.replace(",", "").replace(" ", "");
+                        var nome_group = groupTo[q].replace(",", "").replace(" ", "");
 
-            // Split the lists of emails into arrays
-           // alert(list_emails_escolhidos.length);
-            var emailsTo = list_emails_escolhidos.trim().split(",");
-            var emailsCC = list_emails_CC.split(",");
-            /*alert("emailsCC " + emailsCC);*/
-            /* var arrayaux = [];*/
-            var arrayaux = "";
-            //alert(emailsTo.length);
-            //alert(emailsTo[0]);
-            //alert(emailsTo[1]);
+                        if (temp != array_group_aux) {
+                            array_group_aux = nome_group + '+' + array_group_aux;
+                        }
+                    }
 
-            // Remove the email address from the TO list
-            for (var x = 0; x < emailsTo.length; x++) {
-                if (emailsTo[x] != "") {
+                }
 
+                group_name_to = "";
 
-                    /*alert("mail" + mail); alert("emailto[x]" + emailsTo[x]); alert("comprimento do emails to" +emailsTo.length);*/
-                    var mailtemp = mail.replace(",", "").replace(" ", "");
-                    //alert(mailtemp);
-                    //alert(mailtemp.length);
-
-                    var mailCCtemp = emailsTo[x].replace(",", "").replace(" ", "");
-                    //alert(mailCCtemp);
-                    //alert(mailCCtemp.length);
-
-                   // if (mail.trim().replace(",", "").replace(" ", "") != emailsTo[x].trim().replace(",", "").replace(" ", "")) {
-                    if (mailtemp != mailCCtemp) {
+                if (array_group_aux.length > 0) {
+                    group_name_to = array_group_aux;
+                }
 
 
-                        //alert("entrei2 " + mailCCtemp);
-                        //alert(arrayaux);
-                       // arrayaux.push(emailsTo[x]);
-                        arrayaux = mailCCtemp + ',' + arrayaux ;
+                groupCC = groupCC + mail;
+                /*alert(groupCC);*/
+                group_name_cc = groupCC.slice();
+            }
+            else {
+                var emailsTo = list_emails_escolhidos.trim().split(",");
+                var emailsCC = list_emails_CC.split(",");
+                /*alert("emailsCC " + emailsCC);*/
+                /* var arrayaux = [];*/
+                var arrayaux = "";
+                //alert(emailsTo.length);
+                //alert(emailsTo[0]);
+                //alert(emailsTo[1]);
+
+                // Remove the email address from the TO list
+                for (var x = 0; x < emailsTo.length; x++) {
+                    if (emailsTo[x] != "") {
+
+
+
+                        var mailtemp = mail.replace(",", "").replace(" ", "");
+
+
+                        var mailCCtemp = emailsTo[x].replace(",", "").replace(" ", "");
+
+                        if (mailtemp != mailCCtemp) {
+
+
+
+                            arrayaux = mailCCtemp + ',' + arrayaux;
+                        }
                     }
                 }
-            }
-            /*alert("1");*/
-            // Update the TO list
-            list_emails_escolhidos = "";
-            //alert("listemailsescolhidos" + list_emails_escolhidos);
-            //alert(arrayaux.length + "comp aux");
-            if (arrayaux.length > 0) {
+                /*alert("1");*/
+                // Update the TO list
+                list_emails_escolhidos = "";
+                //alert("listemailsescolhidos" + list_emails_escolhidos);
+                //alert(arrayaux.length + "comp aux");
+                if (arrayaux.length > 0) {
 
-                list_emails_escolhidos = arrayaux; /*alert("listemails" + list_emails_escolhidos);*/
+                    list_emails_escolhidos = arrayaux; /*alert("listemails" + list_emails_escolhidos);*/
 
-            }
+                }
 
-            // Add the email address to the CC list
-            /*alert(mail);*/
-            //emailsCC.push(mail);
-            emailsCC = emailsCC + mail;
-            // Update the CC list
-            /*alert(emailsCC);*/
-            list_emails_CC = emailsCC.slice();
+                // Add the email address to the CC list
+                /*alert(mail);*/
+                //emailsCC.push(mail);
+                emailsCC = emailsCC + mail;
+                // Update the CC list
+                /*alert(emailsCC);*/
+                list_emails_CC = emailsCC.slice();
 
             // Alert the updated CC list
             //alert(list_emails_CC + "list_CC");
             //alert(list_emails_escolhidos + "list_destino");
+            }
+            // Split the lists of emails into arrays
+           // alert(list_emails_escolhidos.length);
+            
         }
 
 
@@ -1128,7 +1203,8 @@
         if (!isValidEmail(emails_escolhidos)) {
             //2 opções, pode ser um username ou um grupo
             //tratando do grupo
-            NomeDoGrupo = emails_escolhidos;
+            NomeDoGrupo = group_name_to;
+            group_name_to = emails_escolhidos;
         }
         else {
             list_emails_escolhidos += emails_escolhidos;
@@ -1826,8 +1902,10 @@
             <input type="text" class="nomedocumento_user" name="nomedocumento_user" id="userFileName" />@*Nome do file que o user quer dar*@
             @*Definições de digitalização*@
             <input type="text" class="color" name="color" id="color" />
+            <input type="text" class="grupoTO-input" name="grupoTo" id="grupoTo" />
+            <input type="text" class="grupoCC-input" name="grupoCC" id="grupoCC" />
             <input type="text" class="facesdigitalclass" name="FacesDig" id="FacesDig" />
-
+            
         </form>
 
     </div>
@@ -1865,6 +1943,9 @@
             var recipientsCC = list_emails_CC;
             var colordigital = document.getElementById('s_Color').value;
             var facesdigital = document.getElementById('s_Scanning').value;
+            var groupTo = group_name_to;
+            var groupCc = group_name_cc;
+            
 
             //alert("Colordigital---" + colordigital);
             // Using jQuery with class selectors
@@ -1877,8 +1958,11 @@
             $('.format').val(tipodocumento);
             $('.nomedocumento_user').val(nomedocumento_user);
             $('.color').val(colordigital);
+            $('.grupoTO-input').val(groupTo); 
+            $('.grupoCC-input').val(groupCc); 
             $('.facesdigitalclass').val(facesdigital)
 
+           
 
             /*alert(recipientsCCValue);*/
             submitForm();
@@ -1946,7 +2030,9 @@
                     nomeDoc: $('#nomeDoc').val(),
                     mailCC: $('#mailCC').val(),
                     typeDoc: $('#formatType').val(),
-                    userNomeDoc: $('#userFileName').val()
+                     userNomeDoc: $('#userFileName').val(),
+                     grupoTo: $('#grupoTo').val(),
+                     grupoCC: $('#grupoCC').val()
                     //color: $('#color').val(),
                     //faces: $('# submitForm').val()
 

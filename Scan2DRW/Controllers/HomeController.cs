@@ -319,7 +319,7 @@ namespace ScanHomeEIP.Controllers
 
 
         [HttpPost]
-        public ActionResult SendEmailWithAttachments(string subject, string body, string recipientsCC, string about, string Grupo, string nomeDoc, string mailCC, string typeDoc, string userNomeDoc, string color, string faces)
+        public ActionResult SendEmailWithAttachments(string subject, string body, string recipientsCC, string about, string Grupo, string nomeDoc, string mailCC, string typeDoc, string userNomeDoc, string color, string grupoTo, string grupoCC, string faces)
         {
             if (typeDoc == "XSM_TIFF_V6")
             {
@@ -342,6 +342,8 @@ namespace ScanHomeEIP.Controllers
                 typeDoc = "pdf";
             }
             escrevelog("//////////////////////////////////////////////////");
+            escrevelog(grupoTo + "---grupoTo");
+            escrevelog(grupoCC + "---grupoCC");
             escrevelog(nomeDoc);
             escrevelog(subject);
             escrevelog(body);
@@ -370,6 +372,10 @@ namespace ScanHomeEIP.Controllers
             TempData.Keep("color");
             TempData["faces"] = faces;
             TempData.Keep("faces");
+            TempData["grupTo"] = grupoTo;
+            TempData.Keep("grupTo");
+            TempData["grupCC"] = grupoCC;
+            TempData.Keep("grupCC");
 
             //TempData.Keep("subject"); //VER SE RESOLVEU
             //TempData.Keep("body");
@@ -377,23 +383,56 @@ namespace ScanHomeEIP.Controllers
             //TempData.Keep("typeDoc");
 
             Thread.Sleep(10000); // necessário para o documento existir na pasta
-            //se o parametro do grupo for preenchido, o nome do grupo vai para o GetEmailsByGroup(nomegrupo) para devolver os emails
-            if (Grupo != null && !string.IsNullOrEmpty(Grupo))
+                                 //se o parametro do grupo for preenchido, o nome do grupo vai para o GetEmailsByGroup(nomegrupo) para devolver os emails
+                                 //if (Grupo != null && !string.IsNullOrEmpty(Grupo))
+                                 //{
+            if (grupoTo != null && !string.IsNullOrEmpty(grupoTo))
             {
-                escrevelog("entrei no fim");
-                escrevelog("nome do grupo" + Grupo);
-                GetEmailsByGroup(Grupo);
-                escrevelog("Saí do GetEmailsByGroup");
-                //if (list_emails_group) { escrevelog("list_final_group não contem o grupo"); }
-                //foreach(var lol in list_emails_group) { escrevelog(lol); }
-
-                foreach (var item in list_emails_group)
+                var grupoTO = grupoTo.Split(',');
+                foreach (var grupo_nome in grupoTO)
                 {
-                    escrevelog("email do grupo" + item);
-                    recipientsCC += item + ",";
+                    if (grupo_nome != "")
+                    {
+                        GetEmailsByGroup(grupo_nome, "To");
+                        foreach (var mail in list_emails_group)
+                        {
+                            recipientsCC += mail + ",";
+                        }
+                    }
+                   
                 }
-
             }
+            if (grupoCC != null && !string.IsNullOrEmpty(grupoCC))
+            {
+
+                var grupocc = grupoCC.Split(',');
+                foreach (var grupocc_indv in grupocc)
+                {
+                    if (grupocc_indv != "")
+                    {
+                        GetEmailsByGroup(grupocc_indv, "cc");
+                        foreach (var mail in list_emails_grupo_cc)
+                        {
+                            mailCC += mail + ",";
+                        }
+                    }
+
+                }
+            }
+            escrevelog("entrei no fim");
+            escrevelog("nome do grupo" + Grupo);
+            //GetEmailsByGroup(Grupo);
+            escrevelog("Saí do GetEmailsByGroup");
+            //if (list_emails_group) { escrevelog("list_final_group não contem o grupo"); }
+            //foreach(var lol in list_emails_group) { escrevelog(lol); }
+
+            //foreach (var item in list_emails_group)
+            //{
+            //    escrevelog("email do grupo" + item);
+            //    recipientsCC += item + ",";
+            //}
+
+            //}
             var flagNomeDoc = false;
             if (!string.IsNullOrEmpty(userNomeDoc))
             {
@@ -475,7 +514,7 @@ namespace ScanHomeEIP.Controllers
                     var trimmedRecipient = recipient.Trim();
                     if (!string.IsNullOrEmpty(trimmedRecipient))
                     {
-                        escrevelog("Email para enviar --" + trimmedRecipient );
+                        escrevelog("Email para enviar --" + trimmedRecipient);
                         mailMessage.To.Add(trimmedRecipient);
                     }
                 }
@@ -662,70 +701,115 @@ namespace ScanHomeEIP.Controllers
         //CODIGO DA AD
 
         List<String> list_emails_group = new List<String>();
-        public void GetEmailsByGroup(string groupName)
+        List<String> list_emails_grupo_cc = new List<String>();
+        public void GetEmailsByGroup(string groupName, string TipoDeGrupo)
         {
             escrevelog("entrei no GetEmailsByGroup");
             GetAdGroups();
             escrevelog("saí do GetAdGroups() ");
+            List<string> list_emails = new List<string>();
             //escrevelog("list_emails_group");
             //foreach (var group in list_emails_group) { escrevelog(group.ToString()); }
-
-            int count = 0;
-            groupName = groupName.Replace(",", "");
-            if (list_Groups_Temp.Contains(groupName))
+            if (TipoDeGrupo == "cc")
             {
-                escrevelog("existe grupo");
-
-                
-                List<string> lista_final_emails = new List<string>();
-
-                foreach (var person in ad_dic)
+                int count = 0;
+                groupName = groupName.Replace(",", "");
+                if (list_Groups_Temp.Contains(groupName))
                 {
-                    foreach (var inGroup in person.Value.lista_groups)
+                    escrevelog("existe grupo");
+
+
+                    List<string> lista_final_emails = new List<string>();
+
+                    foreach (var person in ad_dic)
                     {
-                        if (groupName == inGroup)
+                        foreach (var inGroup in person.Value.lista_groups)
                         {
-                            count++;
-                            lista_final_emails.Add(person.Value.mail);
-                            //if (lista_final_emails.Count == 0)
-                            //{
-                            //    lista_final_emails.Add(person.Value.mail);
-                            //}
-                            //if (!lista_final_emails.Contains(person.Value.mail))
-                            //{
-                            //    lista_final_emails.Add(person.Value.mail);
-                            //}
+                            if (groupName == inGroup)
+                            {
+                                count++;
+                                lista_final_emails.Add(person.Value.mail);
+
+
+                            }
 
                         }
 
+
                     }
 
+                    if (lista_final_emails == null) //se o grupo não tiver emails
+                    {
+                        list_emails_group = null;
+                        escrevelog("grupo nao tem emails");
+
+                    }
+                    else
+                    {
+
+
+                        list_emails_grupo_cc = lista_final_emails; //se o grupo tiver emails passamo-los para a vista global
+                        escrevelog("else");
+                    }
 
                 }
+                else //se não houver o grupo
+                {
+                    list_emails_grupo_cc = null;
+                    escrevelog("grupo não existe");
+                }
+            }
 
-                if (lista_final_emails == null) //se o grupo não tiver emails
+            if (TipoDeGrupo == "To")
+            {
+                int count = 0;
+                groupName = groupName.Replace(",", "");
+                if (list_Groups_Temp.Contains(groupName))
+                {
+                    escrevelog("existe grupo");
+
+
+                    List<string> lista_final_emails = new List<string>();
+
+                    foreach (var person in ad_dic)
+                    {
+                        foreach (var inGroup in person.Value.lista_groups)
+                        {
+                            if (groupName == inGroup)
+                            {
+                                count++;
+                                lista_final_emails.Add(person.Value.mail);
+
+
+                            }
+
+                        }
+
+
+                    }
+
+                    if (lista_final_emails == null) //se o grupo não tiver emails
+                    {
+                        list_emails_group = null;
+                        escrevelog("grupo nao tem emails");
+
+                    }
+                    else
+                    {
+
+
+                        list_emails_group = lista_final_emails; //se o grupo tiver emails passamo-los para a vista global
+                        escrevelog("else");
+                    }
+
+                }
+                else //se não houver o grupo
                 {
                     list_emails_group = null;
-                    escrevelog("grupo nao tem emails");
-
+                    escrevelog("grupo não existe");
                 }
-                else
-                {
-
-
-                    list_emails_group = lista_final_emails; //se o grupo tiver emails passamo-los para a vista global
-                    escrevelog("else");
-                }
-
             }
-            else //se não houver o grupo
-            {
-                list_emails_group = null;
-                escrevelog("grupo não existe");
-            }
-            //if (list_emails_group.Contains(groupName)) { escrevelog("lista de group temp contém o groupname"); }
-            //escrevelog("lista de emails");
-            //foreach (var email in list_emails_group) { escrevelog(email); }
+
 
         }
         public void AdListGroups()
@@ -787,8 +871,8 @@ namespace ScanHomeEIP.Controllers
                                 ad.username = result.Properties["cn"][0].ToString();
                                 //ad.memberOf = result.Properties["memberOf"][0].ToString(); //alterar para lista carregar os grupos para aqui
                                 List<string> memberof_temp = new List<string>();
-                               
-                             
+
+
                                 foreach (var rpc in result.Properties["memberOf"])
                                 {
 
@@ -818,7 +902,7 @@ namespace ScanHomeEIP.Controllers
                                             if (list_Groups_Temp.Count() == 0)
                                             {
                                                 list_Groups_Temp.Add(temp[i].Replace("CN=", ""));
-                                               
+
                                                 //ad.lista_groups.Add(rpc.ToString());
 
 
@@ -830,15 +914,15 @@ namespace ScanHomeEIP.Controllers
 
                                     }
                                 }
-                                
+
                                 ad.l_memberOf = list_Groups_Temp;
 
                                 //memberof_temp;
-                                if (!ad_dic.Keys.Contains(result.Properties["cn"][0].ToString())) 
-                                ad_dic.Add(result.Properties["cn"][0].ToString(), ad);
+                                if (!ad_dic.Keys.Contains(result.Properties["cn"][0].ToString()))
+                                    ad_dic.Add(result.Properties["cn"][0].ToString(), ad);
 
                                 //foreach(var memberof in memberof_temp) { escrevelog(memberof); }
-                               
+
                             }
 
                         }
